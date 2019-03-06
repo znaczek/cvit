@@ -2,16 +2,72 @@
   "name": "cvit",
   "version": "1.0.0",
   "description": "Simple desktop application for making CV in html.",
-  "main": "index.js",
-  "scripts": {
-    "start": "electron .",
-    "build:watch": "webpack --watch",
-    "build:dev": "webpack --mode=development",
-    "build": "webpack --mode=production"
-  },
   "author": "Wojciech Znaczko",
   "license": "ISC",
+  "scripts": {
+    "build": "concurrently \"npm run build-main\" \"npm run build-renderer\"",
+    "build-main": "cross-env NODE_ENV=production webpack --config ./configs/webpack.main.config.js",
+    "build-renderer": "cross-env NODE_ENV=production webpack --config ./configs/webpack.renderer.prod.config.js",
+    "dev": "cross-env START_HOT=1 npm run start-renderer-dev",
+    "package": "npm build && electron-builder build --publish never",
+    "package-all": "npm run build && electron-builder build -mwl",
+    "package-ci": "npm run postinstall && npm run build && electron-builder --publish always",
+    "package-linux": "npm run build && electron-builder build --linux",
+    "package-win": "npm run build && electron-builder build --win --x64",
+    "prestart": "npm run build",
+    "start": "cross-env NODE_ENV=production electron ./app/main.prod.js",
+    "start-main-dev": "cross-env HOT=1 NODE_ENV=development electron ./app/main.dev.js",
+    "start-renderer-dev": "cross-env NODE_ENV=development webpack-dev-server --config configs/webpack.renderer.dev.config.js"
+  },
+  "main": "dist/main.js",
+  "build": {
+    "productName": "Cvit",
+    "files": [
+      "src/dist/",
+      "src/app.html",
+      "src/main.js",
+      "src/main.js.map",
+      "package.json"
+    ],
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "msi"
+      ]
+    },
+    "linux": {
+      "target": [
+        "deb",
+        "rpm",
+        "snap",
+        "AppImage"
+      ],
+      "category": "Development"
+    },
+    "directories": {
+      "buildResources": "resources",
+      "output": "release"
+    }
+  },
   "devDependencies": {
+    "concurrently": "^4.1.0",
+    "cross-env": "^5.2.0",
+    "electron-builder": "^20.38.4",
+    "electron-devtools-installer": "^2.2.4",
     "copy-webpack-plugin": "^5.0.0",
     "css-loader": "^2.1.0",
     "electron": "^4.0.5",
@@ -22,6 +78,18 @@
     "tslint": "^5.13.0",
     "typescript": "^3.3.3333",
     "webpack": "^4.29.5",
-    "webpack-cli": "^3.2.3"
-  }
+    "webpack-cli": "^3.2.3",
+    "mini-css-extract-plugin": "^0.5.0",
+    "node-sass": "^4.11.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "prettier": "^1.15.3",
+    "react-test-renderer": "^16.7.0",
+    "sass-loader": "^7.1.0",
+    "webpack-bundle-analyzer": "^3.0.3",
+    "webpack-dev-server": "^3.1.14",
+    "webpack-merge": "^4.1.5",
+    "electron-log": "^3.0.1",
+    "electron-updater": "^4.0.6"
+  },
+  "browserslist": "electron 1.6"
 }
