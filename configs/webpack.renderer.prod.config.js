@@ -1,13 +1,14 @@
 const merge = require('webpack-merge');
 const path = require('path');
 const baseConfig = require('./webpack.common.config.js');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = merge.smart(baseConfig, {
     devtool: 'source-map',
     mode: 'production',
     target: 'electron-renderer',
 
-    entry: path.join(__dirname, '..', 'src', 'main'),
+    entry: path.join(__dirname, '..', 'src', 'index.ts'),
 
     output: {
         publicPath: './dist/',

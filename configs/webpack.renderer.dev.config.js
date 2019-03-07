@@ -16,7 +16,7 @@ module.exports = merge.smart(baseConfig, {
         'react-hot-loader/patch',
         `webpack-dev-server/client?http://localhost:${port}/`,
         'webpack/hot/only-dev-server',
-        path.join(__dirname, '..', 'src', 'main'),
+        path.join(__dirname, '..', 'src', 'index.ts'),
     ],
 
     output: {
@@ -70,7 +70,7 @@ module.exports = merge.smart(baseConfig, {
         lazy: false,
         hot: true,
         headers: {'Access-Control-Allow-Origin': '*'},
-        contentBase: path.join(__dirname, 'dist'),
+        contentBase: path.join(__dirname),
         watchOptions: {
             aggregateTimeout: 300,
             ignored: /node_modules/,
@@ -81,9 +81,9 @@ module.exports = merge.smart(baseConfig, {
             disableDotRule: false
         },
         before() {
-            if (process.env.START_HOT) {
-                console.log('Starting Main Process...');
-                spawn('npm', ['run', 'start-main-dev'], {
+            if (process.env.HOT) {
+                console.log('Building main...');
+                spawn('npm', ['run', 'dev-main'], {
                     shell: true,
                     env: process.env,
                     stdio: 'inherit'

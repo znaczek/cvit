@@ -1,15 +1,13 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
-
+console.log(JSON.stringify([process.env.NODE_ENV, process.env.HOT], null, 2));
 module.exports = {
     module: {
         rules: [
             {
                 test: /\.tsx?$/,
                 exclude: /node_modules/,
-                loader: 'awesome-typescript-loader',
+                loader: 'ts-loader',
             },
         ]
     },
@@ -17,15 +15,9 @@ module.exports = {
         extensions: ['.js', '.ts', '.tsx', '.json']
     },
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, '..', 'dist'),
     },
     plugins: [
-        new HtmlWebpackPlugin({
-            template: path.join(__dirname, 'src', 'index.html'),
-            inject: false,
-        }),
-        new CopyWebpackPlugin([
-            path.join(__dirname, 'src', 'assets'),
-        ]),
-    ],
+        new webpack.EnvironmentPlugin(['NODE_ENV', 'PORT', 'HOT']),
+    ]
 };

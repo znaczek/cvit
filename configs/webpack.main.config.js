@@ -1,8 +1,10 @@
 const path = require('path');
-const webpack = require('webpack');
 const merge = require('webpack-merge');
 const TerserPlugin = require('terser-webpack-plugin');
 const baseConfig = require('./webpack.common.config.js');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = merge.smart(baseConfig, {
     devtool: 'source-map',
@@ -13,7 +15,7 @@ module.exports = merge.smart(baseConfig, {
         filename: 'main.js'
     },
     optimization: {
-        minimizer: [
+        minimizer: process.env.NODE_ENV === 'development' ? [] : [
             new TerserPlugin({
                 parallel: true,
                 sourceMap: true,
@@ -25,7 +27,15 @@ module.exports = merge.smart(baseConfig, {
     plugins: [
         new webpack.EnvironmentPlugin({
             NODE_ENV: process.env.NODE_ENV,
-        })
+        }),
+        new HtmlWebpackPlugin({
+            template: path.join(__dirname, '..', 'src', 'app.html'),
+            filename: 'app.html',
+            inject: false,
+        }),
+        new CopyWebpackPlugin([
+            path.join(__dirname, '..', 'src', 'assets'),
+        ]),
     ],
 
     node: {
