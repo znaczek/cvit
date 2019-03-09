@@ -16,7 +16,7 @@ module.exports = merge.smart(baseConfig, {
         'react-hot-loader/patch',
         `webpack-dev-server/client?http://localhost:${port}/`,
         'webpack/hot/only-dev-server',
-        path.join(__dirname, '..', 'src', 'index.ts'),
+        path.join(__dirname, '..', 'src', 'app', 'renderer', 'index.tsx'),
     ],
 
     output: {
@@ -54,11 +54,6 @@ module.exports = merge.smart(baseConfig, {
             multiStep: true
         }),
     ],
-
-    node: {
-        __dirname: false,
-        __filename: false
-    },
 
     devServer: {
         port,

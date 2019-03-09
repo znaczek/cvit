@@ -8,7 +8,7 @@ module.exports = merge.smart(baseConfig, {
     mode: 'production',
     target: 'electron-renderer',
 
-    entry: path.join(__dirname, '..', 'src', 'index.ts'),
+    entry: path.join(__dirname, '..', 'src', 'app', 'renderer', 'index.tsx'),
 
     output: {
         publicPath: './dist/',

@@ -1,6 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
-console.log(JSON.stringify([process.env.NODE_ENV, process.env.HOT], null, 2));
+
 module.exports = {
     module: {
         rules: [

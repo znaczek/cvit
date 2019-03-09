@@ -64,6 +64,14 @@
     }
   },
   "devDependencies": {
+    "@types/electron-devtools-installer": "^2.2.0",
+    "@types/history": "^4.7.2",
+    "@types/react": "^16.8.7",
+    "@types/react-dom": "^16.8.2",
+    "@types/react-redux": "^7.0.3",
+    "@types/react-router-dom": "^4.3.1",
+    "@types/redux-logger": "^3.0.7",
+    "@types/webpack-env": "^1.13.9",
     "concurrently": "^4.1.0",
     "connected-react-router": "^6.3.1",
     "copy-webpack-plugin": "^5.0.0",
@@ -88,6 +96,7 @@
     "react-router-dom": "^4.3.1",
     "react-test-renderer": "^16.7.0",
     "redux": "^4.0.1",
+    "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "rxjs": "^6.4.0",
     "sass-loader": "^7.1.0",
