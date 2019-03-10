@@ -3,12 +3,19 @@ import {render} from 'react-dom';
 import {AppContainer} from 'react-hot-loader';
 import Root from './Root';
 import {configureStore, history} from './store/configureStore';
+import './app.css';
 
 declare global {
     interface Window {
         __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: any;
+        bb: () => void;
     }
 }
+
+/**
+ * Only for debuging purpose
+ */
+window.bb = () => history.push('/');
 
 const store = configureStore();
 

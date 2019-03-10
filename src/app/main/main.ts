@@ -2,7 +2,7 @@ import {app, BrowserWindow} from 'electron';
 import {autoUpdater} from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
-import installer, {REDUX_DEVTOOLS, REACT_DEVELOPER_TOOLS} from 'electron-devtools-installer';
+import installer, {REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS} from 'electron-devtools-installer';
 
 class AppUpdater {
     constructor() {
@@ -19,7 +19,8 @@ const installExtensions = async () => {
     const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
     const extensions = [REDUX_DEVTOOLS, REACT_DEVELOPER_TOOLS];
 
-    return installer(extensions, forceDownload).catch((e) => console.log('Error during installing extensions:' + JSON.stringify(e, null, 2)));
+    return installer(extensions, forceDownload)
+        .catch((e) => console.log('Error during installing extensions:' + JSON.stringify(e, null, 2)));
 };
 
 app.on('window-all-closed', () => {
@@ -29,7 +30,6 @@ app.on('window-all-closed', () => {
 });
 
 app.on('ready', async () => {
-    console.log(process.env.NODE_ENV)
     if (process.env.NODE_ENV === 'development') {
         await installExtensions();
     }

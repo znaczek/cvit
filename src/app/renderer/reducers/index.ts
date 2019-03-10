@@ -1,9 +1,12 @@
-import { combineReducers } from 'redux';
-import { connectRouter } from 'connected-react-router';
+import
+{combineReducers} from 'redux';
+import {connectRouter} from 'connected-react-router';
 import {History} from 'history';
+import projectReducer from './project.reducer';
 
 export default function createRootReducer(history: History) {
-  return combineReducers({
-    router: connectRouter(history),
-  });
+    return combineReducers({
+        router: connectRouter(history),
+        project:projectReducer,
+    });
 }

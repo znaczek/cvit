@@ -1,0 +1,1 @@
+export const APP_EVENT = 'APP_EVENT';

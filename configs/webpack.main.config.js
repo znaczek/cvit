@@ -10,7 +10,7 @@ module.exports = merge.smart(baseConfig, {
     devtool: 'source-map',
     mode: 'production',
     target: 'electron-main',
-    entry: path.join(__dirname, '..', 'src', 'main'),
+    entry: path.join(__dirname, '..', 'src', 'app', 'main', 'main.ts'),
     output: {
         filename: 'main.js'
     },
@@ -29,7 +29,7 @@ module.exports = merge.smart(baseConfig, {
             NODE_ENV: process.env.NODE_ENV,
         }),
         new HtmlWebpackPlugin({
-            template: path.join(__dirname, '..', 'src', 'app.html'),
+            template: path.join(__dirname, '..', 'src', 'app', 'main', 'app.html'),
             filename: 'app.html',
             inject: false,
         }),
