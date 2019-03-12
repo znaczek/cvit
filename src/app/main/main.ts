@@ -15,12 +15,12 @@ class AppUpdater {
 let mainWindow: BrowserWindow = null;
 
 const installExtensions = async () => {
-    console.log('installing extensions');
+    console.info('installing extensions');
     const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
     const extensions = [REDUX_DEVTOOLS, REACT_DEVELOPER_TOOLS];
 
     return installer(extensions, forceDownload)
-        .catch((e) => console.log('Error during installing extensions:' + JSON.stringify(e, null, 2)));
+        .catch((e) => console.error('Error during installing extensions:' + JSON.stringify(e, null, 2)));
 };
 
 app.on('window-all-closed', () => {

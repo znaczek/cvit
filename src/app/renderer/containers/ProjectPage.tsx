@@ -1,12 +1,24 @@
 import * as React from 'react';
 import Project from '../components/project/Project';
+import {connect} from 'react-redux';
+import {ProjectSelectors} from '../store/selectors/project.selectors';
+import {ApplicationStateInterface} from '../../common/interfaces/application-state.interface';
+import {Template} from '../models/template.model';
 
-type Props = {};
+type Props = {
+    templates: Template[];
+};
 
-export default class ProjectPage extends React.Component<Props> {
+export class ProjectPage extends React.Component<Props> {
     props: Props;
 
     render() {
-        return <Project/>;
+        return <Project templates={this.props.templates}/>;
     }
 }
+
+const mapStateToProps = (state: ApplicationStateInterface) => ({
+    templates: ProjectSelectors.getTemplates(state),
+});
+
+export default connect(mapStateToProps)(ProjectPage);

@@ -1,7 +1,5 @@
-import {CvModelInterface} from '../models/cv.model';
-import {ProjectMetaInterface} from '../models/project-meta.model';
+import {Template} from '../models/template.model';
 
 export interface ProjectsStateInterface{
-    meta: ProjectMetaInterface;
-    list: CvModelInterface[];
+    templates: Template[],
 }

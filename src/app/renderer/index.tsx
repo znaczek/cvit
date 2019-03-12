@@ -4,6 +4,9 @@ import {AppContainer} from 'react-hot-loader';
 import Root from './Root';
 import {configureStore, history} from './store/configureStore';
 import './app.css';
+import i18n from 'i18next';
+import {initReactI18next} from 'react-i18next';
+import * as enLang from './../../lang/en.json';
 
 declare global {
     interface Window {
@@ -18,6 +21,17 @@ declare global {
 window.bb = () => history.push('/');
 
 const store = configureStore();
+
+i18n
+    .use(initReactI18next)
+    .init({
+        lng: 'en',
+        resources: {
+            en: {
+                translation: enLang,
+            }
+        }
+    });​
 
 render(
     <AppContainer>

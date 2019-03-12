@@ -1,0 +1,326 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CV</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700&amp;subset=latin-ext" rel="stylesheet">
+    <style>
+        * {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+        html, body, h1, h2, h3, h4, h5, h6, p, ul {
+            margin: 0;
+            padding: 0;
+        }
+        ul {
+            list-style-type: none;
+        }
+        body {
+            background: white;
+            /*font-family: Arial, sans-serif;*/
+            font-family: 'Lato', sans-serif;
+            font-size: 14px;
+            color: #333;
+            margin: 0 auto;
+            height: 297mm;
+            width: 210mm;
+        }
+        .clearfix:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        h1, h2 {
+            color: #063c92;
+        }
+        h1 {
+            font-size: 36px;
+            margin-top: 0;
+            color: #063c92;
+            margin-bottom: 5px;
+        }
+        h2 {
+            font-size:22px;
+            border-bottom: 1px solid #333;
+            padding-left: 8mm;
+            padding-bottom: 5px;
+            position: relative;
+            line-height: 7mm;
+            margin-bottom: 10px;
+        }
+        h2:before {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            height: 7mm;
+            width: 7mm;
+            background-color: #063c92;
+            top: 0;
+            left: 0;
+            background-position: center;
+            background-size: 7mm;
+            background-repeat: no-repeat;
+        }
+        h2.personal-data:before {
+            background-image: url('/images/user.png');
+        }
+        h2.experience:before {
+            background-image: url('/images/briefcase.png');
+        }
+        h2.education:before {
+            background-image: url('/images/graduation.png');
+        }
+        h2.languages:before {
+            background-image: url('/images/flag.png');
+        }
+        h2.crosshair:before {
+            background-image: url('/images/crosshair.png');
+        }
+        h2.programming-skills:before {
+            background-image: url('/images/laptop.png');
+        }
+        h2.soft-skills:before {
+            background-image: url('/images/user-tie.png');
+        }
+        h2.interests:before {
+            background-image: url('/images/globe.png');
+        }
+        h3 {
+            margin: 0;
+            font-weight: 400;
+        }
+        .bold {
+            font-weight: 900;
+        }
+        header {
+            margin-bottom: 30px;
+            padding: 0 10mm;
+        }
+
+        main > div {
+            float: left;
+        }
+        .col-left {
+            width: 30%;
+            min-height: 1px;
+            padding-left: 10mm;
+        }
+        .col-left img {
+            width: 100%;
+            margin: 0 auto;
+            margin-bottom: 20px;
+        }
+        .col-right {
+            width: 70%;
+            min-height: 1px;
+            padding-left: 5mm;
+            line-height: 1.5;
+            padding-right: 10mm;
+        }
+        section {
+            margin-bottom: 20px;
+        }
+        .point {
+            line-height: 1.4;
+            margin-bottom: 5px;
+        }
+        .point.bold {
+            margin-bottom: 0;
+        }
+        .dates, .desc {
+            float: left;
+        }
+        .dates {
+            width: 20mm;
+            font-weight: 900;
+            line-height: 1.4;
+        }
+        .desc {
+            width: 106mm;
+        }
+        .item {
+            margin-bottom: 10px;
+        }
+        ul.list li {
+            padding-left: 15px;
+            margin-bottom: 5px;
+            position: relative;
+            line-height: 1.3;
+        }
+        ul.list li:before {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: black;
+            border-radius: 50%;
+            left: 5px;
+            top: 8px;
+        }
+        footer {
+            font-size: 11px;
+            padding: 5px 10px;
+            margin: 0 10mm;
+            height: 11mm;
+            text-align: center;
+            background: #063c92;
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+<header>
+    <h1>Wojciech Znaczko</h1>
+    <h3><strong>Web Software Developer</strong> z doświadczeniem w tworzeniu rozwiązań począwszy od stron internetowych aż do implementacji i utrzymania systemów biznesowych.</h3>
+</header>
+<main>
+    <div class="col-left">
+        <section>
+            <img src="/images/photo/wojtek.JPG">
+            <h2 class="personal-data">Dane osobowe</h2>
+            <div class="bold point">Adres</div>
+            <div class="point">Os.&nbsp;Powstań&nbsp;Narodowych&nbsp;11/1<br>61-213 Poznań</div>
+            <div class="bold point">Telefon</div>
+            <div class="point">721 836 037</div>
+            <div class="bold point">Email</div>
+            <div class="point"> wojciech.znaczko@gmail.com</div>
+        </section>
+        <section>
+            <h2 class="crosshair">Umiejętności</h2>
+            <ul class="list">
+                <li>HTML, CSS</li>
+                <li>JavaScript</li>
+                <li>PHP</li>
+                <li>SQL</li>
+            </ul>
+        </section>
+        <section>
+            <h2 class="languages">Języki obce</h2>
+            <div class="bold point">Angielski</div>
+            <div class="point">biegły w mowie i piśmie</div>
+        </section>
+    </div>
+    <div class="col-right">
+        <section>
+            <h2 class="experience">Doświadczenie zawodowe</h2>
+            <div class="item clearfix">
+                <div class="dates">04.2017&nbsp;-<br>obecnie</div>
+                <div class="desc">
+                    <div class="bold">Programa.pl - programista PHP i&nbsp;JavaScript</div>
+                    <div class="bold">Zakres obowiązków</div>
+                    <ul class="list">
+                        <li>Samodzielna oraz zaspołowa praca nad implementacją biznesowych systemów informatycznych</li>
+                        <li>Udział w tworzeniu architektury aplikacji</li>
+                        <li>Tworzenie frontendu jak i backendu aplikacji</li>
+                        <li>Utrzymanie i rozwój aplikacji wewnętrznych jednego z&nbsp;największych producentów branży automotive na świecie</li>
+                    </ul>
+                    <div class="bold">Osiągnięcia</div>
+                    <ul class="list">
+                        <li>Optymalizacja prędkości ładowania strony (nawet do 50%) jednego z&nbsp;największych producentów mebli w&nbsp;Polsce</li>
+                        <li>Wdrożenie framework'a React oraz realizacja pierwszego projektu z jego użyciem</li>
+                        <li>Propozycja awansu na Team Leadera po roku pracy</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="item clearfix">
+                <div class="dates">01.2017&nbsp;-<br>03.2017</div>
+                <div class="desc">
+                    <div class="bold">Zagg Solutions LTD (własna działalność) - programista PHP i&nbsp;JavaScript</div>
+                    <div class="bold">Zakres obowiązków</div>
+                    <ul class="list">
+                        <li>Kompleksowe tworzenie stron internetowych</li>
+                        <li>Wdrażanie CMS dla administratorów realizowanych stron</li>
+                        <li>Udział w tworzeniu zawartości marketingowej tworzonych stron internetowych</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="item clearfix">
+                <div class="dates">09.2016&nbsp;-<br>12.2016</div>
+                <div class="desc">
+                    <div class="bold">Codeaddict - programista PHP i&nbsp;JavaScript</div>
+                    <div class="bold">Zakres obowiązków</div>
+                    <ul class="list">
+                        <li>Kompleksowe tworzenie aplikacji internetowych</li>
+                        <li>Projektowanie architektury aplikacji</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="item clearfix">
+                <div class="dates">02.2016&nbsp;-<br>07.201</div>
+                <div class="desc">
+                    <div class="bold">Agencja Interaktywna Milowa.pl - programista PHP i&nbsp;JavaScript</div>
+                    <div class="bold">Zakres obowiązków</div>
+                    <ul class="list">
+                        <li>Kompleksowe tworzenie stron internetowych</li>
+                        <li>Wdrażanie CMS dla administratorów realizowanych stron</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section>
+            <h2 class="education">Wykształcenie</h2>
+            <div class="item clearfix">
+                <div class="dates">10.2010&nbsp;-<br>06.2015</div>
+                <div class="desc">
+                    <p class="bold">Politechnika Poznańska, kierunek: Elektrotechnika</p>
+                    Ukończenie z&nbsp;tytułem magistra inżyniera z&nbsp;oceną bardzo dobrą
+                    <div class="bold">Osiągnięcia</div>
+                    <ul class="list">
+                        <li>Osiągnięcie wyników w&nbsp;nauce pozwalających na pobieranie stypendium naukowego przez wszystkie semestry studiów</li>
+                        <li>Znalezienie się na liście najlepszych absolwentów studiów inżynierskich i&nbsp;magisterskich</li>
+                    </ul>
+
+                </div>
+            </div>
+        </section>
+        <section>
+            <h2 class="programming-skills">Umiejętności programistyczne</h2>
+            <ul class="list">
+                <li>HTML5, CSS3, LESS, SASS, Bootstrap - budowanie treści aplikacji webowych</li>
+                <li>Bardzo dobra znajomość języka JavaScript, także specyfikacji EcmaScript 2015 oraz późniejszych</li>
+                <li>Dobra znajomość framework'a AngularJS, React, podstawowa znajomość framework'ów Angular (2+), Backbone</li>
+                <li>Znajomość architektury Flux realizowanej za pomocą Redux</li>
+                <li>Znajomość środowiska NodeJS, framework'a Express</li>
+                <li>Znajomość narzędzi testowych Jest, Mocha</li>
+                <li>Praktyczne wykorzystywanie narzędzi do automatyzacji pracy jak Webpack, Gulp</li>
+                <li>Bardzo dobra znajomość języka PHP</li>
+                <li>Dobra znajomość frameworka Symfony, Laravel, WordPress</li>
+                <li>Umiejętność pracy z&nbsp;bazami danych MySQL, PostgresSQL, MS SQL Server</li>
+                <li>Doświadczenie w&nbsp;pracy z&nbsp;kodem dziedziczonym - Legacy Code</li>
+                <li>Umiejętność korzystania z&nbsp;programu Adobe Photoshop, Adobe Ilustrator - tworzenie widoków na podstawie plików .psd</li>
+                <li>Praktyczna znajomość systemu kontroli wersji GIT</li>
+                <li>Praktyczna znajomość systemów Linux</li>
+            </ul>
+        </section>
+        <section>
+            <h2 class="soft-skills">Dodatkowe cechy i umiejętności</h2>
+            <ul class="list">
+                <li>Łatwość w&nbsp;przyswajaniu wiedzy, umiejętność analitycznego myślenia</li>
+                <li>Ciągłe poszerzanie warsztatu deweloperskiego, poszukiwanie najnowszych i&nbsp;najlepszych praktyk w tej dziedzinie</li>
+                <li>Odpowiedzialne podchodzenie do powierzonych zadań</li>
+                <li>Dobre rozumienie kontekstu biznesowego realizowanych projektów</li>
+                <li>Łatwość w prowadzeniu rozmów i ustaleń z klientami</li>
+                <li>Dokładność,&nbsp;skrupulatność</li>
+                <li>Punktualność</li>
+                <li>Umiejętność pracy w&nbsp;grupie oraz zarządzaniem zadaniami w&nbsp;grupie</li>
+            </ul>
+        </section>
+        <section>
+            <h2 class="interests">Zainteresowania</h2>
+            <ul class="list">
+                <li>Nowości z branży web developmentu</li>
+                <li>Muzyka rozrywkowa oraz klasyczna (ukończona szkoła muzyczna I i&nbsp;II stopnia)</li>
+                <li>Elektronika (szczególnie programowanie mikrokontrolerów AVR)</li>
+                <li>Górska turystyka piesza, trekking górski, narciarstwo biegowe</li>
+            </ul>
+        </section>
+    </div>
+</main>
+</body>
+</html>

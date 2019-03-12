@@ -49,6 +49,10 @@ module.exports = merge.smart(baseConfig, {
         }),
     ],
 
+    node: {
+        __dirname: false,
+    },
+
     devServer: {
         port,
         publicPath,
