@@ -7,6 +7,8 @@ import './app.css';
 import i18n from 'i18next';
 import {initReactI18next} from 'react-i18next';
 import * as enLang from './../../lang/en.json';
+import {TemplateService} from './service/template.service';
+import {BootstraDataType} from './types/bootstra-data.type';
 
 declare global {
     interface Window {
@@ -20,34 +22,48 @@ declare global {
  */
 window.bb = () => history.push('/');
 
-const store = configureStore();
+const bootstrapApp = (data: BootstraDataType) => {
 
-i18n
-    .use(initReactI18next)
-    .init({
+    const store = configureStore({
+        templates: {
+            list: data[0],
+        }
+    });
+
+    i18n.use(initReactI18next).init({
         lng: 'en',
         resources: {
             en: {
                 translation: enLang,
             }
-        }
+        },
     });​
 
-render(
-    <AppContainer>
-        <Root store={store} history={history}/>
-    </AppContainer>,
-    document.getElementById('root')
-);
+    render(
+        <AppContainer>
+            <Root store={store} history={history}/>
+        </AppContainer>,
+        document.getElementById('root')
+    );
 
-if (module.hot) {
-    module.hot.accept('./Root', () => {
-        const NextRoot = require('./Root').default;
-        render(
-            <AppContainer>
-                <NextRoot store={store} history={history}/>
-            </AppContainer>,
-            document.getElementById('root')
-        );
-    });
-}
+    if (module.hot) {
+        module.hot.accept('./Root', () => {
+            const NextRoot = require('./Root').default;
+            render(
+                <AppContainer>
+                    <NextRoot store={store} history={history}/>
+                </AppContainer>,
+                document.getElementById('root')
+            );
+        });
+    }
+
+};
+
+Promise.all([
+    TemplateService.getTemplates(),
+]).then((data) => {
+    bootstrapApp(data);
+});
+
+

@@ -1,9 +1,10 @@
-import {ProjectsStateInterface} from '../../interfaces/projects-state.interface';
+import {ProjectsStateInterface} from '../../interfaces/state/projects-state.interface';
 import {ActionInterface} from '../../../common/interfaces/action.interface';
 import {ProjectActions} from '../actions/project.actions';
+import {ProjectModel} from '../../models/project.model';
 
 const initialState: ProjectsStateInterface = {
-    templates: null,
+    entity: null,
 };
 
 export default (state: ProjectsStateInterface = initialState, action: ActionInterface<any>): ProjectsStateInterface => {
@@ -11,7 +12,7 @@ export default (state: ProjectsStateInterface = initialState, action: ActionInte
         case ProjectActions.CREATE_PROJECT_SUCCESS: {
             return {
                 ...state,
-                templates: action.payload,
+                entity: new ProjectModel(),
             }
         }
         default:

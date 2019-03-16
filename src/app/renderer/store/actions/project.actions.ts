@@ -4,8 +4,6 @@ import {ActionInterface} from '../../../common/interfaces/action.interface';
 import {CV_FILE_NAME} from '../../../common/constants';
 import {Template} from '../../models/template.model';
 
-const fs = require('sb-fs');
-
 const prefix = '[PROJECT] ';
 
 export class ProjectActions {
@@ -14,28 +12,13 @@ export class ProjectActions {
 
     public static createProject() {
         return async (dispatch: Dispatch<any>): Promise<void> => {
-            const templates: Template[] = [];
-            try {
-                const templateNames = await fs.readdir(PATHS.TEMPLATES);
-                for (let i = 0; i < templateNames.length; i += 1) {
-                    const content = await fs.readFile(`${PATHS.TEMPLATES}/${templateNames[i]}/${CV_FILE_NAME}`);
-                    templates.push(new Template({
-                        name: templateNames[i],
-                        content: (content || []).reduce((curr: Buffer, acc: string) => acc + Buffer.from(curr).toString(), ''),
-                    }));
-                }
-            } catch(e) {
-                dispatch(ProjectActions.createProjectFailure(e));
-                return;
-            }
-            dispatch(ProjectActions.createProjectSuccess(templates));
+            dispatch(ProjectActions.createProjectSuccess());
         }
     }
 
-    public static createProjectSuccess(payload: Template[]): ActionInterface<Template[]> {
+    public static createProjectSuccess(): ActionInterface<Template[]> {
         return {
             type: ProjectActions.CREATE_PROJECT_SUCCESS,
-            payload
         }
     }
 
