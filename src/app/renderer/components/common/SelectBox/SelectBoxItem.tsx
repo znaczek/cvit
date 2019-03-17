@@ -13,7 +13,7 @@ interface ItemProps {
     selected: boolean;
 }
 const Item = styled.li`
-    background: ${(props: ItemProps) => props.selected ? STYLES.gray1: 'none'};
+    background: ${(props: ItemProps) => props.selected ? STYLES.colors.gray1: 'none'};
     padding: 3px;
     cursor: pointer;
     &:not(:last-child) {

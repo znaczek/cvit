@@ -6,7 +6,7 @@
         "NEW": {
             "HEADER": "New project",
             "TEMPLATE": {
-                "CHOOSE": "Choose CV tempalte"
+                "CHOOSE": "Choose CV template"
             },
             "DIRECTORY": {
                 "CHOOSE": "Choose destination directory"

@@ -14,7 +14,6 @@ export class ProjectActions {
 
     public static createProject(templateName: string, directory: string) {
         return async (dispatch: Dispatch<any>): Promise<void> => {
-            console.log('some async project creation stuff :)', templateName, directory);
             history.push(ROUTES.EDITOR);
             dispatch(ProjectActions.createProjectSuccess());
         }

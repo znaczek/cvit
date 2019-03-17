@@ -7,7 +7,7 @@ import {SelectBoxItem} from './SelectBoxItem';
 const Col = styled.ul`
     background: #fff;
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
-    padding: ${STYLES.gutter / 2}px
+    padding: ${STYLES.gutter / 4}px
 `;
 
 interface Props {
