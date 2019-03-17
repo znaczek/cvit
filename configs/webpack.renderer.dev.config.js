@@ -3,9 +3,13 @@ const path = require('path');
 const baseConfig = require('./webpack.common.config.js');
 const spawn = require('child_process').spawn;
 const webpack = require('webpack');
+const createStyledComponentsTransformer = require('typescript-plugin-styled-components').default;
 
 const port = process.env.PORT || 1212;
 const publicPath = `http://localhost:${port}/dist`;
+const styledComponentsTransformer = createStyledComponentsTransformer({
+    displayName: true,
+});
 
 module.exports = merge.smart(baseConfig, {
     devtool: 'inline-source-map',
@@ -27,6 +31,14 @@ module.exports = merge.smart(baseConfig, {
     module: {
         rules: [
             {
+                test: /\.tsx?$/,
+                exclude: /node_modules/,
+                loader: 'ts-loader',
+                options: {
+                    getCustomTransformers: () => ({before: [styledComponentsTransformer]}),
+                }
+            },
+            {
                 test: /\.(s?css|)$/,
                 use: [
                     {
@@ -42,7 +54,6 @@ module.exports = merge.smart(baseConfig, {
             },
         ]
     },
-
     plugins: [
         new webpack.HotModuleReplacementPlugin({
             multiStep: true

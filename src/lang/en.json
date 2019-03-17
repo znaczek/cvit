@@ -1,7 +1,16 @@
 {
-  "PROJECT": {
-    "NEW": {
-      "HEADER": "New project"
+    "ACTIONS": {
+        "CREATE": "Create"
+    },
+    "PROJECT": {
+        "NEW": {
+            "HEADER": "New project",
+            "TEMPLATE": {
+                "CHOOSE": "Choose CV tempalte"
+            },
+            "DIRECTORY": {
+                "CHOOSE": "Choose destination directory"
+            }
+        }
     }
-  }
 }

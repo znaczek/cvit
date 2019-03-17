@@ -5,10 +5,10 @@ import Routes from './Routes';
 import {Store} from 'redux';
 import {History} from 'history';
 
-type Props = {
-    store: Store,
-    history: History,
-};
+interface Props {
+    store: Store;
+    history: History;
+}
 
 export default class Root extends React.Component<Props> {
     render() {

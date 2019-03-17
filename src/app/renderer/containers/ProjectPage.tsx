@@ -4,16 +4,21 @@ import {connect} from 'react-redux';
 import {ApplicationStateInterface} from '../../common/interfaces/application-state.interface';
 import {Template} from '../models/template.model';
 import {TemplatesSelectors} from '../store/selectors/templates.selectors';
+import {Dispatch} from 'redux';
+import {ProjectActions} from '../store/actions/project.actions';
+import {AppThunkDispatchType} from '../../common/types/app-thunk-dispatch.type';
 
-type Props = {
+interface Props {
     templates: Template[];
-};
+    create: (templateName: string, directory: string) => void;
+}
 
 export class ProjectPage extends React.Component<Props> {
     props: Props;
 
     render() {
-        return <Project templates={this.props.templates}/>;
+        const {templates, create} = this.props;
+        return <Project create={create} templates={templates}/>;
     }
 }
 
@@ -21,4 +26,8 @@ const mapStateToProps = (state: ApplicationStateInterface) => ({
     templates: TemplatesSelectors.getList(state),
 });
 
-export default connect(mapStateToProps)(ProjectPage);
+const mapDispatchToProps = (dispatch: AppThunkDispatchType) => ({
+    create: (templateName: string, directory: string) => dispatch(ProjectActions.createProject(templateName, directory))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectPage);

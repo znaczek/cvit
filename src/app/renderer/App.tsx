@@ -15,7 +15,7 @@ export class App extends React.Component<Props> {
     props: Props;
 
     public componentDidMount() {
-        ipcRenderer.on(APP_EVENT, (e: any, action: appEvents.types) => AppEventHandler.handle(action, this.props.dispatch));
+        ipcRenderer.on(APP_EVENT, (e: any, action: appEvents.types) => AppEventHandler.handle(action));
     }
 
     render() {

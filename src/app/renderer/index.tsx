@@ -30,6 +30,7 @@ const bootstrapApp = (data: BootstraDataType) => {
         }
     });
 
+
     i18n.use(initReactI18next).init({
         lng: 'en',
         resources: {
