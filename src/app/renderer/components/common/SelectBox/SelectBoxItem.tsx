@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import {STYLES} from '../../../styles/variables';
 
 interface Props {
-    key: any,
     name: string,
     selected?: boolean,
     handleClick?: () => void,
@@ -23,5 +22,7 @@ const Item = styled.li`
 
 export const SelectBoxItem: React.StatelessComponent<Props> = (props: Props) => {
     const {handleClick, selected, name} = props;
-    return <Item selected={selected} onClick={handleClick}>{name}</Item>;
+    const handleOnClick = () => handleClick();
+
+    return <Item selected={selected} onClick={handleOnClick}>{name}</Item>;
 };

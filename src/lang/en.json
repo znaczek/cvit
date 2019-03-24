@@ -1,6 +1,7 @@
 {
     "ACTIONS": {
-        "CREATE": "Create"
+        "CREATE": "Create",
+        "CHOOSE": "Choose"
     },
     "PROJECT": {
         "NEW": {

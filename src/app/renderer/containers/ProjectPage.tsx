@@ -4,12 +4,12 @@ import {connect} from 'react-redux';
 import {ApplicationStateInterface} from '../../common/interfaces/application-state.interface';
 import {Template} from '../models/template.model';
 import {TemplatesSelectors} from '../store/selectors/templates.selectors';
-import {Dispatch} from 'redux';
 import {ProjectActions} from '../store/actions/project.actions';
 import {AppThunkDispatchType} from '../../common/types/app-thunk-dispatch.type';
+import {OptionModel} from '../../common/model/options-model';
 
 interface Props {
-    templates: Template[];
+    templates: OptionModel<Template>[];
     create: (templateName: string, directory: string) => void;
 }
 
