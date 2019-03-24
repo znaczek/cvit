@@ -10,7 +10,7 @@ export const STYLES = {
         outline: '#4260ce',
     },
     shadows: {
-        basic: '0px 0px px 0px rgba(0,0,0,0.75)',
+        basic: '0px 0px 8px 0px rgba(0,0,0,0.75)',
         primary: '2px 2px 6px rgba(0, 0, 0, 0.6)',
     }
 };

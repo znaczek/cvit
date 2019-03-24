@@ -5,11 +5,12 @@ import App from './App';
 import HomePage from './containers/HomePage';
 import ProjectPage from './containers/ProjectPage';
 import {EditorPage} from './containers/EditorPage';
+import {Popup} from './components/common/Popup/Popup';
 
 export default () => (
     <App>
+        <ProjectPage/>
         <Switch>
-            <Route path={ROUTES.PROJECT} component={ProjectPage}/>
             <Route path={ROUTES.HOME} component={HomePage} exact/>
             <Route path={ROUTES.EDITOR} component={EditorPage} exact/>
         </Switch>

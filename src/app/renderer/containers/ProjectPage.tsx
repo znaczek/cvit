@@ -7,6 +7,7 @@ import {TemplatesSelectors} from '../store/selectors/templates.selectors';
 import {ProjectActions} from '../store/actions/project.actions';
 import {AppThunkDispatchType} from '../../common/types/app-thunk-dispatch.type';
 import {OptionModel} from '../../common/model/options-model';
+import {Popup} from '../components/common/Popup/Popup';
 
 interface Props {
     templates: OptionModel<Template>[];
@@ -18,7 +19,9 @@ export class ProjectPage extends React.Component<Props> {
 
     render() {
         const {templates, create} = this.props;
-        return <Project create={create} templates={templates}/>;
+        return <Popup visible={true}>
+            <Project create={create} templates={templates}/>
+        </Popup>;
     }
 }
 
