@@ -9,6 +9,8 @@ import {initReactI18next} from 'react-i18next';
 import * as enLang from './../../lang/en.json';
 import {TemplateService} from './service/template.service';
 import {BootstraDataType} from './types/bootstra-data.type';
+import {ApplicationStateInterface} from '../common/interfaces/application-state.interface';
+import {Store} from 'redux';
 
 declare global {
     interface Window {
@@ -22,9 +24,11 @@ declare global {
  */
 window.bb = () => history.push('/');
 
+export let store: Store<ApplicationStateInterface>;
+
 const bootstrapApp = (data: BootstraDataType) => {
 
-    const store = configureStore({
+    store = configureStore({
         templates: {
             list: data[0],
         }

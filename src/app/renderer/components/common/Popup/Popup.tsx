@@ -1,6 +1,9 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import {STYLES} from '../../../styles/variables';
+import {H1} from '../styled/H1';
+import {T} from '../../T';
+import {MIXINS} from '../../../styles/mixins';
 
 interface OverlayProps {
     visible: boolean;
@@ -35,10 +38,46 @@ interface Props {
     children: React.ReactNode
 }
 
-export const Popup = (props: Props) => {
+const Popup = (props: Props) => {
     const {visible, children} = props;
 
-    return <Overlay visible={visible}>
-        <Modal>{children}</Modal>
-    </Overlay>;
+    return (
+        <Overlay visible={visible}>
+            <Modal>{children}</Modal>
+        </Overlay>
+    );
 };
+
+const Header = styled.header`
+    display: flex;
+    align-items: center;
+    margin-bottom: ${STYLES.gutter}px;
+    border-bottom: 2px solid ${STYLES.colors.gray3};
+`;
+
+const Close = styled.button`
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 20px;
+    align-self: flex-start;
+    ${MIXINS.focusable}
+`;
+
+interface HeaderPrpos {
+    children: React.ReactNode;
+    handleClose?: () => void;
+}
+
+Popup.Header = (props: HeaderPrpos) => {
+    const {children, handleClose} = props;
+    return (
+        <Header>
+            {children}
+            {handleClose && <Close onClick={handleClose}>X</Close>}
+        </Header>
+    )
+};
+
+export {Popup};

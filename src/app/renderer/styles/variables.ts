@@ -1,5 +1,9 @@
 export const STYLES = {
     gutter: 20,
+    fontWeight: {
+        normal: 400,
+        bold: 700,
+    },
     colors: {
         white: '#fff',
         black: '#000',
@@ -10,7 +14,7 @@ export const STYLES = {
         outline: '#4260ce',
     },
     shadows: {
-        basic: '0px 0px 8px 0px rgba(0,0,0,0.75)',
-        primary: '2px 2px 6px rgba(0, 0, 0, 0.6)',
+        basic: '0px 0px 4px 0px rgba(0,0,0,0.6)',
+        primary: '2px 2px 6px 0px rgba(0, 0, 0, 0.6)',
     }
 };

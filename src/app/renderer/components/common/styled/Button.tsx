@@ -6,6 +6,8 @@ import {MIXINS} from '../../../styles/mixins';
 interface Props {
     theme?: ThemeInterface,
     fontSize?: number,
+    stretched?: boolean,
+    disabled?: boolean,
 }
 
 export const Button = styled.button`
@@ -19,6 +21,8 @@ export const Button = styled.button`
     font-size: ${(props: Props) => props.fontSize ? props.fontSize + 'px' : 'inherit'};
     line-height: 1;
     padding: 5px;
+    opacity: ${(props: Props) => props.disabled ? 0.5 : 1}
+    width: ${(props: Props) => props.stretched ? '100%' : 'auto'}
     box-shadow: ${STYLES.shadows.primary};
     &:active {
         bottom: -1px;

@@ -4,11 +4,9 @@ import styled from 'styled-components';
 import {STYLES} from '../../styles/variables';
 import {Template} from '../../models/template.model';
 import {SelectBox} from '../common/SelectBox/SelectBox';
-import {H1} from '../common/styled/H1';
 import {Button} from '../common/styled/Button';
 import {DirectoryPicker} from '../common/DirectoryPicker/DirectoryPicker';
 import {Themes} from '../common/styled/themes';
-import {Header} from '../common/styled/Header';
 import {OptionModel} from '../../../common/model/options-model';
 
 
@@ -18,19 +16,22 @@ const Wrapper = styled.section`
     height: 100%;
 `;
 
-const OptionsWrapper = styled.div`
+const Form = styled.div`
     flex-grow: 1;
     display: flex;
+    flex-direction: column;
 `;
 
-const Option = styled.div`
+const Group = styled.div`
     &:not(:last-child) {
-        margin-right: ${STYLES.gutter}px
+        margin-bottom: ${STYLES.gutter}px
     }
 `;
 
-const H3 = styled.h3`
-    margin-bottom: ${STYLES.gutter / 4}px
+const Label = styled.label`
+    display: block;
+    margin-bottom: ${STYLES.gutter / 3}px;
+    font-weight: ${STYLES.fontWeight.bold}
 `;
 
 interface Props {
@@ -63,35 +64,41 @@ export default class Project extends React.Component {
         }
     }
 
+    public isValid(): boolean {
+        return !!this.state.template && !!this.state.path;
+    }
+
     public render() {
         const {templates} = this.props;
         const {template, path} = this.state;
 
         return (
             <Wrapper>
-                <Header>
-                    <H1><T>PROJECT.NEW.HEADER</T></H1>
-                </Header>
-                <OptionsWrapper>
-                    <Option>
-                        <H3><T>PROJECT.NEW.TEMPLATE.CHOOSE</T></H3>
+                <Form>
+                    <Group>
+                        <Label><T>PROJECT.NEW.TEMPLATE.CHOOSE</T></Label>
                         <SelectBox
                             options={templates}
                             selected={template}
                             handleOnSelect={this.handleOnTemplateSelect}
                         />
-                    </Option>
-                    <Option>
-                        <H3><T>PROJECT.NEW.DIRECTORY.CHOOSE</T></H3>
+                    </Group>
+                    <Group>
+                        <Label><T>PROJECT.NEW.DIRECTORY.CHOOSE</T></Label>
                         <DirectoryPicker
                             handleOnDirectoryChoose={this.handleOnDirectoryChoose}
                             value={path}
                         />
-                    </Option>
-                </OptionsWrapper>
-                <Button theme={Themes.primary} onClick={() =>
-                    console.log('state:', this.state)
-                }><T>ACTIONS.CREATE</T></Button>
+                    </Group>
+                    <Group>
+                        <Button
+                            theme={Themes.primary}
+                            onClick={() => this.isValid() && console.log('state:', this.state )}
+                            stretched
+                            disabled={!this.isValid()}
+                        ><T>ACTIONS.CREATE</T></Button>
+                    </Group>
+                </Form>
             </Wrapper>
         );
     }
