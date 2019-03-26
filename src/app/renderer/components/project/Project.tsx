@@ -8,7 +8,9 @@ import {Button} from '../common/styled/Button';
 import {DirectoryPicker} from '../common/DirectoryPicker/DirectoryPicker';
 import {Themes} from '../common/styled/themes';
 import {OptionModel} from '../../../common/model/options-model';
-
+import {Input} from '../common/styled/Input';
+import {StorageService} from '../../service/storage.service';
+import {INPUT_DEBOUNCE_TIME} from '../../constants/ui.constants';
 
 const Wrapper = styled.section`
     display: flex;
@@ -20,12 +22,28 @@ const Form = styled.div`
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    
+    .submit {
+        margin-top: ${STYLES.gutter * 2/3}px;
+    }
 `;
 
 const Group = styled.div`
+    position: relative;
     &:not(:last-child) {
         margin-bottom: ${STYLES.gutter}px
     }
+    ${Input} {
+        width: 100%;
+    }
+`;
+
+const Error = styled.span`
+    position: absolute;
+    line-height: 1;
+    bottom: -${STYLES.fontSizes.basic + 3}px;
+    left: 0;
+    color: ${STYLES.colors.red};
 `;
 
 const Label = styled.label`
@@ -42,35 +60,73 @@ interface Props {
 interface State {
     template: Template;
     path: string;
+    name: string;
+    nameValid: boolean;
+    pending: boolean;
 }
 
 export default class Project extends React.Component {
     public props: Props;
     public state: State;
-
-    public handleOnDirectoryChoose = (paths: string[]) => {
-        this.setState({path: paths && paths[0]});
-    };
-
-    public handleOnTemplateSelect = (template: Template) => {
-        this.setState({template});
-    };
+    public validationTimeout: number;
 
     constructor(props: Props) {
         super(props);
         this.state = {
             template: props.templates && props.templates.length ? props.templates[0].value : null,
             path: null,
+            name: '',
+            nameValid: true,
+            pending: true,
         }
     }
 
+    public handleOnDirectoryChoose = (paths: string[]) => {
+        this.setState({
+            path: paths && paths[0],
+            pending: true,
+        });
+        this.validateName();
+    };
+
+    public handleOnTemplateSelect = (template: Template) => {
+        this.setState({template});
+    };
+
     public isValid(): boolean {
-        return !!this.state.template && !!this.state.path;
+        const {pending, template, path, name, nameValid} = this.state;
+        return !pending &&
+            !!template &&
+            !!path &&
+            !!name &&
+            nameValid;
     }
+
+    public handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        this.setState({
+            name: e.target.value,
+            pending: true,
+        });
+        clearTimeout(this.validationTimeout);
+        this.validationTimeout = setTimeout(this.validateName, INPUT_DEBOUNCE_TIME);
+    };
+
+    public validateName = (): void => {
+        this.setState((state: State) => {
+            let nameValid = true;
+            if (state.path && state.name) {
+                nameValid = !StorageService.exists(state.path + '/' + state.name);
+            }
+            return {
+                nameValid,
+                pending: false,
+            };
+        });
+    };
 
     public render() {
         const {templates} = this.props;
-        const {template, path} = this.state;
+        const {pending, template, path, name, nameValid} = this.state;
 
         return (
             <Wrapper>
@@ -91,6 +147,13 @@ export default class Project extends React.Component {
                         />
                     </Group>
                     <Group>
+                        <Label><T>PROJECT.NEW.NAME.CHOOSE</T></Label>
+                        <Input value={name} onChange={this.handleNameChange}/>
+                        {!pending && !nameValid && (
+                            <Error><T>PROJECT.NEW.NAME.EXIST</T></Error>
+                        )}
+                    </Group>
+                    <Group className={'submit'}>
                         <Button
                             theme={Themes.primary}
                             onClick={() => this.isValid() && console.log('state:', this.state )}

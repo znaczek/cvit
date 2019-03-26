@@ -11,6 +11,10 @@
             },
             "DIRECTORY": {
                 "CHOOSE": "Choose destination directory"
+            },
+            "NAME": {
+                "CHOOSE": "Project name",
+                "EXIST": "Directory already exists"
             }
         }
     }

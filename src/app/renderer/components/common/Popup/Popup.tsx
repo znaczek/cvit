@@ -59,7 +59,7 @@ const Close = styled.button`
     background: none;
     border: none;
     cursor: pointer;
-    font-weight: 700;
+    font-weight: 800;
     font-size: 20px;
     align-self: flex-start;
     ${MIXINS.focusable}

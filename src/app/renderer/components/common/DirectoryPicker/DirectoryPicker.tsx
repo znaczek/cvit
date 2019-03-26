@@ -5,12 +5,17 @@ import {Input} from '../styled/Input';
 import styled from 'styled-components';
 import {T} from '../../T';
 import {MIXINS} from '../../../styles/mixins';
+import {STYLES} from '../../../styles/variables';
 
 const dialog: Dialog = remote.require('electron').dialog;
 
 const Wrapper = styled.div`
     display: flex;
     ${MIXINS.focusable}
+    ${Button} {
+        font-size: ${STYLES.fontSizes.basic}px;
+        padding: ${STYLES.input.padding[0]}px ${STYLES.input.padding[1]}px;
+    }
 `;
 
 interface Props {
