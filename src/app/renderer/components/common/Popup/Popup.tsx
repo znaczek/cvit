@@ -35,12 +35,11 @@ const Modal = styled.div`
 
 interface Props {
     visible: boolean;
-    children: React.ReactNode
+    children: React.ReactNodeArray;
 }
 
 const Popup = (props: Props) => {
     const {visible, children} = props;
-
     return (
         <Overlay visible={visible}>
             <Modal>{children}</Modal>

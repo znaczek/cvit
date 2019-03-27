@@ -1,11 +1,9 @@
 import {applyMiddleware, compose, createStore, Store} from 'redux';
 import thunk from 'redux-thunk';
-import {createHashHistory} from 'history';
 import {routerActions, routerMiddleware} from 'connected-react-router';
 import {createLogger} from 'redux-logger';
 import createRootReducer from './reducers';
-
-const history = createHashHistory();
+import {history} from '../history';
 
 const rootReducer = createRootReducer(history);
 
@@ -50,4 +48,4 @@ const configureStore = (initialState?: {}): Store => {
     return store;
 };
 
-export default {configureStore, history};
+export default {configureStore};

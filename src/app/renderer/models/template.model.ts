@@ -1,14 +1,14 @@
 export interface TemplateInterface {
-    name?: string;
-    content?: string;
+    name: string;
+    path: string;
 }
 
 export class Template implements TemplateInterface {
+    public path: string;
     public name: string;
-    public content: string;
 
-    constructor(options: TemplateInterface = {}) {
+    constructor(options: TemplateInterface) {
         this.name = options.name || '';
-        this.content = options.content || null;
+        this.path = options.path || '';
     }
 }

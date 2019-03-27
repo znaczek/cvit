@@ -12,11 +12,12 @@ import {UiSelectors} from '../store/selectors/ui.selectors';
 import {H1} from '../components/common/styled/H1';
 import {T} from '../components/T';
 import {UiActions} from '../store/actions/UiActions';
+import {CreateProjectInterface} from '../interfaces/create-project.interface';
 
 interface Props {
     templates: OptionModel<Template>[];
     newProjectPopupVisible: boolean;
-    create: (templateName: string, directory: string) => void;
+    createProject: (options: CreateProjectInterface) => void;
     close: () => void;
 }
 
@@ -24,13 +25,17 @@ export class ProjectPage extends React.Component<Props> {
     props: Props;
 
     render() {
-        const {templates, create, newProjectPopupVisible, close} = this.props;
+        const {templates, createProject, newProjectPopupVisible, close} = this.props;
         return (
             <Popup visible={newProjectPopupVisible}>
                 <Popup.Header handleClose={close}>
                     <H1><T>PROJECT.NEW.HEADER</T></H1>
                 </Popup.Header>
-                <Project create={create} templates={templates}/>
+                <Project
+                    createProject={createProject}
+                    templates={templates}
+                    visible={newProjectPopupVisible}
+                />
             </Popup>
         );
     }
@@ -43,7 +48,7 @@ const mapStateToProps = (state: ApplicationStateInterface) => ({
 });
 
 const mapDispatchToProps = (dispatch: AppThunkDispatchType) => ({
-    create: (templateName: string, directory: string) => dispatch(ProjectActions.createProject()),
+    createProject: (options: CreateProjectInterface) => dispatch(ProjectActions.createProject(options)),
     close: () => dispatch(UiActions.closeCreateProjectPopup()),
 });
 

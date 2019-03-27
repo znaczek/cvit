@@ -8,4 +8,3 @@ const selectedConfigureStore: ConfigureStoreInterface =
         : configureStoreDev;
 
 export const configureStore = selectedConfigureStore.configureStore;
-export const history = selectedConfigureStore.history;

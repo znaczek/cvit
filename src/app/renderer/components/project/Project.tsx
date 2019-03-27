@@ -11,6 +11,7 @@ import {OptionModel} from '../../../common/model/options-model';
 import {Input} from '../common/styled/Input';
 import {StorageService} from '../../service/storage.service';
 import {INPUT_DEBOUNCE_TIME} from '../../constants/ui.constants';
+import {CreateProjectInterface} from '../../interfaces/create-project.interface';
 
 const Wrapper = styled.section`
     display: flex;
@@ -54,7 +55,8 @@ const Label = styled.label`
 
 interface Props {
     templates: OptionModel<Template>[];
-    create: (templateName: string, directory: string) => void;
+    createProject: (options: CreateProjectInterface) => void;
+    visible: boolean;
 }
 
 interface State {
@@ -65,19 +67,19 @@ interface State {
     pending: boolean;
 }
 
-export default class Project extends React.Component {
+export default class Project extends React.Component<Props> {
     public props: Props;
     public state: State;
     public validationTimeout: number;
 
     constructor(props: Props) {
         super(props);
-        this.state = {
-            template: props.templates && props.templates.length ? props.templates[0].value : null,
-            path: null,
-            name: '',
-            nameValid: true,
-            pending: true,
+        this.state = this.getInitialState(props);
+    }
+
+    public componentDidUpdate(prevProps: Props) {
+        if (prevProps.visible !== this.props.visible) {
+            this.setState((state, props) => this.getInitialState(props));
         }
     }
 
@@ -125,8 +127,9 @@ export default class Project extends React.Component {
     };
 
     public render() {
-        const {templates} = this.props;
+        const {templates, createProject} = this.props;
         const {pending, template, path, name, nameValid} = this.state;
+
 
         return (
             <Wrapper>
@@ -156,7 +159,10 @@ export default class Project extends React.Component {
                     <Group className={'submit'}>
                         <Button
                             theme={Themes.primary}
-                            onClick={() => this.isValid() && console.log('state:', this.state )}
+                            onClick={() => this.isValid() && createProject({
+                                templatePath: this.state.template.path,
+                                destination: this.state.path + '/' + this.state.name,
+                            })}
                             stretched
                             disabled={!this.isValid()}
                         ><T>ACTIONS.CREATE</T></Button>
@@ -164,5 +170,16 @@ export default class Project extends React.Component {
                 </Form>
             </Wrapper>
         );
+    }
+
+    private getInitialState(props: Props): State {
+        console.log(props);
+        return {
+            template: props.templates && props.templates.length ? props.templates[0].value : null,
+            path: null,
+            name: '',
+            nameValid: true,
+            pending: true,
+        }
     }
 }

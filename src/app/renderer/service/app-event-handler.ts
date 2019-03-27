@@ -6,7 +6,7 @@ export class AppEventHandler {
     public static handle(event: appEvents.types) {
         switch (event.type) {
             case appEvents.CREATE_NEW: {
-                store.dispatch(ProjectActions.createProject())
+                store.dispatch(ProjectActions.startCreateProject())
             }
         }
     }

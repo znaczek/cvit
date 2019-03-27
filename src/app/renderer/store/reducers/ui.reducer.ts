@@ -9,12 +9,13 @@ const initialState: UiStateInterface = {
 
 export default (state: UiStateInterface = initialState, action: ActionInterface<any>): UiStateInterface => {
     switch (action.type) {
-        case ProjectActions.CREATE_PROJECT: {
+        case ProjectActions.START_CREATE_PROJECT: {
             return {
                 ...state,
                 newProjectPopupVisible: true,
             }
         }
+        case ProjectActions.CREATE_PROJECT_SUCCESS:
         case UiActions.CLOSE_CREATE_PROJECT_POPUP: {
             return {
                 ...state,
