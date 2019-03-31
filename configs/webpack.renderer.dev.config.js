@@ -52,6 +52,13 @@ module.exports = merge.smart(baseConfig, {
                     }
                 ]
             },
+            // https://github.com/ashtuchkin/iconv-lite/issues/205
+            {
+                test: /node_modules[\/\\](iconv-lite)[\/\\].+/,
+                resolve: {
+                    aliasFields: ['main']
+                }
+            }
         ]
     },
     plugins: [

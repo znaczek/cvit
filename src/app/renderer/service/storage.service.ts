@@ -3,6 +3,8 @@ import {Template} from '../models/template.model';
 import {PATHS} from '../paths';
 import {CreateProjectInterface} from '../interfaces/create-project.interface';
 import {ncp} from 'ncp';
+import {OpenProjectInterface} from '../interfaces/open-project.interface';
+import {CV_FILE_NAME, ENCODING} from '../../common/constants';
 
 const pFs = require('sb-fs');
 
@@ -32,6 +34,11 @@ export class StorageService {
                 resolve();
             });
         });
-
     }
+
+    public static async getContent(file: string): Promise<string> {
+        const content = await pFs.readFile(file + '/' + CV_FILE_NAME, ENCODING);
+        return content;
+    }
+
 }

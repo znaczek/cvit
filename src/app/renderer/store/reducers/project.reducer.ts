@@ -4,14 +4,21 @@ import {ProjectActions} from '../actions/project.actions';
 
 const initialState: ProjectsStateInterface = {
     directory: null,
+    content: null,
 };
 
 export default (state: ProjectsStateInterface = initialState, action: ActionInterface<any>): ProjectsStateInterface => {
     switch (action.type) {
-        case ProjectActions.CREATE_PROJECT_SUCCESS: {
+        case ProjectActions.OPEN_PROJECT_SUCCESS: {
             return {
                 ...state,
                 directory: action.payload,
+            }
+        }
+        case ProjectActions.GET_CONTENT_SUCCESS: {
+            return {
+                ...state,
+                content: action.payload,
             }
         }
         default:

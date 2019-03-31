@@ -173,7 +173,6 @@ export default class Project extends React.Component<Props> {
     }
 
     private getInitialState(props: Props): State {
-        console.log(props);
         return {
             template: props.templates && props.templates.length ? props.templates[0].value : null,
             path: null,

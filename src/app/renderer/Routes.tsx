@@ -4,8 +4,7 @@ import {ROUTES} from './constants/route';
 import App from './App';
 import HomePage from './containers/HomePage';
 import ProjectPage from './containers/ProjectPage';
-import {EditorPage} from './containers/EditorPage';
-import {Popup} from './components/common/Popup/Popup';
+import EditorPage from './containers/EditorPage';
 
 export default () => (
     <App>

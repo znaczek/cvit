@@ -1,4 +1,4 @@
-import {BrowserWindow, Menu, shell} from 'electron';
+import {BrowserWindow, Menu, shell, dialog} from 'electron';
 import MenuItemConstructorOptions = Electron.MenuItemConstructorOptions;
 import * as appEvents from '../common/events/app.events';
 import {APP_EVENT} from '../common/constants';
@@ -70,7 +70,11 @@ export default class MenuBuilder {
                     },
                     {
                         label: '&Open',
-                        accelerator: 'Ctrl+O'
+                        accelerator: 'Ctrl+O',
+                        click: () => dialog.showOpenDialog({
+                            title: 'No i witam',
+                            properties: ['openDirectory'],
+                        }, (paths) => this.mainWindow.webContents.send(APP_EVENT, new appEvents.Open(paths)))
                     },
                     {
                         label: '&Close',

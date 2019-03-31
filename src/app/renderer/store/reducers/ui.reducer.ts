@@ -15,7 +15,7 @@ export default (state: UiStateInterface = initialState, action: ActionInterface<
                 newProjectPopupVisible: true,
             }
         }
-        case ProjectActions.CREATE_PROJECT_SUCCESS:
+        case ProjectActions.OPEN_PROJECT_SUCCESS:
         case UiActions.CLOSE_CREATE_PROJECT_POPUP: {
             return {
                 ...state,
