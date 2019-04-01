@@ -16,6 +16,12 @@
                 "CHOOSE": "Project name",
                 "EXIST": "Directory already exists"
             }
+        },
+        "EDITOR": {
+            "TABS": {
+                "CONTENT": "Content",
+                "STYLES": "Styles"
+            }
         }
     }
 }

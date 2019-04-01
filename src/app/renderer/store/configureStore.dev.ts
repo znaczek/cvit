@@ -12,14 +12,14 @@ const configureStore = (initialState?: {}): Store => {
 
     middleware.push(thunk);
 
-    const logger = createLogger({
-        level: 'info',
-        collapsed: true
-    });
+    // const logger = createLogger({
+    //     level: 'info',
+    //     collapsed: true
+    // });
 
-    if (process.env.NODE_ENV !== 'test') {
-        middleware.push(logger);
-    }
+    // if (process.env.NODE_ENV !== 'test') {
+    //     middleware.push(logger);
+    // }
 
     const router = routerMiddleware(history);
     middleware.push(router);
