@@ -15,26 +15,44 @@ interface Props {
     t: i18n.TFunction,
 }
 
+interface State {
+    selected: number;
+}
+
 export class Editor extends React.Component<Props> {
     public props: Props;
+    public state: State;
 
-    public onChange(e: any) {
-        console.log(e);
+    constructor(props: Props) {
+        super(props);
+        this.state = {selected: 0};
     }
+
+    public onTabChange = (index: number) => {
+        this.setState({selected: index})
+    };
+
+    public onContentChange = (e: any) => {
+        console.log(e);
+    };
 
     public render() {
         const {content, t} = this.props;
+        const {selected} = this.state;
         const html = ProjectService.getHTML(content);
         const styles = ProjectService.getStyles(content);
 
         return (
-            <EditorView>
+            <EditorView
+                selected={selected}
+                onChange={this.onTabChange}
+            >
                 <EditorTab title={t('PROJECT.EDITOR.TABS.CONTENT')}>
                     <AceEditor
                         value={html}
                         mode='html'
                         theme={theme}
-                        onChange={this.onChange}
+                        onChange={this.onContentChange}
                         name='content'
                     />
                 </EditorTab>
@@ -43,7 +61,7 @@ export class Editor extends React.Component<Props> {
                         value={styles}
                         mode='css'
                         theme={theme}
-                        onChange={this.onChange}
+                        onChange={this.onContentChange}
                         name='styles'
                     />
                 </EditorTab>
