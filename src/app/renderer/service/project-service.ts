@@ -12,4 +12,8 @@ export class ProjectService {
         return styles.reduce((acc: string, curr: HTMLStyleElement) => acc + curr.innerHTML, '');
     }
 
+    public static output(html: string, styles: string): string {
+        return
+    }
+
 }

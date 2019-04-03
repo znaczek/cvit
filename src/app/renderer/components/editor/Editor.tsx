@@ -3,16 +3,16 @@ import {EditorTab} from './EditorTab';
 import {ProjectService} from '../../service/project-service';
 import {EditorView} from './EditorView';
 import i18n from 'i18next';
-import AceEditor from 'react-ace';
-import 'brace/mode/html';
-import 'brace/mode/css';
-import 'brace/theme/idle_fingers';
-
-const theme = 'idle_fingers';
+import {EditorContainer} from './EditorContainer';
+import {EditorMode} from '../../types/editor-mode.type';
 
 interface Props {
-    content: string,
-    t: i18n.TFunction,
+    t: i18n.TFunction;
+    html: string;
+    styles: string;
+    updateHtml: (html: string) => void,
+    updateStyles: (styles: string) => void,
+
 }
 
 interface State {
@@ -32,15 +32,17 @@ export class Editor extends React.Component<Props> {
         this.setState({selected: index})
     };
 
-    public onContentChange = (e: any) => {
-        console.log(e);
+    public onContentChange = (content: string, mode: EditorMode) => {
+        if (mode === 'html') {
+            this.props.updateHtml(content);
+        } else if(mode === 'css') {
+            this.props.updateStyles(content);
+        }
     };
 
     public render() {
-        const {content, t} = this.props;
+        const {html, styles, t} = this.props;
         const {selected} = this.state;
-        const html = ProjectService.getHTML(content);
-        const styles = ProjectService.getStyles(content);
 
         return (
             <EditorView
@@ -48,21 +50,19 @@ export class Editor extends React.Component<Props> {
                 onChange={this.onTabChange}
             >
                 <EditorTab title={t('PROJECT.EDITOR.TABS.CONTENT')}>
-                    <AceEditor
+                    <EditorContainer
                         value={html}
                         mode='html'
-                        theme={theme}
-                        onChange={this.onContentChange}
-                        name='content'
+                        id='content'
+                        onChange={(content: string) => this.onContentChange(content, 'html')}
                     />
                 </EditorTab>
                 <EditorTab title={t('PROJECT.EDITOR.TABS.STYLES')}>
-                    <AceEditor
+                    <EditorContainer
                         value={styles}
                         mode='css'
-                        theme={theme}
-                        onChange={this.onContentChange}
-                        name='styles'
+                        id='styles'
+                        onChange={(content: string) => this.onContentChange(content, 'css')}
                     />
                 </EditorTab>
             </EditorView>

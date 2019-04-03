@@ -64,6 +64,7 @@
     }
   },
   "devDependencies": {
+    "@emmetio/expand-abbreviation": "^0.7.3",
     "@types/electron-devtools-installer": "^2.2.0",
     "@types/history": "^4.7.2",
     "@types/jsdom": "^12.2.3",
@@ -87,6 +88,8 @@
     "electron-devtools-installer": "^2.2.4",
     "electron-log": "^3.0.1",
     "electron-updater": "^4.0.6",
+    "emmet": "^1.6.3",
+    "emmet-core": "^1.0.0",
     "history": "^4.7.2",
     "html-webpack-plugin": "^3.2.0",
     "i18next": "^15.0.6",

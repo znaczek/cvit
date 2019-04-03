@@ -39,7 +39,8 @@ const TabPane = styled.article<TabPaneProps>`
     display: ${({selected}: TabPaneProps) => selected ? 'block' : 'none'}
     width: 100%;
     #content, #styles {
-        width: 100% !important;
+        width: 100%;
+        height: calc(100vh - 36px);
     }
 `;
 

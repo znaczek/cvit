@@ -1,4 +1,5 @@
 export interface ProjectsStateInterface {
     directory: string,
-    content: any,
+    html: string,
+    styles: string,
 }

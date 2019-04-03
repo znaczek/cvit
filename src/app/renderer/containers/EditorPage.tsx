@@ -12,8 +12,11 @@ import i18n from 'i18next';
 
 interface Props {
     directory: string,
-    content: string,
+    html: string,
+    styles: string,
     getContent: (file: string) => void,
+    updateHtml: (html: string) => void,
+    updateStyles: (styles: string) => void,
     t: i18n.TFunction,
 }
 
@@ -21,15 +24,20 @@ export class EditorPage extends React.Component<Props> {
     public props: Props;
 
     render() {
-        const {directory, content, getContent, t} = this.props;
+        const {t, directory, html, styles, getContent, updateHtml, updateStyles} = this.props;
         if (!directory) {
             return <Redirect to="/"/>
         }
-        if (!content) {
+
+        if (!html || !styles) {
             getContent(directory);
+            return null;
         }
         return <Editor
-            content={content}
+            html={html}
+            styles={styles}
+            updateHtml={updateHtml}
+            updateStyles={updateStyles}
             t={t}
         />;
     }
@@ -37,11 +45,14 @@ export class EditorPage extends React.Component<Props> {
 
 const mapStateToProps = (state: ApplicationStateInterface): Partial<Props> => ({
     directory: ProjectSelectors.getDirectory(state),
-    content: ProjectSelectors.getContent(state),
+    html: ProjectSelectors.getHtml(state),
+    styles: ProjectSelectors.getStyles(state),
 });
 
 const mapDispatchToProps = (dispatch: AppThunkDispatchType) => ({
-    getContent: (file: string) => dispatch(ProjectActions.getContent(file))
+    getContent: (file: string) => dispatch(ProjectActions.getContent(file)),
+    updateHtml: (html: string) => dispatch(ProjectActions.updateHtml(html)),
+    updateStyles: (styles: string) => dispatch(ProjectActions.updateStyles(styles))
 });
 
 export default compose(

@@ -4,7 +4,8 @@ import {ProjectActions} from '../actions/project.actions';
 
 const initialState: ProjectsStateInterface = {
     directory: null,
-    content: null,
+    html: null,
+    styles: null,
 };
 
 export default (state: ProjectsStateInterface = initialState, action: ActionInterface<any>): ProjectsStateInterface => {
@@ -15,10 +16,16 @@ export default (state: ProjectsStateInterface = initialState, action: ActionInte
                 directory: action.payload,
             }
         }
-        case ProjectActions.GET_CONTENT_SUCCESS: {
+        case ProjectActions.UPDATE_HTML: {
             return {
                 ...state,
-                content: action.payload,
+                html: action.payload,
+            }
+        }
+        case ProjectActions.UPDATE_STYLES: {
+            return {
+                ...state,
+                styles: action.payload,
             }
         }
         default:

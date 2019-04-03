@@ -8,6 +8,7 @@ import {history} from '../../history';
 import {ROUTES} from '../../constants/route';
 import {OpenProjectInterface} from '../../interfaces/open-project.interface';
 import {Dispatch} from 'redux';
+import {ProjectService} from '../../service/project-service';
 
 const prefix = '[PROJECT] ';
 
@@ -19,6 +20,9 @@ export class ProjectActions {
 
     public static readonly GET_CONTENT_SUCCESS = prefix + 'GET_CONTENT_SUCCESS';
     public static readonly GET_CONTENT_FAILURE = prefix + 'GET_CONTENT_FAILURE';
+
+    public static readonly UPDATE_HTML = prefix + 'UPDATE_HTML';
+    public static readonly UPDATE_STYLES = prefix + 'UPDATE_STYLES';
 
     public static startCreateProject(): ActionInterface {
         return {
@@ -69,17 +73,20 @@ export class ProjectActions {
         return async (dispatch: AppThunkDispatchType) => {
             try {
                 const content = await StorageService.getContent(file);
-                return dispatch(ProjectActions.getContentSuccess(content));
+                const html = ProjectService.getHTML(content);
+                const styles = ProjectService.getStyles(content);
+                dispatch(ProjectActions.updateHtml(html));
+                dispatch(ProjectActions.updateStyles(styles));
+                return dispatch(ProjectActions.getContentSuccess());
             } catch (e) {
                 return dispatch(ProjectActions.getContentFailure(e));
             }
         }
     }
 
-    public static getContentSuccess(content: string): ActionInterface<string> {
+    public static getContentSuccess():  ActionInterface {
         return {
             type: ProjectActions.GET_CONTENT_SUCCESS,
-            payload: content,
         }
     }
 
@@ -87,6 +94,20 @@ export class ProjectActions {
         return {
             type: ProjectActions.GET_CONTENT_FAILURE,
             payload: e,
+        }
+    }
+
+    public static updateHtml(html: string): ActionInterface<string> {
+        return {
+            type: ProjectActions.UPDATE_HTML,
+            payload: html,
+        }
+    }
+
+    public static updateStyles(styles: string): ActionInterface<string> {
+        return {
+            type: ProjectActions.UPDATE_STYLES,
+            payload: styles,
         }
     }
 

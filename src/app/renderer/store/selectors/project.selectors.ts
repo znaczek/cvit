@@ -13,9 +13,14 @@ export class ProjectSelectors {
         (state: ProjectsStateInterface): string => state.directory,
     );
 
-    public static getContent = createSelector(
+    public static getHtml = createSelector(
         ProjectSelectors.getProjectState,
-        (state: ProjectsStateInterface): string => state.content,
+        (state: ProjectsStateInterface): string => state.html,
+    );
+
+    public static getStyles = createSelector(
+        ProjectSelectors.getProjectState,
+        (state: ProjectsStateInterface): string => state.styles,
     );
 
 }
