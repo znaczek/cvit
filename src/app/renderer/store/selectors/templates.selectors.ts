@@ -5,7 +5,7 @@ import {TemplatesStateInterface} from '../../interfaces/state/templates-state.in
 import {OptionModel} from '../../../common/model/options-model';
 
 export class TemplatesSelectors {
-    private static getTemplatesState = (state: ApplicationStateInterface): TemplatesStateInterface => state.templates;
+    public static getTemplatesState = (state: ApplicationStateInterface): TemplatesStateInterface => state.templates;
 
     public static getList = createSelector(
         TemplatesSelectors.getTemplatesState,

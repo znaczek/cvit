@@ -12,8 +12,14 @@ export class ProjectService {
         return styles.reduce((acc: string, curr: HTMLStyleElement) => acc + curr.innerHTML, '');
     }
 
-    public static output(html: string, styles: string): string {
-        return
+    public static getProject(baseTempalte: string, html: string, styles: string): string {
+        const dom = new JSDOM(baseTempalte);
+        const document = dom.window.document;
+        const styleTag = document.createElement('style');
+        styleTag.innerHTML = styles;
+        document.head.appendChild(styleTag);
+        document.body.innerHTML = html;
+        return document.documentElement.outerHTML;
     }
 
 }

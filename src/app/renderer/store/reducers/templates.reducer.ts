@@ -3,6 +3,7 @@ import {TemplatesStateInterface} from '../../interfaces/state/templates-state.in
 
 const initialState: TemplatesStateInterface = {
     list: null,
+    base: null,
 };
 
 export default (state: TemplatesStateInterface = initialState, action: ActionInterface<any>): TemplatesStateInterface => {

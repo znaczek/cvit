@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {EditorTab} from './EditorTab';
-import {ProjectService} from '../../service/project-service';
 import {EditorView} from './EditorView';
 import i18n from 'i18next';
 import {EditorContainer} from './EditorContainer';

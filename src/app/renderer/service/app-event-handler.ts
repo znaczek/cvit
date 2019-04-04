@@ -15,6 +15,9 @@ export class AppEventHandler {
                     destination: event.payload
                 }))
             }
+            case appEvents.SAVE: {
+                return (<AppThunkDispatchType>dispatch)(ProjectActions.save())
+            }
         }
     }
 }

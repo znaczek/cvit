@@ -2,6 +2,7 @@ import 'emmet-core';
 import * as React from 'react';
 import AceEditor from 'react-ace';
 import 'brace/ext/emmet';
+import 'brace/ext/searchbox';
 import 'brace/mode/html';
 import 'brace/mode/css';
 import 'brace/theme/idle_fingers';

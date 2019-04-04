@@ -9,6 +9,8 @@ import {ROUTES} from '../../constants/route';
 import {OpenProjectInterface} from '../../interfaces/open-project.interface';
 import {Dispatch} from 'redux';
 import {ProjectService} from '../../service/project-service';
+import {ApplicationStateInterface} from '../../../common/interfaces/application-state.interface';
+import {ProjectSelectors} from '../selectors/project.selectors';
 
 const prefix = '[PROJECT] ';
 
@@ -23,6 +25,10 @@ export class ProjectActions {
 
     public static readonly UPDATE_HTML = prefix + 'UPDATE_HTML';
     public static readonly UPDATE_STYLES = prefix + 'UPDATE_STYLES';
+
+    public static readonly SAVE = prefix + 'SAVE';
+    public static readonly SAVE_SUCCESS = prefix + 'SAVE_SUCCESS';
+    public static readonly SAVE_FAILURE = prefix + 'SAVE_FAILURE';
 
     public static startCreateProject(): ActionInterface {
         return {
@@ -108,6 +114,13 @@ export class ProjectActions {
         return {
             type: ProjectActions.UPDATE_STYLES,
             payload: styles,
+        }
+    }
+
+    public static save(): AppThunkActionType<ActionInterface<CreateProjectInterface>> {
+        return async (dispatch: AppThunkDispatchType, getState: () => ApplicationStateInterface) => {
+            const project = ProjectSelectors.getProject(getState());
+            return null;
         }
     }
 

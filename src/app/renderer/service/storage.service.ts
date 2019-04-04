@@ -17,12 +17,19 @@ export class StorageService {
         const templates: Template[] = [];
         const templateNames = await pFs.readdir(PATHS.TEMPLATES);
         for (let i = 0; i < templateNames.length; i += 1) {
-            templates.push(new Template({
-                name: templateNames[i],
-                path: PATHS.TEMPLATES + '/' + templateNames[i],
-            }));
+            const path = PATHS.TEMPLATES + '/' + templateNames[i];
+            if(fs.lstatSync(path).isDirectory()) {
+                templates.push(new Template({
+                    name: templateNames[i],
+                    path,
+                }));
+            }
         }
         return templates;
+    }
+
+    public static async getBaseTemplate(): Promise<string> {
+        return pFs.readFile(PATHS.BASIC_TEMPLATE, ENCODING);
     }
 
     public static createProject(options: CreateProjectInterface): Promise<void> {
@@ -37,8 +44,7 @@ export class StorageService {
     }
 
     public static async getContent(file: string): Promise<string> {
-        const content = await pFs.readFile(file + '/' + CV_FILE_NAME, ENCODING);
-        return content;
+        return pFs.readFile(file + '/' + CV_FILE_NAME, ENCODING);
     }
 
 }

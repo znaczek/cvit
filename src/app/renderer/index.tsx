@@ -7,7 +7,7 @@ import './app.css';
 import i18n from 'i18next';
 import {initReactI18next} from 'react-i18next';
 import * as enLang from './../../lang/en.json';
-import {BootstraDataType} from './types/bootstra-data.type';
+import {BootstrapDataType} from './types/bootstra-data.type';
 import {ApplicationStateInterface} from '../common/interfaces/application-state.interface';
 import {Store} from 'redux';
 import {StorageService} from './service/storage.service';
@@ -27,11 +27,12 @@ window.bb = () => history.push('/');
 
 export let store: Store<ApplicationStateInterface>;
 
-const bootstrapApp = (data: BootstraDataType) => {
+const bootstrapApp = (data: BootstrapDataType) => {
 
     store = configureStore({
         templates: {
             list: data[0],
+            base: data[1],
         }
     });
 
@@ -68,6 +69,7 @@ const bootstrapApp = (data: BootstraDataType) => {
 
 Promise.all([
     StorageService.getTemplates(),
+    StorageService.getBaseTemplate(),
 ]).then((data) => {
     bootstrapApp(data);
 });

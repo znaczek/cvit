@@ -1,3 +1,3 @@
 import {Template} from '../models/template.model';
 
-export type BootstraDataType = Template[][];
+export type BootstrapDataType = [Template[], string];

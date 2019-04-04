@@ -77,6 +77,11 @@ export default class MenuBuilder {
                         }, (paths) => this.mainWindow.webContents.send(APP_EVENT, new appEvents.Open(paths)))
                     },
                     {
+                        label: '&Save',
+                        accelerator: 'Ctrl+S',
+                        click: () => this.mainWindow.webContents.send(APP_EVENT, new appEvents.Save())
+                    },
+                    {
                         label: '&Close',
                         accelerator: 'Ctrl+W',
                         click: () => {
