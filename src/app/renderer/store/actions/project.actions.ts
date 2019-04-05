@@ -1,5 +1,4 @@
 import {ActionInterface} from '../../../common/interfaces/action.interface';
-import {Template} from '../../models/template.model';
 import {CreateProjectInterface} from '../../interfaces/create-project.interface';
 import {StorageService} from '../../service/storage.service';
 import {AppThunkActionType} from '../../../common/types/app-thunk-action.type';
@@ -7,10 +6,10 @@ import {AppThunkDispatchType} from '../../../common/types/app-thunk-dispatch.typ
 import {history} from '../../history';
 import {ROUTES} from '../../constants/route';
 import {OpenProjectInterface} from '../../interfaces/open-project.interface';
-import {Dispatch} from 'redux';
 import {ProjectService} from '../../service/project-service';
 import {ApplicationStateInterface} from '../../../common/interfaces/application-state.interface';
 import {ProjectSelectors} from '../selectors/project.selectors';
+import {CV_FILE_NAME} from '../../../common/constants';
 
 const prefix = '[PROJECT] ';
 
@@ -75,10 +74,10 @@ export class ProjectActions {
         }
     }
 
-    public static getContent(file: string): AppThunkActionType<ActionInterface<CreateProjectInterface>> {
+    public static getContent(directory: string): AppThunkActionType<ActionInterface<CreateProjectInterface>> {
         return async (dispatch: AppThunkDispatchType) => {
             try {
-                const content = await StorageService.getContent(file);
+                const content = await StorageService.getContent(directory + '/' + CV_FILE_NAME);
                 const html = ProjectService.getHTML(content);
                 const styles = ProjectService.getStyles(content);
                 dispatch(ProjectActions.updateHtml(html));
@@ -119,8 +118,28 @@ export class ProjectActions {
 
     public static save(): AppThunkActionType<ActionInterface<CreateProjectInterface>> {
         return async (dispatch: AppThunkDispatchType, getState: () => ApplicationStateInterface) => {
-            const project = ProjectSelectors.getProject(getState());
-            return null;
+            const state = getState();
+            const project = ProjectSelectors.getProject(state);
+            const directory = ProjectSelectors.getDirectory(state);
+            try {
+                await StorageService.save(directory + '/' + CV_FILE_NAME, project);
+                return dispatch(ProjectActions.saveSuccess());
+            } catch (e) {
+                return dispatch(ProjectActions.saveFailure(e));
+            }
+        }
+    }
+
+    public static saveSuccess(): ActionInterface {
+        return {
+            type: ProjectActions.SAVE_SUCCESS,
+        }
+    }
+
+    public static saveFailure(e: any): ActionInterface<any> {
+        return {
+            type: ProjectActions.SAVE_FAILURE,
+            payload: e,
         }
     }
 

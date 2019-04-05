@@ -29,8 +29,11 @@ export class EditorPage extends React.Component<Props> {
             return <Redirect to="/"/>
         }
 
-        if (!html || !styles) {
+        if (html === null && styles === null) {
             getContent(directory);
+            return null;
+        }
+        if (html === null || styles === null) {
             return null;
         }
         return <Editor

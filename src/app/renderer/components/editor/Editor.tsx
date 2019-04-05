@@ -39,6 +39,10 @@ export class Editor extends React.Component<Props> {
         }
     };
 
+    public componentDidCatch(error: any, info: any) {
+        console.log(error, info);
+    }
+
     public render() {
         const {html, styles, t} = this.props;
         const {selected} = this.state;

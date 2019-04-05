@@ -11,9 +11,12 @@ export class AppEventHandler {
                 return dispatch(ProjectActions.startCreateProject())
             }
             case appEvents.OPEN: {
-                return (<AppThunkDispatchType>dispatch)(ProjectActions.openProject({
-                    destination: event.payload
-                }))
+                if (event.payload) {
+                    return (<AppThunkDispatchType>dispatch)(ProjectActions.openProject({
+                        destination: event.payload
+                    }))
+                }
+                return;
             }
             case appEvents.SAVE: {
                 return (<AppThunkDispatchType>dispatch)(ProjectActions.save())

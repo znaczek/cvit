@@ -43,8 +43,12 @@ export class StorageService {
         });
     }
 
-    public static async getContent(file: string): Promise<string> {
-        return pFs.readFile(file + '/' + CV_FILE_NAME, ENCODING);
+    public static async getContent(path: string): Promise<string> {
+        return pFs.readFile(path, ENCODING);
+    }
+
+    public static async save(path: string, content: string) {
+        return pFs.writeFile(path, content);
     }
 
 }

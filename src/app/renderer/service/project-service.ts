@@ -16,7 +16,7 @@ export class ProjectService {
         const dom = new JSDOM(baseTempalte);
         const document = dom.window.document;
         const styleTag = document.createElement('style');
-        styleTag.innerHTML = styles;
+        styleTag.appendChild(document.createTextNode(styles));
         document.head.appendChild(styleTag);
         document.body.innerHTML = html;
         return document.documentElement.outerHTML;
