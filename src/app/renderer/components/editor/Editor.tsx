@@ -34,14 +34,10 @@ export class Editor extends React.Component<Props> {
     public onContentChange = (content: string, mode: EditorMode) => {
         if (mode === 'html') {
             this.props.updateHtml(content);
-        } else if(mode === 'css') {
+        } else if (mode === 'css') {
             this.props.updateStyles(content);
         }
     };
-
-    public componentDidCatch(error: any, info: any) {
-        console.log(error, info);
-    }
 
     public render() {
         const {html, styles, t} = this.props;
@@ -57,6 +53,7 @@ export class Editor extends React.Component<Props> {
                         value={html}
                         mode='html'
                         id='content'
+                        focus={selected === 0}
                         onChange={(content: string) => this.onContentChange(content, 'html')}
                     />
                 </EditorTab>
@@ -65,6 +62,7 @@ export class Editor extends React.Component<Props> {
                         value={styles}
                         mode='css'
                         id='styles'
+                        focus={selected === 1}
                         onChange={(content: string) => this.onContentChange(content, 'css')}
                     />
                 </EditorTab>

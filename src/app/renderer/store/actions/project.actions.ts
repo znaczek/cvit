@@ -39,9 +39,9 @@ export class ProjectActions {
         return async (dispatch: AppThunkDispatchType) => {
             try {
                 await StorageService.createProject(payload);
-                const dispatchResult = dispatch(ProjectActions.openProjectSuccess(payload.destination));
+                await dispatch(ProjectActions.getContent(payload.destination));
+                dispatch(ProjectActions.openProjectSuccess(payload.destination));
                 history.push(ROUTES.EDITOR);
-                return dispatchResult;
             } catch (e) {
                 return dispatch(ProjectActions.openProjectFailure(e));
             }
@@ -51,9 +51,9 @@ export class ProjectActions {
     public static openProject(payload: OpenProjectInterface): AppThunkActionType<ActionInterface<OpenProjectInterface>> {
         return async (dispatch: AppThunkDispatchType) => {
             try {
-                const dispatchResult = dispatch(ProjectActions.openProjectSuccess(payload.destination));
+                await dispatch(ProjectActions.getContent(payload.destination));
+                dispatch(ProjectActions.openProjectSuccess(payload.destination));
                 history.push(ROUTES.EDITOR);
-                return dispatchResult;
             } catch (e) {
                 return dispatch(ProjectActions.openProjectFailure(e));
             }
