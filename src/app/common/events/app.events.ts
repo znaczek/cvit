@@ -3,6 +3,8 @@ import {ActionInterface} from '../interfaces/action.interface';
 export const CREATE_NEW = 'CREATE_NEW';
 export const OPEN = 'OPEN';
 export const SAVE = 'SAVE';
+export const UNDO = 'UNDO';
+export const REDO = 'REDO';
 
 export class CreateNew implements ActionInterface {
     public readonly type = CREATE_NEW;
@@ -22,4 +24,12 @@ export class Save implements ActionInterface {
     public readonly type = SAVE;
 }
 
-export type types = CreateNew | Open | Save;
+export class Undo implements ActionInterface {
+    public readonly type = UNDO;
+}
+
+export class Redo implements ActionInterface {
+    public readonly type = REDO;
+}
+
+export type types = CreateNew | Open | Save | Undo | Redo;

@@ -7,11 +7,12 @@ import {EditorMode} from '../../types/editor-mode.type';
 
 interface Props {
     t: i18n.TFunction;
+    undo: number,
+    redo: number,
     html: string;
     styles: string;
     updateHtml: (html: string) => void,
     updateStyles: (styles: string) => void,
-
 }
 
 interface State {
@@ -40,7 +41,13 @@ export class Editor extends React.Component<Props> {
     };
 
     public render() {
-        const {html, styles, t} = this.props;
+        const {
+            t,
+            undo,
+            redo,
+            html,
+            styles,
+        } = this.props;
         const {selected} = this.state;
 
         return (
@@ -54,6 +61,8 @@ export class Editor extends React.Component<Props> {
                         mode='html'
                         id='content'
                         focus={selected === 0}
+                        undo={undo}
+                        redo={redo}
                         onChange={(content: string) => this.onContentChange(content, 'html')}
                     />
                 </EditorTab>
@@ -63,6 +72,8 @@ export class Editor extends React.Component<Props> {
                         mode='css'
                         id='styles'
                         focus={selected === 1}
+                        undo={undo}
+                        redo={redo}
                         onChange={(content: string) => this.onContentChange(content, 'css')}
                     />
                 </EditorTab>

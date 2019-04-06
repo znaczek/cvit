@@ -5,6 +5,8 @@ import {UiActions} from '../actions/UiActions';
 
 const initialState: UiStateInterface = {
     newProjectPopupVisible: false,
+    undo: null,
+    redo: null,
 };
 
 export default (state: UiStateInterface = initialState, action: ActionInterface<any>): UiStateInterface => {
@@ -20,6 +22,18 @@ export default (state: UiStateInterface = initialState, action: ActionInterface<
             return {
                 ...state,
                 newProjectPopupVisible: false,
+            }
+        }
+        case UiActions.UNDO: {
+            return {
+                ...state,
+                undo: new Date().getTime(),
+            }
+        }
+        case UiActions.REDO: {
+            return {
+                ...state,
+                redo: new Date().getTime(),
             }
         }
         default:

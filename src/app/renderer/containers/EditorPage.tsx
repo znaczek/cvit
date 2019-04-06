@@ -9,22 +9,35 @@ import {Redirect} from 'react-router';
 import {compose} from 'redux';
 import {withTranslation} from 'react-i18next';
 import i18n from 'i18next';
+import {UiSelectors} from '../store/selectors/ui.selectors';
 
 interface Props {
+    t: i18n.TFunction,
+    undo: number,
+    redo: number,
     directory: string,
     html: string,
     styles: string,
     getContent: (file: string) => void,
     updateHtml: (html: string) => void,
     updateStyles: (styles: string) => void,
-    t: i18n.TFunction,
 }
 
 export class EditorPage extends React.Component<Props> {
     public props: Props;
 
     render() {
-        const {t, directory, html, styles, getContent, updateHtml, updateStyles} = this.props;
+        const {
+            t,
+            undo,
+            redo,
+            directory,
+            html,
+            styles,
+            getContent,
+            updateHtml,
+            updateStyles
+        } = this.props;
         if (!directory) {
             return <Redirect to="/"/>
         }
@@ -39,6 +52,8 @@ export class EditorPage extends React.Component<Props> {
         return <Editor
             html={html}
             styles={styles}
+            undo={undo}
+            redo={redo}
             updateHtml={updateHtml}
             updateStyles={updateStyles}
             t={t}
@@ -50,6 +65,8 @@ const mapStateToProps = (state: ApplicationStateInterface): Partial<Props> => ({
     directory: ProjectSelectors.getDirectory(state),
     html: ProjectSelectors.getHtml(state),
     styles: ProjectSelectors.getStyles(state),
+    undo: UiSelectors.getUndo(state),
+    redo: UiSelectors.getRedo(state),
 });
 
 const mapDispatchToProps = (dispatch: AppThunkDispatchType) => ({

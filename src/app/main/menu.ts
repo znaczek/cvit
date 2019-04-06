@@ -81,13 +81,38 @@ export default class MenuBuilder {
                         accelerator: 'Ctrl+S',
                         click: () => this.mainWindow.webContents.send(APP_EVENT, new appEvents.Save())
                     },
+                    {label: '&Close', role: 'close'}
+                ]
+            },
+            {
+                label: '&Edit',
+                submenu: [
                     {
-                        label: '&Close',
-                        accelerator: 'Ctrl+W',
-                        click: () => {
-                            this.mainWindow.close();
-                        }
-                    }
+                        label: 'Undo',
+                        accelerator: 'Ctrl+Z',
+                        click: () => this.mainWindow.webContents.send(APP_EVENT, new appEvents.Undo())
+                    },
+                    {
+                        label: 'Redo',
+                        accelerator: 'Ctrl+Shift+Z',
+                        click: () => this.mainWindow.webContents.send(APP_EVENT, new appEvents.Redo())
+                    },
+                    {role: 'cut', label: 'Cut'},
+                    {role: 'copy', label: 'Copy'},
+                    {role: 'paste', label: 'Paste'},
+                    {role: 'delete', label: 'Delete'},
+                    {role: 'selectall', label: 'Select all'},
+                ]
+            },
+            {
+                label: '&Window',
+                submenu: [
+                    {
+                        label: '&Preview',
+                    },
+                    {
+                        label: '&Render',
+                    },
                 ]
             },
             {

@@ -10,4 +10,14 @@ export class UiSelectors {
         (state: UiStateInterface): boolean => state.newProjectPopupVisible
     );
 
+    public static getUndo = createSelector(
+        UiSelectors.getUiState,
+        (state: UiStateInterface): number => state.undo,
+    );
+
+    public static getRedo = createSelector(
+        UiSelectors.getUiState,
+        (state: UiStateInterface): number => state.redo,
+    );
+
 }
