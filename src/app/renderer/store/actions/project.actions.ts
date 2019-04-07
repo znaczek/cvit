@@ -3,13 +3,13 @@ import {CreateProjectInterface} from '../../interfaces/create-project.interface'
 import {StorageService} from '../../service/storage.service';
 import {AppThunkActionType} from '../../../common/types/app-thunk-action.type';
 import {AppThunkDispatchType} from '../../../common/types/app-thunk-dispatch.type';
-import {history} from '../../history';
-import {ROUTES} from '../../constants/route';
 import {OpenProjectInterface} from '../../interfaces/open-project.interface';
 import {ProjectService} from '../../service/project-service';
 import {ApplicationStateInterface} from '../../../common/interfaces/application-state.interface';
 import {ProjectSelectors} from '../selectors/project.selectors';
-import {CV_FILE_NAME} from '../../../common/constants';
+import {APP_EVENT, CV_FILE_NAME} from '../../../common/constants';
+import {ipcRenderer} from "electron";
+import * as appEvents from '../../../common/events/app.events';
 
 const prefix = '[PROJECT] ';
 
@@ -41,7 +41,6 @@ export class ProjectActions {
                 await StorageService.createProject(payload);
                 await dispatch(ProjectActions.getContent(payload.destination));
                 dispatch(ProjectActions.openProjectSuccess(payload.destination));
-                history.push(ROUTES.EDITOR);
             } catch (e) {
                 return dispatch(ProjectActions.openProjectFailure(e));
             }
@@ -53,7 +52,7 @@ export class ProjectActions {
             try {
                 await dispatch(ProjectActions.getContent(payload.destination));
                 dispatch(ProjectActions.openProjectSuccess(payload.destination));
-                history.push(ROUTES.EDITOR);
+                ipcRenderer.send(APP_EVENT, new appEvents.ProjectOpen(payload.destination));
             } catch (e) {
                 return dispatch(ProjectActions.openProjectFailure(e));
             }

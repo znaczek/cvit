@@ -11,19 +11,13 @@ import {BootstrapDataType} from './types/bootstra-data.type';
 import {ApplicationStateInterface} from '../common/interfaces/application-state.interface';
 import {Store} from 'redux';
 import {StorageService} from './service/storage.service';
-import {history} from './history';
 
 declare global {
     interface Window {
         __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: any;
-        bb: () => void;
+        __APP_DOC_PREVIEW: string;
     }
 }
-
-/**
- * Only for debuging purpose
- */
-window.bb = () => history.push('/');
 
 export let store: Store<ApplicationStateInterface>;
 
@@ -48,7 +42,7 @@ const bootstrapApp = (data: BootstrapDataType) => {
 
     render(
         <AppContainer>
-            <Root store={store} history={history}/>
+            <Root store={store} preview={window.__APP_DOC_PREVIEW}/>
         </AppContainer>,
         document.getElementById('root')
     );
@@ -58,7 +52,7 @@ const bootstrapApp = (data: BootstrapDataType) => {
             const NextRoot = require('./Root').default;
             render(
                 <AppContainer>
-                    <NextRoot store={store} history={history}/>
+                    <NextRoot store={store} preview={window.__APP_DOC_PREVIEW}/>
                 </AppContainer>,
                 document.getElementById('root')
             );

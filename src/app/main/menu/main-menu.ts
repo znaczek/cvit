@@ -15,10 +15,6 @@ export default class MainMenu implements AppMenuInterface {
     }
 
     public buildMenu(): Menu {
-        if (process.env.NODE_ENV === 'development') {
-            this.setupDevelopmentEnvironment();
-        }
-
         const template = process.platform === 'darwin'
             ? this.buildDarwinTemplate()
             : this.buildDefaultTemplate();
@@ -27,24 +23,6 @@ export default class MainMenu implements AppMenuInterface {
         Menu.setApplicationMenu(menu);
 
         return menu;
-    }
-
-    private setupDevelopmentEnvironment(): void {
-        this.mainWindow.webContents.openDevTools();
-        this.mainWindow.webContents.on('context-menu', (e, props) => {
-            const {x, y} = props;
-
-            Menu.buildFromTemplate([
-                {
-                    label: 'Inspect element',
-                    click: () => {
-                        this.mainWindow.webContents.inspectElement(x, y);
-                    }
-                }
-            ]).popup({
-                window: this.mainWindow,
-            });
-        });
     }
 
     private buildDarwinTemplate(): MenuItemConstructorOptions[] {

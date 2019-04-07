@@ -2,7 +2,6 @@
 <html>
 <head>
     <meta charset="utf-8"/>
-    <title>Hello Electron React!</title>
     <script>
         (function () {
             if (!process.env.HOT) {
@@ -12,6 +11,9 @@
                 // HACK: Writing the script path should be done with webpack
                 document.getElementsByTagName('head')[0].appendChild(link);
             }
+            const queryParams = new URLSearchParams(window.location.search);
+            document.title = queryParams.get('title');
+            window.__APP_DOC_PREVIEW = queryParams.get('preview');
         })();
     </script>
 </head>

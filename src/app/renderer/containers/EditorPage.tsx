@@ -5,11 +5,11 @@ import {AppThunkDispatchType} from '../../common/types/app-thunk-dispatch.type';
 import {Editor} from '../components/editor/Editor';
 import {ProjectSelectors} from '../store/selectors/project.selectors';
 import {ProjectActions} from '../store/actions/project.actions';
-import {Redirect} from 'react-router';
 import {compose} from 'redux';
 import {withTranslation} from 'react-i18next';
 import i18n from 'i18next';
 import {UiSelectors} from '../store/selectors/ui.selectors';
+import Home from '../components/editor/Home';
 
 interface Props {
     t: i18n.TFunction,
@@ -39,7 +39,7 @@ export class EditorPage extends React.Component<Props> {
             updateStyles
         } = this.props;
         if (!directory) {
-            return <Redirect to="/"/>
+            return <Home/>
         }
 
         if (html === null && styles === null) {

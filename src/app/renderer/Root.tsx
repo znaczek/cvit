@@ -1,23 +1,32 @@
 import * as React from 'react';
 import {Provider} from 'react-redux';
-import {ConnectedRouter} from 'connected-react-router';
-import Routes from './Routes';
 import {Store} from 'redux';
-import {History} from 'history';
+import EditorPage from './containers/EditorPage';
+import App from './App';
+import ProjectPage from './containers/ProjectPage';
+import {PreviewPage} from './containers/PreviewPage';
 
 interface Props {
     store: Store;
-    history: History;
+    preview: string;
 }
 
 export default class Root extends React.Component<Props> {
     render() {
-        const {store, history} = this.props;
+        const {store, preview} = this.props;
+        console.log('AAA', preview);
         return (
             <Provider store={store}>
-                <ConnectedRouter history={history}>
-                    <Routes/>
-                </ConnectedRouter>
+                {
+                    preview ? (
+                        <PreviewPage preview={preview}/>
+                    ) : (
+                        <App>
+                            <ProjectPage/>
+                            <EditorPage/>
+                        </App>
+                    )
+                }
             </Provider>
         );
     }

@@ -7,7 +7,7 @@ import {connect} from 'react-redux';
 import {Action, Dispatch} from 'redux';
 
 interface Props {
-    children: React.ReactNode;
+    children: React.ReactNodeArray;
     dispatch: Dispatch<Action>;
 }
 

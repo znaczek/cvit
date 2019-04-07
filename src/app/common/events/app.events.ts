@@ -6,6 +6,8 @@ export const SAVE = 'SAVE';
 export const UNDO = 'UNDO';
 export const REDO = 'REDO';
 
+export const PROJECT_OPEN = 'PROJECT_OPEN';
+
 export class CreateNew implements ActionInterface {
     public readonly type = CREATE_NEW;
     public readonly payload: any;
@@ -32,4 +34,15 @@ export class Redo implements ActionInterface {
     public readonly type = REDO;
 }
 
-export type types = CreateNew | Open | Save | Undo | Redo;
+export class ProjectOpen implements ActionInterface<string> {
+    public readonly type = PROJECT_OPEN;
+    public readonly payload: string;
+
+    constructor(directory: string) {
+        this.payload = directory
+    }
+}
+
+export type types = CreateNew | Open | Save | Undo | Redo |
+    ProjectOpen
+    ;

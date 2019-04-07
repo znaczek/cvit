@@ -1,7 +1,6 @@
 import {applyMiddleware, compose, createStore, Store} from 'redux';
 import thunk from 'redux-thunk';
 import {routerActions, routerMiddleware} from 'connected-react-router';
-import {createLogger} from 'redux-logger';
 import createRootReducer from './reducers';
 import {history} from '../history';
 
@@ -11,15 +10,6 @@ const configureStore = (initialState?: {}): Store => {
     const middleware = [];
 
     middleware.push(thunk);
-
-    // const logger = createLogger({
-    //     level: 'info',
-    //     collapsed: true
-    // });
-
-    // if (process.env.NODE_ENV !== 'test') {
-    //     middleware.push(logger);
-    // }
 
     const router = routerMiddleware(history);
     middleware.push(router);
