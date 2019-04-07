@@ -1,8 +1,8 @@
-import {app, BrowserWindow} from 'electron';
+import {app} from 'electron';
 import {autoUpdater} from 'electron-updater';
 import log from 'electron-log';
-import MenuBuilder from './menu';
 import installer, {REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS} from 'electron-devtools-installer';
+import {MainWindow} from './windows/main-window';
 
 class AppUpdater {
     constructor() {
@@ -11,8 +11,6 @@ class AppUpdater {
         autoUpdater.checkForUpdatesAndNotify();
     }
 }
-
-let mainWindow: BrowserWindow = null;
 
 const installExtensions = async () => {
     console.info('installing extensions');
@@ -34,30 +32,9 @@ app.on('ready', async () => {
         await installExtensions();
     }
 
-    mainWindow = new BrowserWindow({
-        show: false,
-        width: 1024,
-        height: 728
-    });
-
-    mainWindow.loadURL(`file://${__dirname}/app.html`);
-
-    mainWindow.webContents.on('did-finish-load', () => {
-        if (!mainWindow) {
-            throw new Error('"mainWindow" is not defined');
-        }
-
-        mainWindow.show();
-        mainWindow.focus();
-
-    });
-
-    mainWindow.on('closed', () => {
-        mainWindow = null;
-    });
-
-    const menuBuilder = new MenuBuilder(mainWindow);
-    menuBuilder.buildMenu();
+    const mainWindow = new MainWindow();
+    mainWindow.open();
+    mainWindow.onClose.addListener(MainWindow.CLOSE_EVENT, app.quit);
 
     new AppUpdater();
 });

@@ -1,17 +1,20 @@
 import {BrowserWindow, Menu, shell, dialog} from 'electron';
 import MenuItemConstructorOptions = Electron.MenuItemConstructorOptions;
-import * as appEvents from '../common/events/app.events';
-import {APP_EVENT} from '../common/constants';
-
-type menuType = ('normal' | 'separator' | 'submenu' | 'checkbox' | 'radio');
+import * as appEvents from '../../common/events/app.events';
+import {APP_EVENT} from '../../common/constants';
+import {AppMenuInterface} from './app-menu.interface';
+import {PreviewWindow} from '../windows/preview-window';
+import {Assertions} from '../../common/utils/assertion.utils';
 
 // TODO adjust darwin template when menu is done
-export default class MenuBuilder {
+export default class MainMenu implements AppMenuInterface {
+
+    public onPreview: () => void;
 
     constructor(private mainWindow: BrowserWindow) {
     }
 
-    buildMenu() {
+    public buildMenu(): Menu {
         if (process.env.NODE_ENV === 'development') {
             this.setupDevelopmentEnvironment();
         }
@@ -26,7 +29,7 @@ export default class MenuBuilder {
         return menu;
     }
 
-    setupDevelopmentEnvironment() {
+    private setupDevelopmentEnvironment(): void {
         this.mainWindow.webContents.openDevTools();
         this.mainWindow.webContents.on('context-menu', (e, props) => {
             const {x, y} = props;
@@ -44,7 +47,7 @@ export default class MenuBuilder {
         });
     }
 
-    buildDarwinTemplate(): MenuItemConstructorOptions[] {
+    private buildDarwinTemplate(): MenuItemConstructorOptions[] {
         const subMenuAbout = {
             label: 'Electron',
             submenu: [
@@ -58,7 +61,7 @@ export default class MenuBuilder {
         return [subMenuAbout];
     }
 
-    buildDefaultTemplate(): MenuItemConstructorOptions[] {
+    private buildDefaultTemplate(): MenuItemConstructorOptions[] {
         const templateDefault = [
             {
                 label: '&File',
@@ -109,6 +112,11 @@ export default class MenuBuilder {
                 submenu: [
                     {
                         label: '&Preview',
+                        click: () => {
+                            if (this.onPreview && Assertions.isFunction(this.onPreview)) {
+                                this.onPreview();
+                            }
+                        },
                     },
                     {
                         label: '&Render',
