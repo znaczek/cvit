@@ -6,8 +6,11 @@ interface Props {
 }
 
 const IFrame = styled.iframe`
-    height: 100vh;
-    width: 100vw;
+    display: block;
+    padding: 20px 0;
+    height: 300vh;
+    width: 215mm;
+    margin: 0 auto;
 `;
 
 export const Preview = (props: Props) => {

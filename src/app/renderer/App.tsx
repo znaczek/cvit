@@ -15,6 +15,8 @@ export class App extends React.Component<Props> {
     props: Props;
 
     public componentDidMount() {
+        const root = window.document.getElementById('root');
+        root.style.height = '100vh';
         ipcRenderer.on(APP_EVENT, (e: any, action: appEvents.types) => AppEventHandler.handle(action));
     }
 

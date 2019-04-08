@@ -14,7 +14,6 @@ interface Props {
 export default class Root extends React.Component<Props> {
     render() {
         const {store, preview} = this.props;
-        console.log('AAA', preview);
         return (
             <Provider store={store}>
                 {
