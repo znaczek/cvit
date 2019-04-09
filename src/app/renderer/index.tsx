@@ -22,11 +22,15 @@ declare global {
 export let store: Store<ApplicationStateInterface>;
 
 const bootstrapApp = (data: BootstrapDataType) => {
-
     store = configureStore({
         templates: {
             list: data[0],
             base: data[1],
+        },
+        project: {
+            directory: data[2] ? data[2].directory : null,
+            html: data[2] ? data[2].html : null,
+            styles: data[2] ? data[2].styles : null,
         }
     });
 
@@ -64,6 +68,7 @@ const bootstrapApp = (data: BootstrapDataType) => {
 Promise.all([
     StorageService.getTemplates(),
     StorageService.getBaseTemplate(),
+    StorageService.getInitialProjectState(),
 ]).then((data) => {
     bootstrapApp(data);
 });

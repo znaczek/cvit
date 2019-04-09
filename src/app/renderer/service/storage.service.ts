@@ -4,7 +4,12 @@ import {PATHS} from '../paths';
 import {CreateProjectInterface} from '../interfaces/create-project.interface';
 import {ncp} from 'ncp';
 import {OpenProjectInterface} from '../interfaces/open-project.interface';
-import {CV_FILE_NAME, ENCODING} from '../../common/constants';
+import {APP_EVENT, CV_FILE_NAME, ENCODING} from '../../common/constants';
+import {ProjectService} from './project-service';
+import {LocalStorage} from './local-storage.service';
+import {ProjectsStateInterface} from '../interfaces/state/projects-state.interface';
+import * as appEvents from '../../common/events/app.events';
+import {ipcRenderer} from "electron";
 
 const pFs = require('sb-fs');
 
@@ -41,6 +46,23 @@ export class StorageService {
                 resolve();
             });
         });
+    }
+
+    public static async getInitialProjectState(): Promise<ProjectsStateInterface> {
+        const lastDirectory = LocalStorage.get('lastDirectory');
+        if (lastDirectory) {
+            const content = await StorageService.getContent(lastDirectory + '/' + CV_FILE_NAME);
+            const html = ProjectService.getHTML(content);
+            const styles = ProjectService.getStyles(content);
+            ipcRenderer.send(APP_EVENT, new appEvents.ProjectOpen(lastDirectory));
+            return {
+                directory: lastDirectory,
+                html,
+                styles,
+            }
+        } else {
+            return null
+        }
     }
 
     public static async getContent(path: string): Promise<string> {

@@ -8,8 +8,9 @@ import {ProjectService} from '../../service/project-service';
 import {ApplicationStateInterface} from '../../../common/interfaces/application-state.interface';
 import {ProjectSelectors} from '../selectors/project.selectors';
 import {APP_EVENT, CV_FILE_NAME} from '../../../common/constants';
-import {ipcRenderer} from "electron";
+import {remote, ipcRenderer} from "electron";
 import * as appEvents from '../../../common/events/app.events';
+import {LocalStorage} from '../../service/local-storage.service';
 
 const prefix = '[PROJECT] ';
 
@@ -53,6 +54,7 @@ export class ProjectActions {
                 await dispatch(ProjectActions.getContent(payload.destination));
                 dispatch(ProjectActions.openProjectSuccess(payload.destination));
                 ipcRenderer.send(APP_EVENT, new appEvents.ProjectOpen(payload.destination));
+                LocalStorage.set('lastDirectory', payload.destination);
             } catch (e) {
                 return dispatch(ProjectActions.openProjectFailure(e));
             }
