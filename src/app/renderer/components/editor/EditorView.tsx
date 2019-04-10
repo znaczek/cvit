@@ -40,7 +40,7 @@ const TabPane = styled.article<TabPaneProps>`
     width: 100%;
     #content, #styles {
         width: 100%;
-        height: calc(100vh - 36px);
+        height: calc(100vh - 70px);
     }
 `;
 

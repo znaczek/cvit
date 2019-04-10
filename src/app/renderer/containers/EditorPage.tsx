@@ -50,6 +50,7 @@ export class EditorPage extends React.Component<Props> {
             return null;
         }
         return <Editor
+            title={directory}
             html={html}
             styles={styles}
             undo={undo}

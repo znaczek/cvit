@@ -4,11 +4,14 @@ import {EditorView} from './EditorView';
 import i18n from 'i18next';
 import {EditorContainer} from './EditorContainer';
 import {EditorMode} from '../../types/editor-mode.type';
+import styled from 'styled-components';
+import {STYLES} from '../../styles/variables';
 
 interface Props {
     t: i18n.TFunction;
     undo: number,
     redo: number,
+    title: string,
     html: string;
     styles: string;
     updateHtml: (html: string) => void,
@@ -18,6 +21,13 @@ interface Props {
 interface State {
     selected: number;
 }
+
+const Title = styled.h1`
+    font-size: 24px;
+    line-height: 1;
+    padding: ${STYLES.gutter/4}px
+    text-align: center;
+`;
 
 export class Editor extends React.Component<Props> {
     public props: Props;
@@ -45,39 +55,43 @@ export class Editor extends React.Component<Props> {
             t,
             undo,
             redo,
+            title,
             html,
             styles,
         } = this.props;
         const {selected} = this.state;
 
         return (
-            <EditorView
-                selected={selected}
-                onChange={this.onTabChange}
-            >
-                <EditorTab title={t('PROJECT.EDITOR.TABS.CONTENT')}>
-                    <EditorContainer
-                        value={html}
-                        mode='html'
-                        id='content'
-                        focus={selected === 0}
-                        undo={undo}
-                        redo={redo}
-                        onChange={(content: string) => this.onContentChange(content, 'html')}
-                    />
-                </EditorTab>
-                <EditorTab title={t('PROJECT.EDITOR.TABS.STYLES')}>
-                    <EditorContainer
-                        value={styles}
-                        mode='css'
-                        id='styles'
-                        focus={selected === 1}
-                        undo={undo}
-                        redo={redo}
-                        onChange={(content: string) => this.onContentChange(content, 'css')}
-                    />
-                </EditorTab>
-            </EditorView>
+            <React.Fragment>
+                <Title>{title}</Title>
+                <EditorView
+                    selected={selected}
+                    onChange={this.onTabChange}
+                >
+                    <EditorTab title={t('PROJECT.EDITOR.TABS.CONTENT')}>
+                        <EditorContainer
+                            value={html}
+                            mode='html'
+                            id='content'
+                            focus={selected === 0}
+                            undo={undo}
+                            redo={redo}
+                            onChange={(content: string) => this.onContentChange(content, 'html')}
+                        />
+                    </EditorTab>
+                    <EditorTab title={t('PROJECT.EDITOR.TABS.STYLES')}>
+                        <EditorContainer
+                            value={styles}
+                            mode='css'
+                            id='styles'
+                            focus={selected === 1}
+                            undo={undo}
+                            redo={redo}
+                            onChange={(content: string) => this.onContentChange(content, 'css')}
+                        />
+                    </EditorTab>
+                </EditorView>
+            </React.Fragment>
         );
     }
 }
