@@ -1,48 +1,72 @@
 import * as React from 'react';
 import {Preview} from '../components/preview/Preview';
-import {ApplicationStateInterface} from '../../common/interfaces/application-state.interface';
-import {connect} from 'react-redux';
-import {ProjectSelectors} from '../store/selectors/project.selectors';
 import {CV_FILE_NAME} from '../../common/constants';
+import {FileWatcher} from '../../common/tools/file-watcher';
 
 interface Props {
     preview: string;
 }
 
 interface State {
+    loader: boolean;
     ts: number;
 }
 
 export class PreviewPage extends React.Component {
     public props: Props;
     public state: State;
-    public timer: number;
+
+    private fileWatcher: FileWatcher;
 
     constructor(props: Props) {
         super(props);
         this.state = {
+            loader: false,
             ts: new Date().getTime(),
         }
     }
 
+    public onLoad = () => {
+        setTimeout(() => {
+            this.setState({loader: false});
+        });
+    };
+
     public componentDidMount() {
-        this.timer = setInterval(() => {
-            // this.setState({
-            //     ts: new Date().getTime(),
-            // });
-        }, 2000);
+        this.setFileWatcher(this.getFile(this.props.preview));
     }
 
     public componentWillUnmount() {
-        clearTimeout(this.timer);
+        if (this.fileWatcher) {
+            this.fileWatcher.close();
+        }
     }
 
-    render() {
+    public render() {
         const {preview} = this.props;
-        const {ts} = this.state;
-        const file = `file://${preview}/${CV_FILE_NAME}?time=${ts}`;
+        const {ts, loader} = this.state;
+        const file = `file://${this.getFile(preview)}?time=${ts}`;
 
-        return <Preview file={file}/>
+        return <Preview
+            file={file}
+            loader={loader}
+            onLoad={this.onLoad}
+        />
+    }
+
+    private getFile(preview: string): string {
+        return `${preview}/${CV_FILE_NAME}`;
+    }
+
+    private setFileWatcher(file: string) {
+        this.fileWatcher = new FileWatcher(file, () => {
+            this.setState({loader: true});
+            setTimeout(() => {
+                this.setState({
+                    ts: new Date().getTime(),
+                });
+            }, 250);
+        });
     }
 
 }
