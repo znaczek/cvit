@@ -10,6 +10,9 @@ import {withTranslation} from 'react-i18next';
 import i18n from 'i18next';
 import {UiSelectors} from '../store/selectors/ui.selectors';
 import Home from '../components/editor/Home';
+import {AppEvents} from '../../common/events/app.events';
+import {APP_EVENT} from '../../common/constants';
+import {ipcRenderer} from "electron";
 
 interface Props {
     t: i18n.TFunction,
@@ -25,6 +28,13 @@ interface Props {
 
 export class EditorPage extends React.Component<Props> {
     public props: Props;
+
+    public componentDidMount() {
+        const {directory} = this.props;
+        if (directory) {
+            ipcRenderer.send(APP_EVENT, new AppEvents.ProjectOpen(this.props.directory));
+        }
+    }
 
     render() {
         const {

@@ -4,37 +4,45 @@ import {AppMenuInterface} from '../menu/app-menu.interface';
 import {PreviewWindow} from './preview-window';
 import {ipcMain} from 'electron';
 import {APP_EVENT} from '../../common/constants';
-import * as appEvents from '../../common/events/app.events';
-import {MainEventHandler} from '../service/main-event-handler';
-import {MainStateInterface} from '../interfaces/main-state.interface';
+import {AppEvents} from '../../common/events/app.events';
+import {EventBus} from '../service/event-bus';
 
 export class MainWindow extends AbstractWindow {
     protected path = `file://${__dirname}/app.html?title=CVit`;
 
-    private state: MainStateInterface = {
-        directory: '',
-    };
+    private directory: string;
 
     private preview: PreviewWindow = null;
 
     protected onInit() {
-        ipcMain.on(APP_EVENT, (e: any, action: appEvents.types) => this.state = MainEventHandler.handle(this.state, action));
+        EventBus.subscribe((event: AppEvents.types) => {
+            switch (event.type) {
+                case AppEvents.TYPES.PREVIEW: {
+                    if (this.preview) {
+                        return null;
+                    }
+                    this.preview = new PreviewWindow(this.directory);
+                    this.preview.open();
+                    this.preview.onClose.addListener(PreviewWindow.CLOSE_EVENT, () => {
+                        this.preview = null;
+                    });
+                    break;
+                }
+                case AppEvents.TYPES.PROJECT_OPEN: {
+                    this.directory = event.payload;
+                    if (this.preview) {
+                        this.preview.close();
+                        this.preview = null;
+                    }
+                    break;
+                }
+            }
+        });
+
+        ipcMain.on(APP_EVENT, (e: any, event: AppEvents.types) => EventBus.emit(event));
     }
 
     protected getMenu(): AppMenuInterface {
-        const menu = new MainMenu(this.window);
-        menu.onPreview = () => {
-            if (this.preview) {
-                return null;
-            }
-            this.preview = new PreviewWindow();
-            this.preview.window.setMenu(null);
-            this.preview.directory = this.state.directory;
-            this.preview.open();
-            this.preview.onClose.addListener(PreviewWindow.CLOSE_EVENT, () => {
-                this.preview = null;
-            });
-        };
-        return menu
+        return new MainMenu(this.window);
     }
 }

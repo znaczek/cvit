@@ -1,15 +1,13 @@
-import {BrowserWindow, Menu, shell, dialog} from 'electron';
-import MenuItemConstructorOptions = Electron.MenuItemConstructorOptions;
-import * as appEvents from '../../common/events/app.events';
+import {BrowserWindow, dialog, Menu, shell} from 'electron';
 import {APP_EVENT} from '../../common/constants';
 import {AppMenuInterface} from './app-menu.interface';
-import {PreviewWindow} from '../windows/preview-window';
 import {Assertions} from '../../common/utils/assertion.utils';
+import MenuItemConstructorOptions = Electron.MenuItemConstructorOptions;
+import {AppEvents} from '../../common/events/app.events';
+import {EventBus} from '../service/event-bus';
 
 // TODO adjust darwin template when menu is done
 export default class MainMenu implements AppMenuInterface {
-
-    public onPreview: () => void;
 
     constructor(private mainWindow: BrowserWindow) {
     }
@@ -47,7 +45,7 @@ export default class MainMenu implements AppMenuInterface {
                     {
                         label: '&New',
                         accelerator: 'Ctrl+N',
-                        click: () => this.mainWindow.webContents.send(APP_EVENT, new appEvents.CreateNew()),
+                        click: () => this.mainWindow.webContents.send(APP_EVENT, new AppEvents.CreateNew()),
                     },
                     {
                         label: '&Open',
@@ -55,12 +53,12 @@ export default class MainMenu implements AppMenuInterface {
                         click: () => dialog.showOpenDialog({
                             title: 'No i witam',
                             properties: ['openDirectory'],
-                        }, (paths) => this.mainWindow.webContents.send(APP_EVENT, new appEvents.Open(paths)))
+                        }, (paths) => this.mainWindow.webContents.send(APP_EVENT, new AppEvents.Open(paths)))
                     },
                     {
                         label: '&Save',
                         accelerator: 'Ctrl+S',
-                        click: () => this.mainWindow.webContents.send(APP_EVENT, new appEvents.Save())
+                        click: () => this.mainWindow.webContents.send(APP_EVENT, new AppEvents.Save())
                     },
                     {label: '&Close', role: 'close'}
                 ]
@@ -71,12 +69,12 @@ export default class MainMenu implements AppMenuInterface {
                     {
                         label: 'Undo',
                         accelerator: 'Ctrl+Z',
-                        click: () => this.mainWindow.webContents.send(APP_EVENT, new appEvents.Undo())
+                        click: () => this.mainWindow.webContents.send(APP_EVENT, new AppEvents.Undo())
                     },
                     {
                         label: 'Redo',
                         accelerator: 'Ctrl+Shift+Z',
-                        click: () => this.mainWindow.webContents.send(APP_EVENT, new appEvents.Redo())
+                        click: () => this.mainWindow.webContents.send(APP_EVENT, new AppEvents.Redo())
                     },
                     {role: 'cut', label: 'Cut'},
                     {role: 'copy', label: 'Copy'},
@@ -91,9 +89,7 @@ export default class MainMenu implements AppMenuInterface {
                     {
                         label: '&Preview',
                         click: () => {
-                            if (this.onPreview && Assertions.isFunction(this.onPreview)) {
-                                this.onPreview();
-                            }
+                            EventBus.emit(new AppEvents.Preview())
                         },
                     },
                     {

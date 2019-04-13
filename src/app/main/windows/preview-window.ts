@@ -4,6 +4,12 @@ import {AppMenuInterface} from '../menu/app-menu.interface';
 export class PreviewWindow extends AbstractWindow {
     public directory: string;
 
+    constructor(directory: string) {
+        super();
+        this.window.setMenu(null);
+        this.directory = directory;
+    }
+
     protected getMenu(): AppMenuInterface {
         return null;
     }

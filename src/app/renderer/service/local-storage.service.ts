@@ -37,7 +37,7 @@ export class LocalStorage {
         try {
             return JSON.parse(fs.readFileSync(LocalStorage.path, ENCODING));
         } catch(e) {
-            console.error(`Couldn't featch user data: ${LocalStorage.path}. Reason: ${e}`);
+            console.warn(`Couldn't featch user data: ${LocalStorage.path}. Reason: ${e}`);
             return {};
         }
     }

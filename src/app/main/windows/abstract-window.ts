@@ -21,6 +21,7 @@ export abstract class AbstractWindow {
 
         this.onClose = new EventEmitter();
     }
+
     public open() {
 
         this.window.loadURL(this.path);
@@ -53,6 +54,10 @@ export abstract class AbstractWindow {
         }
 
         this.onInit();
+    }
+
+    public close() {
+        this.window.close();
     }
 
     private setupDevelopmentEnvironment(): void {

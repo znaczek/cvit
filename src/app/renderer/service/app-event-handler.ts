@@ -1,17 +1,17 @@
-import * as appEvents from './../../common/events/app.events';
 import {store} from '../index';
 import {ProjectActions} from '../store/actions/project.actions';
 import {AppThunkDispatchType} from '../../common/types/app-thunk-dispatch.type';
 import {UiActions} from '../store/actions/UiActions';
+import {AppEvents} from '../../common/events/app.events';
 
 export class AppEventHandler {
-    public static handle(event: appEvents.types) {
+    public static handle(event: AppEvents.types) {
         const {dispatch} = store;
         switch (event.type) {
-            case appEvents.CREATE_NEW: {
+            case AppEvents.TYPES.CREATE_NEW: {
                 return dispatch(ProjectActions.startCreateProject())
             }
-            case appEvents.OPEN: {
+            case AppEvents.TYPES.OPEN: {
                 if (event.payload) {
                     return (<AppThunkDispatchType>dispatch)(ProjectActions.openProject({
                         destination: event.payload
@@ -19,13 +19,13 @@ export class AppEventHandler {
                 }
                 return;
             }
-            case appEvents.SAVE: {
+            case AppEvents.TYPES.SAVE: {
                 return (<AppThunkDispatchType>dispatch)(ProjectActions.save())
             }
-            case appEvents.UNDO: {
+            case AppEvents.TYPES.UNDO: {
                 return dispatch(UiActions.undo())
             }
-            case appEvents.REDO: {
+            case AppEvents.TYPES.REDO: {
                 return dispatch(UiActions.redo())
             }
         }

@@ -3,13 +3,12 @@ import {Template} from '../models/template.model';
 import {PATHS} from '../paths';
 import {CreateProjectInterface} from '../interfaces/create-project.interface';
 import {ncp} from 'ncp';
-import {OpenProjectInterface} from '../interfaces/open-project.interface';
 import {APP_EVENT, CV_FILE_NAME, ENCODING} from '../../common/constants';
 import {ProjectService} from './project-service';
 import {LocalStorage} from './local-storage.service';
 import {ProjectsStateInterface} from '../interfaces/state/projects-state.interface';
-import * as appEvents from '../../common/events/app.events';
 import {ipcRenderer} from "electron";
+import {AppEvents} from '../../common/events/app.events';
 
 const pFs = require('sb-fs');
 
@@ -54,7 +53,6 @@ export class StorageService {
             const content = await StorageService.getContent(lastDirectory + '/' + CV_FILE_NAME);
             const html = ProjectService.getHTML(content);
             const styles = ProjectService.getStyles(content);
-            ipcRenderer.send(APP_EVENT, new appEvents.ProjectOpen(lastDirectory));
             return {
                 directory: lastDirectory,
                 html,

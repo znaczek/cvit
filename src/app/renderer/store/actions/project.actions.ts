@@ -8,9 +8,9 @@ import {ProjectService} from '../../service/project-service';
 import {ApplicationStateInterface} from '../../../common/interfaces/application-state.interface';
 import {ProjectSelectors} from '../selectors/project.selectors';
 import {APP_EVENT, CV_FILE_NAME} from '../../../common/constants';
-import {remote, ipcRenderer} from "electron";
-import * as appEvents from '../../../common/events/app.events';
+import {ipcRenderer} from "electron";
 import {LocalStorage} from '../../service/local-storage.service';
+import {AppEvents} from '../../../common/events/app.events';
 
 const prefix = '[PROJECT] ';
 
@@ -53,8 +53,6 @@ export class ProjectActions {
             try {
                 await dispatch(ProjectActions.getContent(payload.destination));
                 dispatch(ProjectActions.openProjectSuccess(payload.destination));
-                ipcRenderer.send(APP_EVENT, new appEvents.ProjectOpen(payload.destination));
-                LocalStorage.set('lastDirectory', payload.destination);
             } catch (e) {
                 return dispatch(ProjectActions.openProjectFailure(e));
             }
@@ -62,6 +60,8 @@ export class ProjectActions {
     }
 
     public static openProjectSuccess(directory: string): ActionInterface<string> {
+        ipcRenderer.send(APP_EVENT, new AppEvents.ProjectOpen(directory));
+        LocalStorage.set('lastDirectory', directory);
         return {
             type: ProjectActions.OPEN_PROJECT_SUCCESS,
             payload: directory,
