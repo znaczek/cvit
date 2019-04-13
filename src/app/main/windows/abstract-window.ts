@@ -1,6 +1,6 @@
 import {EventEmitter} from "events";
 import {BrowserWindow, Menu} from "electron";
-import {AppMenuInterface} from '../menu/app-menu.interface';
+import {AbstractMenu} from '../menu/abstract-menu.';
 import {Subscription} from '../../common/model/subscription.model';
 import {AppEvents} from '../../common/events/app.events';
 import {PreviewWindow} from './preview-window';
@@ -53,7 +53,7 @@ export abstract class AbstractWindow {
 
         const menu = this.getMenu();
         if (menu) {
-            menu.buildMenu();
+            menu.buildMenu(this.isApplicationMenu());
         }
 
         if (process.env.NODE_ENV === 'development') {
@@ -91,7 +91,8 @@ export abstract class AbstractWindow {
         });
     }
 
-    protected abstract getMenu(): AppMenuInterface;
+    protected abstract getMenu(): AbstractMenu;
+    protected abstract isApplicationMenu(): boolean;
     protected onInit(): void {};
     protected handleEventBusEmit(event: AppEvents.types): void {};
 

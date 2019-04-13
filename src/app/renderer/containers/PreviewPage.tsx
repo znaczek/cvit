@@ -8,30 +8,21 @@ import {PreviewEventHandler} from '../service/preview-event-handler';
 import {connect} from 'react-redux';
 import {ApplicationStateInterface} from '../../common/interfaces/application-state.interface';
 import {PreviewSelectors} from '../store/selectors/preview.selectors';
+import {PreviewActions} from '../store/actions/preview.actions';
+import {AppThunkDispatchType} from '../../common/types/app-thunk-dispatch.type';
 
 interface Props {
     directory: string;
-}
-
-interface State {
-    loader: boolean;
     ts: number;
+    loader: boolean;
+    dispatch: AppThunkDispatchType;
 }
 
-export class PreviewPage extends React.Component {
+export class PreviewPage extends React.PureComponent {
     public props: Props;
-    public state: State;
 
     private lastDirectory: string = null;
     private fileWatcher: FileWatcher;
-
-    constructor(props: Props) {
-        super(props);
-        this.state = {
-            loader: false,
-            ts: new Date().getTime(),
-        }
-    }
 
     public componentDidMount() {
         ipcRenderer.on(APP_EVENT, (e: any, action: AppEvents.types) => PreviewEventHandler.handle(action));
@@ -42,46 +33,30 @@ export class PreviewPage extends React.Component {
     }
 
     public render() {
-        const {directory} = this.props;
-        const {ts, loader} = this.state;
-        const file = `file://${this.getFile(directory)}?time=${ts}`;
+        const {directory, ts, loader} = this.props;
+        const file = `${directory}/${CV_FILE_NAME}`;
+        const fileUrl = `${file}?ts=${ts}`;
 
         if (directory !== this.lastDirectory) {
-            this.setState({loader: true});
-            this.setFileWatcher(this.getFile(directory));
-            this.onLoad(250);
+            this.setFileWatcher(file);
         }
+
         this.lastDirectory = directory;
         return <Preview
-            file={file}
+            file={fileUrl}
             loader={loader}
             onLoad={this.onLoad}
         />
     }
 
-    private getFile(directory: string): string {
-        return `${directory}/${CV_FILE_NAME}`;
-    }
-
-    private onLoad = (delay: number = 100) => {
-        setTimeout(() => {
-            if (this && this.state) {
-                this.setState({loader: false});
-            }
-        }, delay);
+    private onLoad = () => {
+        this.props.dispatch(PreviewActions.refreshDone());
     };
 
     private setFileWatcher(file: string) {
         this.closeFileWatcher();
         this.fileWatcher = new FileWatcher(file, () => {
-            this.setState({loader: true});
-            setTimeout(() => {
-                if (this && this.state) {
-                    this.setState({
-                        ts: new Date().getTime(),
-                    });
-                }
-            }, 250);
+            this.props.dispatch(PreviewActions.refresh());
         });
     }
 
@@ -94,9 +69,10 @@ export class PreviewPage extends React.Component {
 
 }
 
-
 const mapStateToProps = (state: ApplicationStateInterface): Partial<Props> => ({
+    ts: PreviewSelectors.getTs(state),
     directory: PreviewSelectors.getDirectory(state),
+    loader: PreviewSelectors.getLoader(state),
 });
 
 export default connect(mapStateToProps)(PreviewPage);

@@ -10,4 +10,14 @@ export class PreviewSelectors {
         (state: PreviewStateInterface): string => state.directory,
     );
 
+    public static getLoader = createSelector(
+        PreviewSelectors.getPreviewState,
+        (state: PreviewStateInterface): boolean => state.loader,
+    );
+
+    public static getTs = createSelector(
+        PreviewSelectors.getPreviewState,
+        (state: PreviewStateInterface): number => state.ts,
+    );
+
 }

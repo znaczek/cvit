@@ -1,6 +1,6 @@
 import {AbstractWindow} from './abstract-window';
-import {default as MainMenu} from '../menu/main-menu';
-import {AppMenuInterface} from '../menu/app-menu.interface';
+import {MainMenu} from '../menu/main-menu';
+import {AbstractMenu} from '../menu/abstract-menu.';
 import {PreviewWindow} from './preview-window';
 import {AppEvents} from '../../common/events/app.events';
 
@@ -31,7 +31,11 @@ export class MainWindow extends AbstractWindow {
         }
     }
 
-    protected getMenu(): AppMenuInterface {
+    protected getMenu(): AbstractMenu {
         return new MainMenu(this.window);
+    }
+
+    protected isApplicationMenu() {
+        return true;
     }
 }

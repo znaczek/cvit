@@ -12,6 +12,7 @@ export namespace AppEvents {
 
         PREVIEW = 'PREVIEW',
         PREVIEW_REFRESH = 'PREVIEW_REFRESH',
+        PREVIEW_SET_DIRECTORY = 'PREVIEW_SET_DIRECTORY',
     }
 
     export class CreateNew implements ActionInterface {
@@ -53,16 +54,21 @@ export namespace AppEvents {
         public readonly type = TYPES.PREVIEW;
     }
 
-    export class PreviewRefresh implements ActionInterface<string> {
-        public readonly type = TYPES.PREVIEW_REFRESH;
+    export class PreviewSetDirectory implements ActionInterface<string> {
+        public readonly type = TYPES.PREVIEW_SET_DIRECTORY;
         public readonly payload: string;
 
-        constructor(directory: string) {
-            this.payload = directory
+        constructor(directory?: string) {
+            this.payload = directory;
         }
     }
 
-    export type types = CreateNew | Open | Save | Undo | Redo |
-        Preview | PreviewRefresh |
-        ProjectOpen;
+    export class PreviewRefresh implements ActionInterface {
+        public readonly type = TYPES.PREVIEW_REFRESH;
+    }
+
+    export type types = CreateNew | Open | Save | Undo | Redo
+        | ProjectOpen
+        | Preview | PreviewRefresh | PreviewSetDirectory
+        ;
 }

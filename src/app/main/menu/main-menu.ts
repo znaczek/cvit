@@ -1,44 +1,18 @@
-import {BrowserWindow, dialog, Menu, shell} from 'electron';
+import {dialog, MenuItemConstructorOptions, shell} from 'electron';
 import {APP_EVENT} from '../../common/constants';
-import {AppMenuInterface} from './app-menu.interface';
-import {Assertions} from '../../common/utils/assertion.utils';
-import MenuItemConstructorOptions = Electron.MenuItemConstructorOptions;
+import {AbstractMenu} from './abstract-menu.';
 import {AppEvents} from '../../common/events/app.events';
 import {EventBus} from '../service/event-bus';
 
 // TODO adjust darwin template when menu is done
-export default class MainMenu implements AppMenuInterface {
+export class MainMenu extends AbstractMenu {
 
-    constructor(private window: BrowserWindow) {
+    protected buildDarwinTemplate(): MenuItemConstructorOptions[] {
+        return [];
     }
 
-    public buildMenu(): Menu {
-        const template = process.platform === 'darwin'
-            ? this.buildDarwinTemplate()
-            : this.buildDefaultTemplate();
-
-        const menu = Menu.buildFromTemplate(template);
-        Menu.setApplicationMenu(menu);
-
-        return menu;
-    }
-
-    private buildDarwinTemplate(): MenuItemConstructorOptions[] {
-        const subMenuAbout = {
-            label: 'Electron',
-            submenu: [
-                {
-                    label: 'About ElectronReact',
-                    selector: 'orderFrontStandardAboutPanel:'
-                }
-            ]
-        };
-
-        return [subMenuAbout];
-    }
-
-    private buildDefaultTemplate(): MenuItemConstructorOptions[] {
-        const templateDefault = [
+    protected buildDefaultTemplate(): MenuItemConstructorOptions[] {
+        return [
             {
                 label: '&File',
                 submenu: [
@@ -109,7 +83,6 @@ export default class MainMenu implements AppMenuInterface {
                 ]
             }
         ];
-
-        return templateDefault;
     }
+
 }

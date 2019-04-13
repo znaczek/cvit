@@ -1,28 +1,32 @@
 import {AbstractWindow} from './abstract-window';
-import {AppMenuInterface} from '../menu/app-menu.interface';
+import {AbstractMenu} from '../menu/abstract-menu.';
 import {AppEvents} from '../../common/events/app.events';
 import {APP_EVENT} from '../../common/constants';
+import {PreviewMenu} from '../menu/preview-menu';
 
 export class PreviewWindow extends AbstractWindow {
     public directory: string;
 
     constructor(directory: string) {
         super();
-        this.window.setMenu(null);
         this.directory = directory;
     }
 
     protected handleEventBusEmit(event: AppEvents.types): void {
         switch (event.type) {
             case AppEvents.TYPES.PROJECT_OPEN: {
-                this.window.webContents.send(APP_EVENT, new AppEvents.PreviewRefresh(event.payload));
+                this.window.webContents.send(APP_EVENT, new AppEvents.PreviewSetDirectory(event.payload));
                 break;
             }
         }
     }
 
-    protected getMenu(): AppMenuInterface {
-        return null;
+    protected getMenu(): AbstractMenu {
+        return new PreviewMenu(this.window);
+    }
+
+    protected isApplicationMenu() {
+        return false;
     }
 
     public get path() {
