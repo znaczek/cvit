@@ -1,7 +1,7 @@
 import {ActionInterface} from '../../../common/interfaces/action.interface';
-import {UiStateInterface} from '../../interfaces/state/UiStateInterface';
+import {UiStateInterface} from '../../interfaces/state/ui-state.interface';
 import {ProjectActions} from '../actions/project.actions';
-import {UiActions} from '../actions/UiActions';
+import {UiActions} from '../actions/ui.actions';
 
 const initialState: UiStateInterface = {
     newProjectPopupVisible: false,

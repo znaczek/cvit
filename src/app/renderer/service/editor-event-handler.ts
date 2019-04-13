@@ -1,12 +1,11 @@
 import {store} from '../index';
 import {ProjectActions} from '../store/actions/project.actions';
 import {AppThunkDispatchType} from '../../common/types/app-thunk-dispatch.type';
-import {UiActions} from '../store/actions/UiActions';
+import {UiActions} from '../store/actions/ui.actions';
 import {AppEvents} from '../../common/events/app.events';
 
 export class EditorEventHandler {
     public static handle(event: AppEvents.types) {
-        console.log('lol');
         const {dispatch} = store;
         switch (event.type) {
             case AppEvents.TYPES.CREATE_NEW: {

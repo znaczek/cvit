@@ -1,6 +1,7 @@
 import {AbstractWindow} from './abstract-window';
 import {AppMenuInterface} from '../menu/app-menu.interface';
 import {AppEvents} from '../../common/events/app.events';
+import {APP_EVENT} from '../../common/constants';
 
 export class PreviewWindow extends AbstractWindow {
     public directory: string;
@@ -14,7 +15,7 @@ export class PreviewWindow extends AbstractWindow {
     protected handleEventBusEmit(event: AppEvents.types): void {
         switch (event.type) {
             case AppEvents.TYPES.PROJECT_OPEN: {
-                console.log('NO I WITAMW PREVIEW');
+                this.window.webContents.send(APP_EVENT, new AppEvents.PreviewRefresh(event.payload));
                 break;
             }
         }

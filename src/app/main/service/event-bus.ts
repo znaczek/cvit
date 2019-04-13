@@ -14,26 +14,20 @@ class EventBusModel {
         this.emitter.emit(APP_EVENT, event);
     }
 
-    public subscribe<T>(callback: EventBusListener, eventType?: AppEvents.TYPES): Subscription {
+    public subscribe<T>(callback: EventBusListener): Subscription {
         if (!Assertions.isFunction(callback)) {
             throw Error('Uncorrect callback type - expected "function", got: ' + typeof callback);
         }
 
-        
-        this.emitter.addListener(APP_EVENT, (event: AppEvents.types) => {
-            if (!eventType || eventType === event.type) {
-                callback(event);
-            }
-        });
+
+        this.emitter.addListener(APP_EVENT, callback);
 
         return new Subscription(this.getUnsubscribeFunction(callback));
     }
 
     private getUnsubscribeFunction(callback: EventBusListener) {
         return () => {
-            console.log('why?');
             this.emitter.removeListener(APP_EVENT, callback);
-            console.log(this.emitter.listenerCount(APP_EVENT))
         }
     }
 }

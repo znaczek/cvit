@@ -8,8 +8,10 @@ export namespace AppEvents {
         UNDO = 'UNDO',
         REDO = 'REDO',
 
-        PREVIEW = 'PREVIEW',
         PROJECT_OPEN = 'PROJECT_OPEN',
+
+        PREVIEW = 'PREVIEW',
+        PREVIEW_REFRESH = 'PREVIEW_REFRESH',
     }
 
     export class CreateNew implements ActionInterface {
@@ -38,10 +40,6 @@ export namespace AppEvents {
         public readonly type = TYPES.REDO;
     }
 
-    export class Preview implements ActionInterface {
-        public readonly type = TYPES.PREVIEW;
-    }
-
     export class ProjectOpen implements ActionInterface<string> {
         public readonly type = TYPES.PROJECT_OPEN;
         public readonly payload: string;
@@ -51,7 +49,20 @@ export namespace AppEvents {
         }
     }
 
+    export class Preview implements ActionInterface {
+        public readonly type = TYPES.PREVIEW;
+    }
+
+    export class PreviewRefresh implements ActionInterface<string> {
+        public readonly type = TYPES.PREVIEW_REFRESH;
+        public readonly payload: string;
+
+        constructor(directory: string) {
+            this.payload = directory
+        }
+    }
+
     export type types = CreateNew | Open | Save | Undo | Redo |
-        Preview |
+        Preview | PreviewRefresh |
         ProjectOpen;
 }

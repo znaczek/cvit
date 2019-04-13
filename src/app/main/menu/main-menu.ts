@@ -9,7 +9,7 @@ import {EventBus} from '../service/event-bus';
 // TODO adjust darwin template when menu is done
 export default class MainMenu implements AppMenuInterface {
 
-    constructor(private mainWindow: BrowserWindow) {
+    constructor(private window: BrowserWindow) {
     }
 
     public buildMenu(): Menu {
@@ -45,7 +45,7 @@ export default class MainMenu implements AppMenuInterface {
                     {
                         label: '&New',
                         accelerator: 'Ctrl+N',
-                        click: () => this.mainWindow.webContents.send(APP_EVENT, new AppEvents.CreateNew()),
+                        click: () => this.window.webContents.send(APP_EVENT, new AppEvents.CreateNew()),
                     },
                     {
                         label: '&Open',
@@ -53,12 +53,12 @@ export default class MainMenu implements AppMenuInterface {
                         click: () => dialog.showOpenDialog({
                             title: 'No i witam',
                             properties: ['openDirectory'],
-                        }, (paths) => this.mainWindow.webContents.send(APP_EVENT, new AppEvents.Open(paths)))
+                        }, (paths) => this.window.webContents.send(APP_EVENT, new AppEvents.Open(paths)))
                     },
                     {
                         label: '&Save',
                         accelerator: 'Ctrl+S',
-                        click: () => this.mainWindow.webContents.send(APP_EVENT, new AppEvents.Save())
+                        click: () => this.window.webContents.send(APP_EVENT, new AppEvents.Save())
                     },
                     {label: '&Close', role: 'close'}
                 ]
@@ -69,12 +69,12 @@ export default class MainMenu implements AppMenuInterface {
                     {
                         label: 'Undo',
                         accelerator: 'Ctrl+Z',
-                        click: () => this.mainWindow.webContents.send(APP_EVENT, new AppEvents.Undo())
+                        click: () => this.window.webContents.send(APP_EVENT, new AppEvents.Undo())
                     },
                     {
                         label: 'Redo',
                         accelerator: 'Ctrl+Shift+Z',
-                        click: () => this.mainWindow.webContents.send(APP_EVENT, new AppEvents.Redo())
+                        click: () => this.window.webContents.send(APP_EVENT, new AppEvents.Redo())
                     },
                     {role: 'cut', label: 'Cut'},
                     {role: 'copy', label: 'Copy'},

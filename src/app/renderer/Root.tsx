@@ -4,7 +4,7 @@ import {Store} from 'redux';
 import EditorPage from './containers/EditorPage';
 import App from './App';
 import ProjectPage from './containers/ProjectPage';
-import {PreviewPage} from './containers/PreviewPage';
+import PreviewPage from './containers/PreviewPage';
 
 interface Props {
     store: Store;
@@ -18,7 +18,7 @@ export default class Root extends React.Component<Props> {
             <Provider store={store}>
                 {
                     preview ? (
-                        <PreviewPage preview={preview}/>
+                        <PreviewPage/>
                     ) : (
                         <App>
                             <ProjectPage/>

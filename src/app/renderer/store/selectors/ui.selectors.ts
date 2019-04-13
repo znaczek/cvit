@@ -1,6 +1,6 @@
 import {ApplicationStateInterface} from '../../../common/interfaces/application-state.interface';
 import {createSelector} from 'reselect';
-import {UiStateInterface} from '../../interfaces/state/UiStateInterface';
+import {UiStateInterface} from '../../interfaces/state/ui-state.interface';
 
 export class UiSelectors {
     private static getUiState = (state: ApplicationStateInterface): UiStateInterface => state.ui;

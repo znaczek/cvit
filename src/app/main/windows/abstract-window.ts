@@ -47,7 +47,6 @@ export abstract class AbstractWindow {
 
         this.window.on('closed', () => {
             this.window = null;
-            console.log('DESTRO')
             this.eventBusSubscription.unsubscribe();
             this.onClose.emit(AbstractWindow.CLOSE_EVENT);
         });
@@ -70,7 +69,6 @@ export abstract class AbstractWindow {
     }
 
     private subscribeToEventBus() {
-        console.log("SUB");
         this.eventBusSubscription = EventBus.subscribe((event: AppEvents.types) => {
             this.handleEventBusEmit(event);
         });

@@ -11,7 +11,7 @@ import {Popup} from '../components/common/Popup/Popup';
 import {UiSelectors} from '../store/selectors/ui.selectors';
 import {H1} from '../components/common/styled/H1';
 import {T} from '../components/T';
-import {UiActions} from '../store/actions/UiActions';
+import {UiActions} from '../store/actions/ui.actions';
 import {CreateProjectInterface} from '../interfaces/create-project.interface';
 
 interface Props {
