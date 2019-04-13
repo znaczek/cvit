@@ -60,6 +60,7 @@ export class ProjectActions {
     }
 
     public static openProjectSuccess(directory: string): ActionInterface<string> {
+        console.log('ile');
         ipcRenderer.send(APP_EVENT, new AppEvents.ProjectOpen(directory));
         LocalStorage.set('lastDirectory', directory);
         return {

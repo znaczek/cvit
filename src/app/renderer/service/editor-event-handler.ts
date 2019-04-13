@@ -4,8 +4,9 @@ import {AppThunkDispatchType} from '../../common/types/app-thunk-dispatch.type';
 import {UiActions} from '../store/actions/UiActions';
 import {AppEvents} from '../../common/events/app.events';
 
-export class AppEventHandler {
+export class EditorEventHandler {
     public static handle(event: AppEvents.types) {
+        console.log('lol');
         const {dispatch} = store;
         switch (event.type) {
             case AppEvents.TYPES.CREATE_NEW: {

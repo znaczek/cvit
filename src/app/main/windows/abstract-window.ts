@@ -1,8 +1,14 @@
 import {EventEmitter} from "events";
 import {BrowserWindow, Menu} from "electron";
 import {AppMenuInterface} from '../menu/app-menu.interface';
+import {Subscription} from '../../common/model/subscription.model';
+import {AppEvents} from '../../common/events/app.events';
+import {PreviewWindow} from './preview-window';
+import {EventBus} from '../service/event-bus';
 
 export abstract class AbstractWindow {
+    public static CLOSE_EVENT = 'CLOSE_EVENT';
+
     public window: BrowserWindow;
     public onClose: EventEmitter;
 
@@ -10,7 +16,7 @@ export abstract class AbstractWindow {
     protected height = 728;
     protected abstract path: string;
 
-    public static CLOSE_EVENT = 'CLOSE_EVENT';
+    protected eventBusSubscription: Subscription;
 
     constructor() {
         this.window = new BrowserWindow({
@@ -41,6 +47,8 @@ export abstract class AbstractWindow {
 
         this.window.on('closed', () => {
             this.window = null;
+            console.log('DESTRO')
+            this.eventBusSubscription.unsubscribe();
             this.onClose.emit(AbstractWindow.CLOSE_EVENT);
         });
 
@@ -54,10 +62,18 @@ export abstract class AbstractWindow {
         }
 
         this.onInit();
+        this.subscribeToEventBus();
     }
 
     public close() {
         this.window.close();
+    }
+
+    private subscribeToEventBus() {
+        console.log("SUB");
+        this.eventBusSubscription = EventBus.subscribe((event: AppEvents.types) => {
+            this.handleEventBusEmit(event);
+        });
     }
 
     private setupDevelopmentEnvironment(): void {
@@ -78,6 +94,7 @@ export abstract class AbstractWindow {
     }
 
     protected abstract getMenu(): AppMenuInterface;
-    protected onInit() {};
+    protected onInit(): void {};
+    protected handleEventBusEmit(event: AppEvents.types): void {};
 
 }

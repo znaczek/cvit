@@ -1,7 +1,11 @@
 import * as React from 'react';
 import {Preview} from '../components/preview/Preview';
-import {CV_FILE_NAME} from '../../common/constants';
+import {APP_EVENT, CV_FILE_NAME} from '../../common/constants';
 import {FileWatcher} from '../../common/tools/file-watcher';
+import {AppEvents} from '../../common/events/app.events';
+import {ipcRenderer} from "electron";
+import {EditorEventHandler} from '../service/editor-event-handler';
+import {PreviewEventHandler} from '../service/preview-event-handler';
 
 interface Props {
     preview: string;
@@ -33,6 +37,7 @@ export class PreviewPage extends React.Component {
     };
 
     public componentDidMount() {
+        ipcRenderer.on(APP_EVENT, (e: any, action: AppEvents.types) => PreviewEventHandler.handle(action));
         this.setFileWatcher(this.getFile(this.props.preview));
     }
 

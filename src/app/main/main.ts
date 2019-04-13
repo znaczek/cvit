@@ -1,8 +1,11 @@
-import {app} from 'electron';
+import {app, ipcMain} from 'electron';
 import {autoUpdater} from 'electron-updater';
 import log from 'electron-log';
 import installer, {REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS} from 'electron-devtools-installer';
 import {MainWindow} from './windows/main-window';
+import {AppEvents} from '../common/events/app.events';
+import {EventBus} from './service/event-bus';
+import {APP_EVENT} from '../common/constants';
 
 class AppUpdater {
     constructor() {
@@ -35,6 +38,8 @@ app.on('ready', async () => {
     const mainWindow = new MainWindow();
     mainWindow.open();
     mainWindow.onClose.addListener(MainWindow.CLOSE_EVENT, app.quit);
+
+    ipcMain.on(APP_EVENT, (e: any, event: AppEvents.types) => EventBus.emit(event));
 
     new AppUpdater();
 });

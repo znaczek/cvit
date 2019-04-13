@@ -18,7 +18,9 @@ class EventBusModel {
         if (!Assertions.isFunction(callback)) {
             throw Error('Uncorrect callback type - expected "function", got: ' + typeof callback);
         }
-        this.emitter.on(APP_EVENT, (event: AppEvents.types) => {
+
+        
+        this.emitter.addListener(APP_EVENT, (event: AppEvents.types) => {
             if (!eventType || eventType === event.type) {
                 callback(event);
             }
@@ -29,7 +31,9 @@ class EventBusModel {
 
     private getUnsubscribeFunction(callback: EventBusListener) {
         return () => {
-            this.emitter.off(APP_EVENT, callback);
+            console.log('why?');
+            this.emitter.removeListener(APP_EVENT, callback);
+            console.log(this.emitter.listenerCount(APP_EVENT))
         }
     }
 }
