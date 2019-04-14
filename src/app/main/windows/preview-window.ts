@@ -21,6 +21,10 @@ export class PreviewWindow extends AbstractWindow {
         }
     }
 
+    protected onInit() {
+        this.setupDevelopmentEnvironment();
+    }
+
     protected getMenu(): AbstractMenu {
         return new PreviewMenu(this.window);
     }

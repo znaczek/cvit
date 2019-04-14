@@ -31,6 +31,12 @@ export class MainWindow extends AbstractWindow {
         }
     }
 
+    protected onInit() {
+        if (process.env.NODE_ENV === 'development') {
+            this.setupDevelopmentEnvironment();
+        }
+    }
+
     protected getMenu(): AbstractMenu {
         return new MainMenu(this.window);
     }

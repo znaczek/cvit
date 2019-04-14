@@ -56,10 +56,6 @@ export abstract class AbstractWindow {
             menu.buildMenu(this.isApplicationMenu());
         }
 
-        if (process.env.NODE_ENV === 'development') {
-            this.setupDevelopmentEnvironment();
-        }
-
         this.onInit();
         this.subscribeToEventBus();
     }
@@ -68,13 +64,8 @@ export abstract class AbstractWindow {
         this.window.close();
     }
 
-    private subscribeToEventBus() {
-        this.eventBusSubscription = EventBus.subscribe((event: AppEvents.types) => {
-            this.handleEventBusEmit(event);
-        });
-    }
-
-    private setupDevelopmentEnvironment(): void {
+    // TODO add context menu to main menu
+    protected setupDevelopmentEnvironment(): void {
         this.window.webContents.on('context-menu', (e, props) => {
             const {x, y} = props;
 
@@ -96,4 +87,9 @@ export abstract class AbstractWindow {
     protected onInit(): void {};
     protected handleEventBusEmit(event: AppEvents.types): void {};
 
+    private subscribeToEventBus() {
+        this.eventBusSubscription = EventBus.subscribe((event: AppEvents.types) => {
+            this.handleEventBusEmit(event);
+        });
+    }
 }

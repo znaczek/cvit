@@ -11,6 +11,10 @@ export class PreviewEventHandler {
                 dispatch(PreviewActions.refresh(event.payload));
                 return;
             }
+            case AppEvents.TYPES.PREVIEW_REFRESH: {
+                dispatch(PreviewActions.refresh());
+                return;
+            }
         }
     }
 }
