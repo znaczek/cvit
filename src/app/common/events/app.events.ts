@@ -13,6 +13,8 @@ export namespace AppEvents {
         PREVIEW = 'PREVIEW',
         PREVIEW_REFRESH = 'PREVIEW_REFRESH',
         PREVIEW_SET_DIRECTORY = 'PREVIEW_SET_DIRECTORY',
+
+        RENDER = 'RENDER',
     }
 
     export class CreateNew implements ActionInterface {
@@ -67,8 +69,13 @@ export namespace AppEvents {
         public readonly type = TYPES.PREVIEW_REFRESH;
     }
 
+    export class Render implements ActionInterface {
+        public readonly type = TYPES.RENDER;
+    }
+
     export type types = CreateNew | Open | Save | Undo | Redo
         | ProjectOpen
         | Preview | PreviewRefresh | PreviewSetDirectory
+        | Render
         ;
 }

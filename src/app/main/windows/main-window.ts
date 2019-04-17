@@ -28,6 +28,10 @@ export class MainWindow extends AbstractWindow {
                 this.directory = event.payload;
                 break;
             }
+            case AppEvents.TYPES.RENDER: {
+                console.log('No i witam w render :)');
+                break;
+            }
         }
     }
 

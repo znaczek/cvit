@@ -62,12 +62,11 @@ export class MainMenu extends AbstractMenu {
                 submenu: [
                     {
                         label: '&Preview',
-                        click: () => {
-                            EventBus.emit(new AppEvents.Preview())
-                        },
+                        click: () => EventBus.emit(new AppEvents.Preview()),
                     },
                     {
                         label: '&Render',
+                        click: () => EventBus.emit(new AppEvents.Render()),
                     },
                 ]
             },
