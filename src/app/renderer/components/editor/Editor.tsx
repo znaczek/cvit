@@ -14,8 +14,12 @@ interface Props {
     title: string,
     html: string;
     styles: string;
+    header: string;
+    footer: string;
     updateHtml: (html: string) => void,
     updateStyles: (styles: string) => void,
+    updateHeader: (header: string) => void,
+    updateFooter: (footer: string) => void,
 }
 
 interface State {
@@ -42,14 +46,6 @@ export class Editor extends React.Component<Props> {
         this.setState({selected: index})
     };
 
-    public onContentChange = (content: string, mode: EditorMode) => {
-        if (mode === 'html') {
-            this.props.updateHtml(content);
-        } else if (mode === 'css') {
-            this.props.updateStyles(content);
-        }
-    };
-
     public render() {
         const {
             t,
@@ -58,6 +54,12 @@ export class Editor extends React.Component<Props> {
             title,
             html,
             styles,
+            header,
+            footer,
+            updateHtml,
+            updateStyles,
+            updateHeader,
+            updateFooter,
         } = this.props;
         const {selected} = this.state;
 
@@ -76,7 +78,7 @@ export class Editor extends React.Component<Props> {
                             focus={selected === 0}
                             undo={undo}
                             redo={redo}
-                            onChange={(content: string) => this.onContentChange(content, 'html')}
+                            onChange={(content: string) => updateHtml(content)}
                         />
                     </EditorTab>
                     <EditorTab title={t('PROJECT.EDITOR.TABS.STYLES')}>
@@ -87,7 +89,29 @@ export class Editor extends React.Component<Props> {
                             focus={selected === 1}
                             undo={undo}
                             redo={redo}
-                            onChange={(content: string) => this.onContentChange(content, 'css')}
+                            onChange={(content: string) => updateStyles(content)}
+                        />
+                    </EditorTab>
+                    <EditorTab title={t('PROJECT.EDITOR.TABS.HEADER')}>
+                        <EditorContainer
+                            value={header}
+                            mode='html'
+                            id='header'
+                            focus={selected === 2}
+                            undo={undo}
+                            redo={redo}
+                            onChange={(content: string) => updateHeader(content)}
+                        />
+                    </EditorTab>
+                    <EditorTab title={t('PROJECT.EDITOR.TABS.FOOTER')}>
+                        <EditorContainer
+                            value={footer}
+                            mode='html'
+                            id='footer'
+                            focus={selected === 3}
+                            undo={undo}
+                            redo={redo}
+                            onChange={(content: string) => updateFooter(content)}
                         />
                     </EditorTab>
                 </EditorView>

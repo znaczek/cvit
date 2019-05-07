@@ -58,6 +58,23 @@ export class MainMenu extends AbstractMenu {
                 ]
             },
             {
+                label: '&Project',
+                submenu: [
+                    {
+                        label: '&Header',
+                        type: 'checkbox',
+                        checked: false,
+                        click: () => EventBus.emit(new AppEvents.Header()),
+                    },
+                    {
+                        label: '&Footer',
+                        type: 'checkbox',
+                        checked: false,
+                        click: () => EventBus.emit(new AppEvents.Footer()),
+                    },
+                ]
+            },
+            {
                 label: '&Window',
                 submenu: [
                     {

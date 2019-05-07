@@ -23,6 +23,16 @@ export class ProjectSelectors {
         (state: ProjectsStateInterface): string => state.styles,
     );
 
+    public static getHeader = createSelector(
+        ProjectSelectors.getProjectState,
+        (state: ProjectsStateInterface): string => state.header,
+    );
+
+    public static getFooter = createSelector(
+        ProjectSelectors.getProjectState,
+        (state: ProjectsStateInterface): string => state.footer,
+    );
+
     public static getProject = createSelector(
         TemplatesSelectors.getTemplatesState,
         ProjectSelectors.getProjectState,

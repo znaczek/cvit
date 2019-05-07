@@ -21,9 +21,13 @@ interface Props {
     directory: string,
     html: string,
     styles: string,
+    header: string,
+    footer: string,
     getContent: (file: string) => void,
     updateHtml: (html: string) => void,
     updateStyles: (styles: string) => void,
+    updateHeader: (html: string) => void,
+    updateFooter: (styles: string) => void,
 }
 
 export class EditorPage extends React.Component<Props> {
@@ -44,9 +48,13 @@ export class EditorPage extends React.Component<Props> {
             directory,
             html,
             styles,
+            header,
+            footer,
             getContent,
             updateHtml,
-            updateStyles
+            updateStyles,
+            updateHeader,
+            updateFooter,
         } = this.props;
         if (!directory) {
             return <Home/>
@@ -63,10 +71,14 @@ export class EditorPage extends React.Component<Props> {
             title={directory}
             html={html}
             styles={styles}
+            header={header}
+            footer={footer}
             undo={undo}
             redo={redo}
             updateHtml={updateHtml}
             updateStyles={updateStyles}
+            updateHeader={updateHeader}
+            updateFooter={updateFooter}
             t={t}
         />;
     }
@@ -76,6 +88,8 @@ const mapStateToProps = (state: ApplicationStateInterface): Partial<Props> => ({
     directory: ProjectSelectors.getDirectory(state),
     html: ProjectSelectors.getHtml(state),
     styles: ProjectSelectors.getStyles(state),
+    header: ProjectSelectors.getHeader(state),
+    footer: ProjectSelectors.getFooter(state),
     undo: UiSelectors.getUndo(state),
     redo: UiSelectors.getRedo(state),
 });
@@ -83,7 +97,9 @@ const mapStateToProps = (state: ApplicationStateInterface): Partial<Props> => ({
 const mapDispatchToProps = (dispatch: AppThunkDispatchType) => ({
     getContent: (file: string) => dispatch(ProjectActions.getContent(file)),
     updateHtml: (html: string) => dispatch(ProjectActions.updateHtml(html)),
-    updateStyles: (styles: string) => dispatch(ProjectActions.updateStyles(styles))
+    updateStyles: (styles: string) => dispatch(ProjectActions.updateStyles(styles)),
+    updateHeader: (header: string) => dispatch(ProjectActions.updateHeader(header)),
+    updateFooter: (footer: string) => dispatch(ProjectActions.updateFooter(footer)),
 });
 
 export default compose(

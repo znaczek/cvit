@@ -38,7 +38,7 @@ interface TabPaneProps {
 const TabPane = styled.article<TabPaneProps>`
     display: ${({selected}: TabPaneProps) => selected ? 'block' : 'none'}
     width: 100%;
-    #content, #styles {
+    .ace_editor {
         width: 100%;
         height: calc(100vh - 70px);
     }
@@ -55,6 +55,7 @@ export class EditorView extends React.Component<Props> {
                 <TabList>
                     {React.Children.map(children, (child: EditorTab, index: number) => (
                         <TabListItem
+                            key={index}
                             selected={selected === index}
                             onClick={() => onChange(index)}
                         ><h3>{child.props.title}</h3></TabListItem>
@@ -62,7 +63,10 @@ export class EditorView extends React.Component<Props> {
                 </TabList>
                 <TabContent>
                     {React.Children.map(children, (child: EditorTab, index: number) => (
-                        <TabPane selected={selected === index}>{child}</TabPane>
+                        <TabPane
+                            key={index}
+                            selected={selected === index}
+                        >{child}</TabPane>
                     ))}
                 </TabContent>
             </main>

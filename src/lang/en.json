@@ -20,7 +20,9 @@
         "EDITOR": {
             "TABS": {
                 "CONTENT": "Content",
-                "STYLES": "Styles"
+                "STYLES": "Styles",
+                "HEADER": "Header",
+                "FOOTER": "Footer"
             }
         }
     }

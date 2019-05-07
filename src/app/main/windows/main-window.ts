@@ -29,7 +29,12 @@ export class MainWindow extends AbstractWindow {
                 break;
             }
             case AppEvents.TYPES.RENDER: {
-                console.log('No i witam w render :)');
+                break;
+            }
+            case AppEvents.TYPES.HEADER: {
+                break;
+            }
+            case AppEvents.TYPES.FOOTER: {
                 break;
             }
         }

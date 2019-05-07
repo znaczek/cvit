@@ -1,1 +1,1 @@
-export type EditorMode = 'html' | 'css';
+export type EditorMode = 'html' | 'css' | 'header' | 'footer';

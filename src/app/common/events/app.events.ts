@@ -15,6 +15,9 @@ export namespace AppEvents {
         PREVIEW_SET_DIRECTORY = 'PREVIEW_SET_DIRECTORY',
 
         RENDER = 'RENDER',
+
+        HEADER = 'HEADER',
+        FOOTER = 'FOOTER',
     }
 
     export class CreateNew implements ActionInterface {
@@ -73,9 +76,18 @@ export namespace AppEvents {
         public readonly type = TYPES.RENDER;
     }
 
+    export class Header implements ActionInterface {
+        public readonly type = TYPES.HEADER;
+    }
+
+    export class Footer implements ActionInterface {
+        public readonly type = TYPES.FOOTER;
+    }
+
     export type types = CreateNew | Open | Save | Undo | Redo
         | ProjectOpen
         | Preview | PreviewRefresh | PreviewSetDirectory
         | Render
+        | Header | Footer
         ;
 }

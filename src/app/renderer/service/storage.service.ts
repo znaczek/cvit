@@ -57,6 +57,8 @@ export class StorageService {
                 directory: lastDirectory,
                 html,
                 styles,
+                header: '',
+                footer: '',
             }
         } else {
             return null

@@ -6,6 +6,8 @@ const initialState: ProjectsStateInterface = {
     directory: null,
     html: null,
     styles: null,
+    header: null,
+    footer: null,
 };
 
 export default (state: ProjectsStateInterface = initialState, action: ActionInterface<any>): ProjectsStateInterface => {
@@ -26,6 +28,18 @@ export default (state: ProjectsStateInterface = initialState, action: ActionInte
             return {
                 ...state,
                 styles: action.payload,
+            }
+        }
+        case ProjectActions.UPDATE_HEADER: {
+            return {
+                ...state,
+                header: action.payload,
+            }
+        }
+        case ProjectActions.UPDATE_FOOTER: {
+            return {
+                ...state,
+                footer: action.payload,
             }
         }
         default:
