@@ -2,11 +2,11 @@ import {ApplicationStateInterface} from '../../../common/interfaces/application-
 import {createSelector} from 'reselect';
 import {TemplatesStateInterface} from '../../interfaces/state/templates-state.interface';
 import {ProjectsStateInterface} from '../../interfaces/state/projects-state.interface';
-import {ProjectService} from '../../service/project-service';
+import {HtmlService} from '../../service/html.service';
 import {TemplatesSelectors} from './templates.selectors';
 
 export class ProjectSelectors {
-    private static getProjectState = (state: ApplicationStateInterface): ProjectsStateInterface => state.project;
+    public static getProjectState = (state: ApplicationStateInterface): ProjectsStateInterface => state.project;
 
     public static getDirectory = createSelector(
         ProjectSelectors.getProjectState,
@@ -33,11 +33,12 @@ export class ProjectSelectors {
         (state: ProjectsStateInterface): string => state.footer,
     );
 
-    public static getProject = createSelector(
-        TemplatesSelectors.getTemplatesState,
-        ProjectSelectors.getProjectState,
-        (templateState: TemplatesStateInterface, projectState: ProjectsStateInterface): string =>
-            ProjectService.getProject(templateState.base, projectState.html, projectState.styles)
-    )
+    // TODO to remove if not used
+    // public static getProject = createSelector(
+    //     TemplatesSelectors.getTemplatesState,
+    //     ProjectSelectors.getProjectState,
+    //     (templateState: TemplatesStateInterface, projectState: ProjectsStateInterface): string =>
+    //         HtmlService.getFile(templateState.base, projectState.html)
+    // )
 
 }

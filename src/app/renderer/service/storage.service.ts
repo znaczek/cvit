@@ -3,12 +3,10 @@ import {Template} from '../models/template.model';
 import {PATHS} from '../paths';
 import {CreateProjectInterface} from '../interfaces/create-project.interface';
 import {ncp} from 'ncp';
-import {APP_EVENT, CV_FILE_NAME, ENCODING} from '../../common/constants';
-import {ProjectService} from './project-service';
+import {ENCODING} from '../../common/constants';
 import {LocalStorage} from './local-storage.service';
 import {ProjectsStateInterface} from '../interfaces/state/projects-state.interface';
-import {ipcRenderer} from "electron";
-import {AppEvents} from '../../common/events/app.events';
+import {ProjectService} from './project.service';
 
 const pFs = require('sb-fs');
 
@@ -50,22 +48,23 @@ export class StorageService {
     public static async getInitialProjectState(): Promise<ProjectsStateInterface> {
         const lastDirectory = LocalStorage.get('lastDirectory');
         if (lastDirectory) {
-            const content = await StorageService.getContent(lastDirectory + '/' + CV_FILE_NAME);
-            const html = ProjectService.getHTML(content);
-            const styles = ProjectService.getStyles(content);
+            const html = await ProjectService.getCv(lastDirectory);
+            const styles = await ProjectService.getStyles(lastDirectory);
+            const header = await ProjectService.getHeader(lastDirectory);
+            const footer = await ProjectService.getFooter(lastDirectory);
             return {
                 directory: lastDirectory,
                 html,
                 styles,
-                header: '',
-                footer: '',
+                header,
+                footer,
             }
         } else {
             return null
         }
     }
 
-    public static async getContent(path: string): Promise<string> {
+    public static async getFile(path: string): Promise<string> {
         return pFs.readFile(path, ENCODING);
     }
 

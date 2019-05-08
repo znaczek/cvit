@@ -4,13 +4,14 @@ import {StorageService} from '../../service/storage.service';
 import {AppThunkActionType} from '../../../common/types/app-thunk-action.type';
 import {AppThunkDispatchType} from '../../../common/types/app-thunk-dispatch.type';
 import {OpenProjectInterface} from '../../interfaces/open-project.interface';
-import {ProjectService} from '../../service/project-service';
+import {HtmlService} from '../../service/html.service';
 import {ApplicationStateInterface} from '../../../common/interfaces/application-state.interface';
 import {ProjectSelectors} from '../selectors/project.selectors';
-import {APP_EVENT, CV_FILE_NAME} from '../../../common/constants';
+import {APP_EVENT, CV_FILENAME, STYLES_FILENAME} from '../../../common/constants';
 import {ipcRenderer} from "electron";
 import {LocalStorage} from '../../service/local-storage.service';
 import {AppEvents} from '../../../common/events/app.events';
+import {ProjectService} from '../../service/project.service';
 
 const prefix = '[PROJECT] ';
 
@@ -80,9 +81,9 @@ export class ProjectActions {
     public static getContent(directory: string): AppThunkActionType<ActionInterface<CreateProjectInterface>> {
         return async (dispatch: AppThunkDispatchType) => {
             try {
-                const content = await StorageService.getContent(directory + '/' + CV_FILE_NAME);
-                const html = ProjectService.getHTML(content);
-                const styles = ProjectService.getStyles(content);
+                const content = await StorageService.getFile(directory + '/' + CV_FILENAME);
+                const html = HtmlService.getBody(content);
+                const styles = await StorageService.getFile(directory + '/' + STYLES_FILENAME);
                 dispatch(ProjectActions.updateHtml(html));
                 dispatch(ProjectActions.updateStyles(styles));
                 return dispatch(ProjectActions.getContentSuccess());
@@ -136,10 +137,10 @@ export class ProjectActions {
     public static save(): AppThunkActionType<ActionInterface<CreateProjectInterface>> {
         return async (dispatch: AppThunkDispatchType, getState: () => ApplicationStateInterface) => {
             const state = getState();
-            const project = ProjectSelectors.getProject(state);
             const directory = ProjectSelectors.getDirectory(state);
+            const project = ProjectSelectors.getProjectState(state);
             try {
-                await StorageService.save(directory + '/' + CV_FILE_NAME, project);
+                await ProjectService.save(directory, project);
                 return dispatch(ProjectActions.saveSuccess());
             } catch (e) {
                 return dispatch(ProjectActions.saveFailure(e));

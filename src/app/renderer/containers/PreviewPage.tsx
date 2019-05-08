@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Preview} from '../components/preview/Preview';
-import {APP_EVENT, CV_FILE_NAME} from '../../common/constants';
+import {APP_EVENT, CV_FILENAME} from '../../common/constants';
 import {FileWatcher} from '../../common/tools/file-watcher';
 import {AppEvents} from '../../common/events/app.events';
 import {ipcRenderer} from "electron";
@@ -34,7 +34,7 @@ export class PreviewPage extends React.PureComponent {
 
     public render() {
         const {directory, ts, loader} = this.props;
-        const file = `${directory}/${CV_FILE_NAME}`;
+        const file = `${directory}/${CV_FILENAME}`;
         const fileUrl = `${file}?ts=${ts}`;
 
         if (directory !== this.lastDirectory) {

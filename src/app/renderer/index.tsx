@@ -31,8 +31,8 @@ const bootstrapApp = (data: BootstrapDataType) => {
             directory: data[2] ? data[2].directory : null,
             html: data[2] ? data[2].html : null,
             styles: data[2] ? data[2].styles : null,
-            header: '',
-            footer: '',
+            header: data[2] ? data[2].header : null,
+            footer: data[2] ? data[2].footer : null,
         }
     });
 
