@@ -3,7 +3,6 @@ import {BrowserWindow, Menu} from "electron";
 import {AbstractMenu} from '../menu/abstract-menu.';
 import {Subscription} from '../../common/model/subscription.model';
 import {AppEvents} from '../../common/events/app.events';
-import {PreviewWindow} from './preview-window';
 import {EventBus} from '../service/event-bus';
 
 export abstract class AbstractWindow {

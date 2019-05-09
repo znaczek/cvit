@@ -5,6 +5,7 @@ import {UiActions} from '../actions/ui.actions';
 
 const initialState: UiStateInterface = {
     newProjectPopupVisible: false,
+    printConfigVisible: false,
     undo: null,
     redo: null,
 };
@@ -22,6 +23,18 @@ export default (state: UiStateInterface = initialState, action: ActionInterface<
             return {
                 ...state,
                 newProjectPopupVisible: false,
+            }
+        }
+        case UiActions.OPEN_PRINT_CONFIG_POPUP: {
+            return {
+                ...state,
+                printConfigVisible: true,
+            }
+        }
+        case UiActions.CLOSE_PRINT_CONFIG_POPUP: {
+            return {
+                ...state,
+                printConfigVisible: false,
             }
         }
         case UiActions.UNDO: {

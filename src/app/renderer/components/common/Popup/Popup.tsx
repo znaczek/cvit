@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import {STYLES} from '../../../styles/variables';
-import {H1} from '../styled/H1';
+import {H1} from '../styled/Headers';
 import {T} from '../../T';
 import {MIXINS} from '../../../styles/mixins';
 
@@ -36,13 +36,14 @@ const Modal = styled.div`
 interface Props {
     visible: boolean;
     children: React.ReactNodeArray;
+    width?: string
 }
 
 const Popup = (props: Props) => {
-    const {visible, children} = props;
+    const {visible, children, width} = props;
     return (
         <Overlay visible={visible}>
-            <Modal>{children}</Modal>
+            <Modal width={width}>{children}</Modal>
         </Overlay>
     );
 };

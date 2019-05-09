@@ -9,7 +9,7 @@ import {AppThunkDispatchType} from '../../../common/types/app-thunk-dispatch.typ
 import {OptionModel} from '../../../common/model/options-model';
 import {Popup} from '../common/Popup/Popup';
 import {UiSelectors} from '../../store/selectors/ui.selectors';
-import {H1} from '../common/styled/H1';
+import {H1} from '../common/styled/Headers';
 import {T} from '../T';
 import {UiActions} from '../../store/actions/ui.actions';
 import {CreateProjectInterface} from '../../interfaces/create-project.interface';
@@ -29,7 +29,7 @@ export class NewProjectPopup extends React.Component<Props> {
         return (
             <Popup visible={newProjectPopupVisible}>
                 <Popup.Header handleClose={close}>
-                    <H1><T>PROJECT.NEW.HEADER</T></H1>
+                    <H1><T>NEW_PROJECT.NEW.HEADER</T></H1>
                 </Popup.Header>
                 <NewProject
                     createProject={createProject}

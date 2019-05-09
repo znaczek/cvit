@@ -3,6 +3,7 @@ import {AppEvents} from '../../common/events/app.events';
 import {PreviewActions} from '../store/actions/preview.actions';
 import {AppThunkDispatchType} from '../../common/types/app-thunk-dispatch.type';
 
+// TODO return types
 export class PreviewEventHandler {
     public static handle(event: AppEvents.types) {
         const dispatch = store.dispatch as AppThunkDispatchType;

@@ -14,10 +14,9 @@ export namespace AppEvents {
         PREVIEW_REFRESH = 'PREVIEW_REFRESH',
         PREVIEW_SET_DIRECTORY = 'PREVIEW_SET_DIRECTORY',
 
-        RENDER = 'RENDER',
+        SHOW_PRINT_CONFIG = 'SHOW_PRINT_CONFIG',
 
-        HEADER = 'HEADER',
-        FOOTER = 'FOOTER',
+        RENDER = 'RENDER',
     }
 
     export class CreateNew implements ActionInterface {
@@ -59,6 +58,10 @@ export namespace AppEvents {
         public readonly type = TYPES.PREVIEW;
     }
 
+    export class ShowPrintConfig implements ActionInterface {
+        public readonly type = TYPES.SHOW_PRINT_CONFIG;
+    }
+
     export class PreviewSetDirectory implements ActionInterface<string> {
         public readonly type = TYPES.PREVIEW_SET_DIRECTORY;
         public readonly payload: string;
@@ -76,18 +79,10 @@ export namespace AppEvents {
         public readonly type = TYPES.RENDER;
     }
 
-    export class Header implements ActionInterface {
-        public readonly type = TYPES.HEADER;
-    }
-
-    export class Footer implements ActionInterface {
-        public readonly type = TYPES.FOOTER;
-    }
-
     export type types = CreateNew | Open | Save | Undo | Redo
         | ProjectOpen
         | Preview | PreviewRefresh | PreviewSetDirectory
         | Render
-        | Header | Footer
+        | ShowPrintConfig
         ;
 }

@@ -19,6 +19,9 @@ export class EditorEventHandler {
                 }
                 return;
             }
+            case AppEvents.TYPES.SHOW_PRINT_CONFIG: {
+                return dispatch(UiActions.openPrintConfigPopup());
+            }
             case AppEvents.TYPES.SAVE: {
                 return (<AppThunkDispatchType>dispatch)(ProjectActions.save())
             }

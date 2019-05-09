@@ -6,3 +6,9 @@ export const H1 = styled.h1`
     font-size: 36px;
     margin-bottom: ${STYLES.gutter / 2}px;
 `;
+
+export const H2 = styled.h2`
+    flex-grow: 1;
+    font-size: 30px;
+    margin-bottom: ${STYLES.gutter / 2}px;
+`;

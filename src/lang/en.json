@@ -1,9 +1,10 @@
 {
     "ACTIONS": {
+        "CANCEL": "Cancel",
         "CREATE": "Create",
         "CHOOSE": "Choose"
     },
-    "PROJECT": {
+    "NEW_PROJECT": {
         "NEW": {
             "HEADER": "New project",
             "TEMPLATE": {
@@ -16,14 +17,23 @@
                 "CHOOSE": "Project name",
                 "EXIST": "Directory already exists"
             }
-        },
-        "EDITOR": {
-            "TABS": {
-                "CONTENT": "Content",
-                "STYLES": "Styles",
-                "HEADER": "Header",
-                "FOOTER": "Footer"
-            }
+        }
+    },
+    "PRINT_CONFIG": {
+        "HEADER": "Print configuration",
+        "HAS_HEADER": "Header",
+        "HAS_FOOTER": "Footer",
+        "MARGIN_TOP": "Margin top",
+        "MARGIN_BOTTOM": "Margin bottom",
+        "MARGIN_LEFT": "Margin right",
+        "MARGIN_RIGHT": "Margin top"
+    },
+    "EDITOR": {
+        "TABS": {
+            "CONTENT": "Content",
+            "STYLES": "Styles",
+            "HEADER": "Header",
+            "FOOTER": "Footer"
         }
     }
 }

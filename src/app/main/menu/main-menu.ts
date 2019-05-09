@@ -61,25 +61,12 @@ export class MainMenu extends AbstractMenu {
                 label: '&Project',
                 submenu: [
                     {
-                        label: '&Header',
-                        type: 'checkbox',
-                        checked: false,
-                        click: () => EventBus.emit(new AppEvents.Header()),
-                    },
-                    {
-                        label: '&Footer',
-                        type: 'checkbox',
-                        checked: false,
-                        click: () => EventBus.emit(new AppEvents.Footer()),
-                    },
-                ]
-            },
-            {
-                label: '&Window',
-                submenu: [
-                    {
                         label: '&Preview',
                         click: () => EventBus.emit(new AppEvents.Preview()),
+                    },
+                    {
+                        label: '&Print config',
+                        click: () => this.window.webContents.send(APP_EVENT, new AppEvents.ShowPrintConfig())
                     },
                     {
                         label: '&Render',

@@ -1,7 +1,5 @@
 import * as React from 'react';
 import {T} from '../T';
-import styled from 'styled-components';
-import {STYLES} from '../../styles/variables';
 import {Template} from '../../models/template.model';
 import {SelectBox} from '../common/SelectBox/SelectBox';
 import {Button} from '../common/styled/Button';
@@ -12,46 +10,7 @@ import {Input} from '../common/styled/Input';
 import {StorageService} from '../../service/storage.service';
 import {INPUT_DEBOUNCE_TIME} from '../../constants/ui.constants';
 import {CreateProjectInterface} from '../../interfaces/create-project.interface';
-
-const Wrapper = styled.section`
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-`;
-
-const Form = styled.div`
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    
-    .submit {
-        margin-top: ${STYLES.gutter * 2/3}px;
-    }
-`;
-
-const Group = styled.div`
-    position: relative;
-    &:not(:last-child) {
-        margin-bottom: ${STYLES.gutter}px
-    }
-    ${Input} {
-        width: 100%;
-    }
-`;
-
-const Error = styled.span`
-    position: absolute;
-    line-height: 1;
-    bottom: -${STYLES.fontSizes.basic + 3}px;
-    left: 0;
-    color: ${STYLES.colors.red};
-`;
-
-const Label = styled.label`
-    display: block;
-    margin-bottom: ${STYLES.gutter / 3}px;
-    font-weight: ${STYLES.fontWeight.bold}
-`;
+import {Error, Form, Group, Label} from '../common/styled/Form';
 
 interface Props {
     templates: OptionModel<Template>[];
@@ -132,43 +91,41 @@ export default class NewProject extends React.Component<Props> {
 
 
         return (
-            <Wrapper>
-                <Form>
-                    <Group>
-                        <Label><T>PROJECT.NEW.TEMPLATE.CHOOSE</T></Label>
-                        <SelectBox
-                            options={templates}
-                            selected={template}
-                            handleOnSelect={this.handleOnTemplateSelect}
-                        />
-                    </Group>
-                    <Group>
-                        <Label><T>PROJECT.NEW.DIRECTORY.CHOOSE</T></Label>
-                        <DirectoryPicker
-                            handleOnDirectoryChoose={this.handleOnDirectoryChoose}
-                            value={path}
-                        />
-                    </Group>
-                    <Group>
-                        <Label><T>PROJECT.NEW.NAME.CHOOSE</T></Label>
-                        <Input value={name} onChange={this.handleNameChange}/>
-                        {!pending && !nameValid && (
-                            <Error><T>PROJECT.NEW.NAME.EXIST</T></Error>
-                        )}
-                    </Group>
-                    <Group className={'submit'}>
-                        <Button
-                            theme={Themes.primary}
-                            onClick={() => this.isValid() && createProject({
-                                templatePath: this.state.template.path,
-                                destination: this.state.path + '/' + this.state.name,
-                            })}
-                            stretched
-                            disabled={!this.isValid()}
-                        ><T>ACTIONS.CREATE</T></Button>
-                    </Group>
-                </Form>
-            </Wrapper>
+            <Form>
+                <Group>
+                    <Label><T>NEW_PROJECT.NEW.TEMPLATE.CHOOSE</T></Label>
+                    <SelectBox
+                        options={templates}
+                        selected={template}
+                        handleOnSelect={this.handleOnTemplateSelect}
+                    />
+                </Group>
+                <Group>
+                    <Label><T>NEW_PROJECT.NEW.DIRECTORY.CHOOSE</T></Label>
+                    <DirectoryPicker
+                        handleOnDirectoryChoose={this.handleOnDirectoryChoose}
+                        value={path}
+                    />
+                </Group>
+                <Group>
+                    <Label><T>NEW_PROJECT.NEW.NAME.CHOOSE</T></Label>
+                    <Input value={name} onChange={this.handleNameChange}/>
+                    {!pending && !nameValid && (
+                        <Error><T>NEW_PROJECT.NEW.NAME.EXIST</T></Error>
+                    )}
+                </Group>
+                <Group className={'submit'}>
+                    <Button
+                        theme={Themes.primary}
+                        onClick={() => this.isValid() && createProject({
+                            templatePath: this.state.template.path,
+                            destination: this.state.path + '/' + this.state.name,
+                        })}
+                        stretched
+                        disabled={!this.isValid()}
+                    ><T>ACTIONS.CREATE</T></Button>
+                </Group>
+            </Form>
         );
     }
 

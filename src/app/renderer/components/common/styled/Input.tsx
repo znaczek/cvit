@@ -7,6 +7,7 @@ interface Props {
 }
 
 export const Input = styled.input`
+    flex-grow: 1;
     border: none;
     outline: none;
     padding: 3px 5px;

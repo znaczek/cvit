@@ -70,7 +70,7 @@ export class Editor extends React.Component<Props> {
                     selected={selected}
                     onChange={this.onTabChange}
                 >
-                    <EditorTab title={t('PROJECT.EDITOR.TABS.CONTENT')}>
+                    <EditorTab title={t('EDITOR.TABS.CONTENT')}>
                         <EditorContainer
                             value={html}
                             mode='html'
@@ -81,7 +81,7 @@ export class Editor extends React.Component<Props> {
                             onChange={(content: string) => updateHtml(content)}
                         />
                     </EditorTab>
-                    <EditorTab title={t('PROJECT.EDITOR.TABS.STYLES')}>
+                    <EditorTab title={t('EDITOR.TABS.STYLES')}>
                         <EditorContainer
                             value={styles}
                             mode='css'
@@ -92,7 +92,7 @@ export class Editor extends React.Component<Props> {
                             onChange={(content: string) => updateStyles(content)}
                         />
                     </EditorTab>
-                    <EditorTab title={t('PROJECT.EDITOR.TABS.HEADER')}>
+                    <EditorTab title={t('EDITOR.TABS.HEADER')}>
                         <EditorContainer
                             value={header}
                             mode='html'
@@ -103,7 +103,7 @@ export class Editor extends React.Component<Props> {
                             onChange={(content: string) => updateHeader(content)}
                         />
                     </EditorTab>
-                    <EditorTab title={t('PROJECT.EDITOR.TABS.FOOTER')}>
+                    <EditorTab title={t('EDITOR.TABS.FOOTER')}>
                         <EditorContainer
                             value={footer}
                             mode='html'

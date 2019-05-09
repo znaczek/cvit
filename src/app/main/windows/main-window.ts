@@ -31,12 +31,6 @@ export class MainWindow extends AbstractWindow {
             case AppEvents.TYPES.RENDER: {
                 break;
             }
-            case AppEvents.TYPES.HEADER: {
-                break;
-            }
-            case AppEvents.TYPES.FOOTER: {
-                break;
-            }
         }
     }
 

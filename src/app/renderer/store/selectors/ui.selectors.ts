@@ -10,6 +10,11 @@ export class UiSelectors {
         (state: UiStateInterface): boolean => state.newProjectPopupVisible
     );
 
+    public static getPrintConfigPopupVisible = createSelector(
+        UiSelectors.getUiState,
+        (state: UiStateInterface): boolean => state.printConfigVisible
+    );
+
     public static getUndo = createSelector(
         UiSelectors.getUiState,
         (state: UiStateInterface): number => state.undo,
