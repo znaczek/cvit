@@ -67,7 +67,7 @@ interface State {
     pending: boolean;
 }
 
-export default class Project extends React.Component<Props> {
+export default class NewProject extends React.Component<Props> {
     public props: Props;
     public state: State;
     public validationTimeout: number;

@@ -1,18 +1,18 @@
 import * as React from 'react';
-import Project from '../components/project/Project';
+import NewProject from './NewProject';
 import {connect} from 'react-redux';
-import {ApplicationStateInterface} from '../../common/interfaces/application-state.interface';
-import {Template} from '../models/template.model';
-import {TemplatesSelectors} from '../store/selectors/templates.selectors';
-import {ProjectActions} from '../store/actions/project.actions';
-import {AppThunkDispatchType} from '../../common/types/app-thunk-dispatch.type';
-import {OptionModel} from '../../common/model/options-model';
-import {Popup} from '../components/common/Popup/Popup';
-import {UiSelectors} from '../store/selectors/ui.selectors';
-import {H1} from '../components/common/styled/H1';
-import {T} from '../components/T';
-import {UiActions} from '../store/actions/ui.actions';
-import {CreateProjectInterface} from '../interfaces/create-project.interface';
+import {ApplicationStateInterface} from '../../../common/interfaces/application-state.interface';
+import {Template} from '../../models/template.model';
+import {TemplatesSelectors} from '../../store/selectors/templates.selectors';
+import {ProjectActions} from '../../store/actions/project.actions';
+import {AppThunkDispatchType} from '../../../common/types/app-thunk-dispatch.type';
+import {OptionModel} from '../../../common/model/options-model';
+import {Popup} from '../common/Popup/Popup';
+import {UiSelectors} from '../../store/selectors/ui.selectors';
+import {H1} from '../common/styled/H1';
+import {T} from '../T';
+import {UiActions} from '../../store/actions/ui.actions';
+import {CreateProjectInterface} from '../../interfaces/create-project.interface';
 
 interface Props {
     templates: OptionModel<Template>[];
@@ -21,7 +21,7 @@ interface Props {
     close: () => void;
 }
 
-export class ProjectPage extends React.Component<Props> {
+export class NewProjectPopup extends React.Component<Props> {
     props: Props;
 
     render() {
@@ -31,7 +31,7 @@ export class ProjectPage extends React.Component<Props> {
                 <Popup.Header handleClose={close}>
                     <H1><T>PROJECT.NEW.HEADER</T></H1>
                 </Popup.Header>
-                <Project
+                <NewProject
                     createProject={createProject}
                     templates={templates}
                     visible={newProjectPopupVisible}
@@ -52,4 +52,4 @@ const mapDispatchToProps = (dispatch: AppThunkDispatchType) => ({
     close: () => dispatch(UiActions.closeCreateProjectPopup()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProjectPage);
+export default connect(mapStateToProps, mapDispatchToProps)(NewProjectPopup);
