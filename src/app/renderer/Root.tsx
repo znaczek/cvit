@@ -3,7 +3,7 @@ import {Provider} from 'react-redux';
 import {Store} from 'redux';
 import EditorPage from './containers/EditorPage';
 import App from './App';
-import ProjectPage from './containers/ProjectPage';
+import NewProjectPopup from './components/project/NewProjectPopup';
 import PreviewPage from './containers/PreviewPage';
 
 interface Props {
@@ -21,7 +21,7 @@ export default class Root extends React.Component<Props> {
                         <PreviewPage/>
                     ) : (
                         <App>
-                            <ProjectPage/>
+                            <NewProjectPopup/>
                             <EditorPage/>
                         </App>
                     )

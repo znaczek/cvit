@@ -2,7 +2,6 @@ import {ActionInterface} from '../../../common/interfaces/action.interface';
 import {AppThunkActionType} from '../../../common/types/app-thunk-action.type';
 import {AppThunkDispatchType} from '../../../common/types/app-thunk-dispatch.type';
 import {delay} from '../../../common/tools/delay';
-import {CV_FILENAME} from '../../../common/constants';
 
 const prefix = '[PREVIEW] ';
 
