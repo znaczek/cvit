@@ -1,4 +1,6 @@
 {
+    "YES": "Yes",
+    "NO": "No",
     "ACTIONS": {
         "CANCEL": "Cancel",
         "CREATE": "Create",

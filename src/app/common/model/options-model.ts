@@ -1,4 +1,4 @@
-interface OptionInterface<T = any> {
+export interface OptionInterface<T = any> {
     label?: string;
     value?: T,
 }
