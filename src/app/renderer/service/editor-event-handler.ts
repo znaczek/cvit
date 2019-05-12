@@ -13,9 +13,7 @@ export class EditorEventHandler {
             }
             case AppEvents.TYPES.OPEN: {
                 if (event.payload) {
-                    return (<AppThunkDispatchType>dispatch)(ProjectActions.openProject({
-                        directory: event.payload
-                    }))
+                    return (<AppThunkDispatchType>dispatch)(ProjectActions.openProject(event.payload))
                 }
                 return;
             }

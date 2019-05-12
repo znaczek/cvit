@@ -1,5 +1,4 @@
-import {OpenProjectInterface} from './open-project.interface';
-
-export interface CreateProjectInterface extends OpenProjectInterface {
+export interface CreateProjectInterface {
     templatePath: string;
+    directory: string;
 }

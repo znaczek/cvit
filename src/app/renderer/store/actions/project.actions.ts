@@ -11,6 +11,7 @@ import {ipcRenderer} from "electron";
 import {LocalStorage} from '../../service/local-storage.service';
 import {AppEvents} from '../../../common/events/app.events';
 import {ProjectService} from '../../service/project.service';
+import {PrintConfigStateInterface} from '../../interfaces/state/print-config-state.interface';
 
 const prefix = '[PROJECT] ';
 
@@ -22,6 +23,8 @@ export class ProjectActions {
 
     public static readonly OPEN_PROJECT_SUCCESS = prefix + 'OPEN_PROJECT_SUCCESS';
     public static readonly OPEN_PROJECT_FAILURE = prefix + 'OPEN_PROJECT_FAILURE';
+
+    public static readonly SET_PRINT_CONFIG = prefix + 'SET_PRINT_CONFIG';
 
     public static readonly UPDATE_HTML = prefix + 'UPDATE_HTML';
     public static readonly UPDATE_STYLES = prefix + 'UPDATE_STYLES';
@@ -46,7 +49,7 @@ export class ProjectActions {
                 return dispatch(ProjectActions.createProjectFailure(e));
             }
             dispatch(ProjectActions.createProjectSuccess());
-            return dispatch(ProjectActions.openProject(payload));
+            return dispatch(ProjectActions.openProject(payload.directory));
         }
     }
 
@@ -63,13 +66,14 @@ export class ProjectActions {
         }
     }
 
-    public static openProject(payload?: OpenProjectInterface): AppThunkAction<OpenProjectInterface> {
+    public static openProject(directory: string): AppThunkAction<OpenProjectInterface> {
         return (dispatch: AppThunkDispatchType) => {
             try {
-                const project = ProjectService.getProject(payload.directory);
-                const settings = ProjectService.getSettings(payload.directory);
-                dispatch(ProjectActions.openProjectSuccess({
-                    directory: payload.directory,
+                const project = ProjectService.getProject(directory);
+                const printConfig = ProjectService.getPrintConfig(directory);
+                dispatch(ProjectActions.setPrintConfig(printConfig));
+                return dispatch(ProjectActions.openProjectSuccess({
+                    directory,
                     ...project,
                 }));
             } catch (e) {
@@ -94,7 +98,12 @@ export class ProjectActions {
         }
     }
 
-
+    public static setPrintConfig(payload: PrintConfigStateInterface): ActionInterface<PrintConfigStateInterface> {
+        return {
+            type: ProjectActions.SET_PRINT_CONFIG,
+            payload,
+        }
+    }
 
     public static updateHtml(html: string): ActionInterface<string> {
         return {

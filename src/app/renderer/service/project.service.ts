@@ -43,7 +43,7 @@ export class ProjectService {
         return {html, styles, header, footer}
     }
 
-    public static getSettings(directory: string): PrintConfigStateInterface {
+    public static getPrintConfig(directory: string): PrintConfigStateInterface {
         return JSON.parse(StorageService.getFile(directory + '/' + SETTINGS_FILENAME));
     }
 
