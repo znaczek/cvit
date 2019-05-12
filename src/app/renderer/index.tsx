@@ -11,6 +11,9 @@ import {BootstrapDataType} from './types/bootstra-data.type';
 import {ApplicationStateInterface} from '../common/interfaces/application-state.interface';
 import {Store} from 'redux';
 import {StorageService} from './service/storage.service';
+import {ProjectService} from './service/project.service';
+import {Template} from './models/template.model';
+import {ProjectsStateInterface} from './interfaces/state/projects-state.interface';
 
 declare global {
     interface Window {
@@ -21,18 +24,18 @@ declare global {
 
 export let store: Store<ApplicationStateInterface>;
 
-const bootstrapApp = (data: BootstrapDataType) => {
+const bootstrapApp = (templates: Template[], baseTemplate: string, initialProjectState: ProjectsStateInterface) => {
     store = configureStore({
         templates: {
-            list: data[0],
-            base: data[1],
+            list: templates,
+            base: baseTemplate,
         },
         project: {
-            directory: data[2] ? data[2].directory : null,
-            html: data[2] ? data[2].html : null,
-            styles: data[2] ? data[2].styles : null,
-            header: data[2] ? data[2].header : null,
-            footer: data[2] ? data[2].footer : null,
+            directory: initialProjectState && initialProjectState.directory,
+            html: initialProjectState && initialProjectState.html,
+            styles: initialProjectState && initialProjectState.styles,
+            header: initialProjectState && initialProjectState.header,
+            footer: initialProjectState && initialProjectState.footer,
         }
     });
 
@@ -67,12 +70,4 @@ const bootstrapApp = (data: BootstrapDataType) => {
 
 };
 
-Promise.all([
-    StorageService.getTemplates(),
-    StorageService.getBaseTemplate(),
-    StorageService.getInitialProjectState(),
-]).then((data) => {
-    bootstrapApp(data);
-});
-
-
+bootstrapApp(StorageService.getTemplates(), StorageService.getBaseTemplate(), ProjectService.getInitialProjectState());

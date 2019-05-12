@@ -119,7 +119,7 @@ export default class NewProject extends React.Component<Props> {
                         theme={Themes.primary}
                         onClick={() => this.isValid() && createProject({
                             templatePath: this.state.template.path,
-                            destination: this.state.path + '/' + this.state.name,
+                            directory: this.state.path + '/' + this.state.name,
                         })}
                         stretched
                         disabled={!this.isValid()}

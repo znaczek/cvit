@@ -15,7 +15,7 @@ export default (state: ProjectsStateInterface = initialState, action: ActionInte
         case ProjectActions.OPEN_PROJECT_SUCCESS: {
             return {
                 ...state,
-                directory: action.payload,
+                ...action.payload,
             }
         }
         case ProjectActions.UPDATE_HTML: {

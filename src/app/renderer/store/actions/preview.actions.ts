@@ -1,5 +1,5 @@
 import {ActionInterface} from '../../../common/interfaces/action.interface';
-import {AppThunkActionType} from '../../../common/types/app-thunk-action.type';
+import {AppThunkAsyncAction} from '../../../common/types/app-thunk-action.type';
 import {AppThunkDispatchType} from '../../../common/types/app-thunk-dispatch.type';
 import {delay} from '../../../common/tools/delay';
 
@@ -10,7 +10,7 @@ export class PreviewActions {
     public static readonly SET_LOADER = prefix + 'SET_LOADER';
     public static readonly CLEAR_LOADER = prefix + 'CLEAR_LOADER';
 
-    public static refresh(directory?: string): AppThunkActionType<ActionInterface<string>> {
+    public static refresh(directory?: string): AppThunkAsyncAction<string> {
         return async (dispatch: AppThunkDispatchType) => {
             dispatch(PreviewActions.setLoader());
             await delay(250);
@@ -31,7 +31,7 @@ export class PreviewActions {
         }
     }
 
-    public static refreshDone(): AppThunkActionType<ActionInterface<void>> {
+    public static refreshDone(): AppThunkAsyncAction<void> {
         return async (dispatch: AppThunkDispatchType) => {
             await delay(100);
             return dispatch(PreviewActions.clearLoader());

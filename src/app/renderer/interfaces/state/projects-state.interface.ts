@@ -1,7 +1,5 @@
-export interface ProjectsStateInterface {
+import {ProjectInterface} from './project.interface';
+
+export interface ProjectsStateInterface extends ProjectInterface {
     directory: string,
-    html: string,
-    styles: string,
-    header: string,
-    footer: string,
 }

@@ -1,13 +1,12 @@
 import {ActionInterface} from '../../../common/interfaces/action.interface';
 import {CreateProjectInterface} from '../../interfaces/create-project.interface';
 import {StorageService} from '../../service/storage.service';
-import {AppThunkActionType} from '../../../common/types/app-thunk-action.type';
+import {AppThunkAction} from '../../../common/types/app-thunk-action.type';
 import {AppThunkDispatchType} from '../../../common/types/app-thunk-dispatch.type';
 import {OpenProjectInterface} from '../../interfaces/open-project.interface';
-import {HtmlService} from '../../service/html.service';
 import {ApplicationStateInterface} from '../../../common/interfaces/application-state.interface';
 import {ProjectSelectors} from '../selectors/project.selectors';
-import {APP_EVENT, CV_FILENAME, STYLES_FILENAME} from '../../../common/constants';
+import {APP_EVENT} from '../../../common/constants';
 import {ipcRenderer} from "electron";
 import {LocalStorage} from '../../service/local-storage.service';
 import {AppEvents} from '../../../common/events/app.events';
@@ -18,11 +17,11 @@ const prefix = '[PROJECT] ';
 export class ProjectActions {
     public static readonly START_CREATE_PROJECT = prefix + 'START_CREATE_PROJECT';
 
+    public static readonly CREATE_PROJECT_SUCCESS = prefix + 'CREATE_PROJECT_SUCCESS';
+    public static readonly CREATE_PROJECT_FAILURE = prefix + 'CREATE_PROJECT_FAILURE';
+
     public static readonly OPEN_PROJECT_SUCCESS = prefix + 'OPEN_PROJECT_SUCCESS';
     public static readonly OPEN_PROJECT_FAILURE = prefix + 'OPEN_PROJECT_FAILURE';
-
-    public static readonly GET_CONTENT_SUCCESS = prefix + 'GET_CONTENT_SUCCESS';
-    public static readonly GET_CONTENT_FAILURE = prefix + 'GET_CONTENT_FAILURE';
 
     public static readonly UPDATE_HTML = prefix + 'UPDATE_HTML';
     public static readonly UPDATE_STYLES = prefix + 'UPDATE_STYLES';
@@ -39,35 +38,52 @@ export class ProjectActions {
         }
     }
 
-    public static createProject(payload: CreateProjectInterface): AppThunkActionType<ActionInterface<CreateProjectInterface>> {
-        return async (dispatch: AppThunkDispatchType) => {
+    public static createProject(payload: CreateProjectInterface): AppThunkAction<OpenProjectInterface> {
+        return (dispatch: AppThunkDispatchType) => {
             try {
-                await StorageService.createProject(payload);
-                await dispatch(ProjectActions.getContent(payload.destination));
-                dispatch(ProjectActions.openProjectSuccess(payload.destination));
+                StorageService.createProject(payload);
             } catch (e) {
-                return dispatch(ProjectActions.openProjectFailure(e));
+                return dispatch(ProjectActions.createProjectFailure(e));
             }
+            dispatch(ProjectActions.createProjectSuccess());
+            return dispatch(ProjectActions.openProject(payload));
         }
     }
 
-    public static openProject(payload: OpenProjectInterface): AppThunkActionType<ActionInterface<OpenProjectInterface>> {
-        return async (dispatch: AppThunkDispatchType) => {
+    public static createProjectSuccess(): ActionInterface {
+        return {
+            type: ProjectActions.CREATE_PROJECT_SUCCESS,
+        }
+    }
+
+    public static createProjectFailure(e: any): ActionInterface<any> {
+        return {
+            type: ProjectActions.CREATE_PROJECT_FAILURE,
+            payload: e,
+        }
+    }
+
+    public static openProject(payload?: OpenProjectInterface): AppThunkAction<OpenProjectInterface> {
+        return (dispatch: AppThunkDispatchType) => {
             try {
-                await dispatch(ProjectActions.getContent(payload.destination));
-                dispatch(ProjectActions.openProjectSuccess(payload.destination));
+                const project = ProjectService.getProject(payload.directory);
+                const settings = ProjectService.getSettings(payload.directory);
+                dispatch(ProjectActions.openProjectSuccess({
+                    directory: payload.directory,
+                    ...project,
+                }));
             } catch (e) {
                 return dispatch(ProjectActions.openProjectFailure(e));
             }
         };
     }
 
-    public static openProjectSuccess(directory: string): ActionInterface<string> {
-        ipcRenderer.send(APP_EVENT, new AppEvents.ProjectOpen(directory));
-        LocalStorage.set('lastDirectory', directory);
+    public static openProjectSuccess(payload: OpenProjectInterface): ActionInterface<OpenProjectInterface> {
+        ipcRenderer.send(APP_EVENT, new AppEvents.ProjectOpen(payload.directory));
+        LocalStorage.set('lastDirectory', payload.directory);
         return {
             type: ProjectActions.OPEN_PROJECT_SUCCESS,
-            payload: directory,
+            payload,
         }
     }
 
@@ -78,33 +94,7 @@ export class ProjectActions {
         }
     }
 
-    public static getContent(directory: string): AppThunkActionType<ActionInterface<CreateProjectInterface>> {
-        return async (dispatch: AppThunkDispatchType) => {
-            try {
-                const content = await StorageService.getFile(directory + '/' + CV_FILENAME);
-                const html = HtmlService.getBody(content);
-                const styles = await StorageService.getFile(directory + '/' + STYLES_FILENAME);
-                dispatch(ProjectActions.updateHtml(html));
-                dispatch(ProjectActions.updateStyles(styles));
-                return dispatch(ProjectActions.getContentSuccess());
-            } catch (e) {
-                return dispatch(ProjectActions.getContentFailure(e));
-            }
-        }
-    }
 
-    public static getContentSuccess():  ActionInterface {
-        return {
-            type: ProjectActions.GET_CONTENT_SUCCESS,
-        }
-    }
-
-    public static getContentFailure(e: any): ActionInterface<any> {
-        return {
-            type: ProjectActions.GET_CONTENT_FAILURE,
-            payload: e,
-        }
-    }
 
     public static updateHtml(html: string): ActionInterface<string> {
         return {
@@ -134,13 +124,13 @@ export class ProjectActions {
         }
     }
 
-    public static save(): AppThunkActionType<ActionInterface<CreateProjectInterface>> {
-        return async (dispatch: AppThunkDispatchType, getState: () => ApplicationStateInterface) => {
+    public static save(): AppThunkAction<CreateProjectInterface> {
+        return (dispatch: AppThunkDispatchType, getState: () => ApplicationStateInterface) => {
             const state = getState();
             const directory = ProjectSelectors.getDirectory(state);
             const project = ProjectSelectors.getProjectState(state);
             try {
-                await ProjectService.save(directory, project);
+                ProjectService.save(directory, project);
                 return dispatch(ProjectActions.saveSuccess());
             } catch (e) {
                 return dispatch(ProjectActions.saveFailure(e));
