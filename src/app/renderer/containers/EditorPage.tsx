@@ -5,7 +5,7 @@ import {AppThunkDispatchType} from '../../common/types/app-thunk-dispatch.type';
 import {Editor} from '../components/editor/Editor';
 import {ProjectSelectors} from '../store/selectors/project.selectors';
 import {ProjectActions} from '../store/actions/project.actions';
-import {compose, Dispatch} from 'redux';
+import {compose} from 'redux';
 import {withTranslation} from 'react-i18next';
 import i18n from 'i18next';
 import {UiSelectors} from '../store/selectors/ui.selectors';
@@ -13,13 +13,19 @@ import Home from '../components/editor/Home';
 import {AppEvents} from '../../common/events/app.events';
 import {APP_EVENT} from '../../common/constants';
 import {ipcRenderer} from "electron";
-import {NewProjectPopup} from '../components/editor/PrintConfigPopup';
+import {PrintConfigPopup} from '../components/editor/PrintConfigPopup';
 import {UiActions} from '../store/actions/ui.actions';
+import {PrintConfigSelectors} from '../store/selectors/print-config.selectors';
+import {PrintConfigModel} from '../models/print-config.model';
+import {PrintConfigActions} from '../store/actions/print-config.actions';
+import {PrintConfigStateInterface} from '../interfaces/state/print-config-state.interface';
 
 interface Props {
     t: i18n.TFunction,
     undo: number,
     redo: number,
+    saveConfig: (config: PrintConfigStateInterface) => void,
+    printConfig: PrintConfigModel,
     printConfigVisible: boolean,
     directory: string,
     html: string,
@@ -49,6 +55,8 @@ export class EditorPage extends React.Component<Props> {
             t,
             undo,
             redo,
+            printConfig,
+            saveConfig,
             printConfigVisible,
             directory,
             html,
@@ -62,10 +70,10 @@ export class EditorPage extends React.Component<Props> {
             updateFooter,
             closePrintConfigPopup,
         } = this.props;
+
         if (!directory) {
             return <Home/>
         }
-
         if (html === null && styles === null) {
             openProject(directory);
             return null;
@@ -73,12 +81,16 @@ export class EditorPage extends React.Component<Props> {
         if (html === null || styles === null) {
             return null;
         }
+
         return <React.Fragment>
-            <NewProjectPopup
+            <PrintConfigPopup
+                config={printConfig}
+                saveConfig={saveConfig}
                 printConfigVisible={printConfigVisible}
                 close={closePrintConfigPopup}
             />
             <Editor
+                printConfig={printConfig}
                 title={directory}
                 html={html}
                 styles={styles}
@@ -99,6 +111,7 @@ export class EditorPage extends React.Component<Props> {
 const mapStateToProps = (state: ApplicationStateInterface): Partial<Props> => ({
     undo: UiSelectors.getUndo(state),
     redo: UiSelectors.getRedo(state),
+    printConfig: PrintConfigSelectors.getConfig(state),
     printConfigVisible: UiSelectors.getPrintConfigPopupVisible(state),
     directory: ProjectSelectors.getDirectory(state),
     html: ProjectSelectors.getHtml(state),
@@ -114,6 +127,10 @@ const mapDispatchToProps = (dispatch: AppThunkDispatchType) => ({
     updateHeader: (header: string) => dispatch(ProjectActions.updateHeader(header)),
     updateFooter: (footer: string) => dispatch(ProjectActions.updateFooter(footer)),
     closePrintConfigPopup: () => dispatch(UiActions.closePrintConfigPopup()),
+    saveConfig: (config: PrintConfigModel) => {
+        dispatch(UiActions.closePrintConfigPopup());
+        return dispatch(PrintConfigActions.saveConfig(config));
+    }
 });
 
 export default compose(

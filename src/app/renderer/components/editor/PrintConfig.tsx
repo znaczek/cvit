@@ -9,8 +9,12 @@ import {PrintConfigStateInterface} from '../../interfaces/state/print-config-sta
 import {RadioGroup} from '../common/form/RadioGroup';
 import {Translation} from 'react-i18next';
 import {strToBool} from '../../../common/utils/converters.utils';
+import {PrintConfigActions} from '../../store/actions/print-config.actions';
+import {PrintConfigModel} from '../../models/print-config.model';
 
 interface Props {
+    config: PrintConfigStateInterface,
+    saveConfig: (config: PrintConfigStateInterface) => void,
 }
 
 type State = PrintConfigStateInterface;
@@ -29,13 +33,8 @@ export class PrintConfig extends React.Component<Props> {
     constructor(props: Props) {
         super(props);
         this.state = {
-            hasHeader: false,
-            hasFooter: false,
-            marginTop: 0,
-            marginBottom: 0,
-            marginLeft: 0,
-            marginRight: 0,
-        }
+            ...props.config
+        };
     }
 
     public handleOnChange(key: stateKey, value: string | boolean) {
@@ -51,6 +50,10 @@ export class PrintConfig extends React.Component<Props> {
             [key]: value,
         })
     }
+
+    public save = (): void => {
+        this.props.saveConfig(new PrintConfigModel(this.state));
+    };
 
     render() {
         const {hasHeader, hasFooter, marginTop, marginBottom, marginLeft, marginRight} = this.state;
@@ -135,8 +138,7 @@ export class PrintConfig extends React.Component<Props> {
                 <Group className={'submit'}>
                     <Button
                         theme={Themes.primary}
-                        onClick={() => {
-                        }}
+                        onClick={this.save}
                         stretched
                     ><T>ACTIONS.CREATE</T></Button>
                 </Group>

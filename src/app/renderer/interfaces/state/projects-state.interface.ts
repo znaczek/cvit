@@ -1,5 +1,5 @@
 import {ProjectInterface} from './project.interface';
 
-export interface ProjectsStateInterface extends ProjectInterface {
+export interface ProjectStateInterface extends ProjectInterface {
     directory: string,
 }

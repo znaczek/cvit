@@ -7,14 +7,16 @@ import './app.css';
 import i18n from 'i18next';
 import {initReactI18next} from 'react-i18next';
 import * as enLang from './../../lang/en.json';
-import {BootstrapDataType} from './types/bootstra-data.type';
 import {ApplicationStateInterface} from '../common/interfaces/application-state.interface';
 import {Store} from 'redux';
 import {StorageService} from './service/storage.service';
 import {ProjectService} from './service/project.service';
 import {Template} from './models/template.model';
-import {ProjectsStateInterface} from './interfaces/state/projects-state.interface';
-import {ProjectModel} from './models/project.model';
+import {LocalStorage} from './service/local-storage.service';
+import {ProjectStateModel} from './models/project-state.model';
+import {PrintConfigStateInterface} from './interfaces/state/print-config-state.interface';
+import {ProjectInterface} from './interfaces/state/project.interface';
+import {PrintConfigModel} from './models/print-config.model';
 
 declare global {
     interface Window {
@@ -25,13 +27,21 @@ declare global {
 
 export let store: Store<ApplicationStateInterface>;
 
-const bootstrapApp = (templates: Template[], baseTemplate: string, initialProjectState: ProjectsStateInterface) => {
+const bootstrapApp = (templates: Template[],
+                      baseTemplate: string,
+                      directory: string,
+                      project: ProjectInterface,
+                      printConfig: PrintConfigStateInterface) => {
     store = configureStore({
         templates: {
             list: templates,
             base: baseTemplate,
         },
-        project: new ProjectModel(initialProjectState),
+        project: new ProjectStateModel({
+            directory,
+            ...project
+        }),
+        printConfig: new PrintConfigModel(printConfig)
     });
 
     i18n.use(initReactI18next).init({
@@ -64,4 +74,11 @@ const bootstrapApp = (templates: Template[], baseTemplate: string, initialProjec
 
 };
 
-bootstrapApp(StorageService.getTemplates(), StorageService.getBaseTemplate(), ProjectService.getInitialProjectState());
+const lastDirectory = LocalStorage.get('lastDirectory');
+bootstrapApp(
+    StorageService.getTemplates(),
+    StorageService.getBaseTemplate(),
+    lastDirectory,
+    ProjectService.getProject(lastDirectory),
+    ProjectService.getPrintConfig(lastDirectory),
+);

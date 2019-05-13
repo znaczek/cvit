@@ -13,40 +13,10 @@ const initialState: PrintConfigStateInterface = {
 
 export default (state: PrintConfigStateInterface = initialState, action: ActionInterface<any>): PrintConfigStateInterface => {
     switch (action.type) {
-        case PrintConfigActions.SET_HAS_HEADER: {
+        case PrintConfigActions.SET_CONFIG_SUCCESS: {
             return {
                 ...state,
-                hasHeader: action.payload,
-            }
-        }
-        case PrintConfigActions.SET_HAS_FOOTER: {
-            return {
-                ...state,
-                hasFooter: action.payload,
-            }
-        }
-        case PrintConfigActions.SET_MARGIN_TOP: {
-            return {
-                ...state,
-                marginTop: action.payload,
-            }
-        }
-        case PrintConfigActions.SET_MARGIN_BOTTOM: {
-            return {
-                ...state,
-                marginBottom: action.payload,
-            }
-        }
-        case PrintConfigActions.SET_MARGIN_LEFT: {
-            return {
-                ...state,
-                marginLeft: action.payload,
-            }
-        }
-        case PrintConfigActions.SET_MARGIN_RIGHT: {
-            return {
-                ...state,
-                marginRight: action.payload,
+                ...action.payload,
             }
         }
         default:

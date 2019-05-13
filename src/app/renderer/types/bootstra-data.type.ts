@@ -1,4 +1,4 @@
 import {Template} from '../models/template.model';
-import {ProjectsStateInterface} from '../interfaces/state/projects-state.interface';
+import {ProjectStateInterface} from '../interfaces/state/projects-state.interface';
 
-export type BootstrapDataType = [Template[], string, ProjectsStateInterface];
+export type BootstrapDataType = [Template[], string, ProjectStateInterface];

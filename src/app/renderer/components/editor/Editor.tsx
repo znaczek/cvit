@@ -3,23 +3,24 @@ import {EditorTab} from './EditorTab';
 import {EditorView} from './EditorView';
 import i18n from 'i18next';
 import {EditorContainer} from './EditorContainer';
-import {EditorMode} from '../../types/editor-mode.type';
 import styled from 'styled-components';
 import {STYLES} from '../../styles/variables';
+import {PrintConfigModel} from '../../models/print-config.model';
 
 interface Props {
     t: i18n.TFunction;
-    undo: number,
-    redo: number,
-    title: string,
+    undo: number;
+    redo: number;
+    printConfig: PrintConfigModel;
+    title: string;
     html: string;
     styles: string;
     header: string;
     footer: string;
-    updateHtml: (html: string) => void,
-    updateStyles: (styles: string) => void,
-    updateHeader: (header: string) => void,
-    updateFooter: (footer: string) => void,
+    updateHtml: (html: string) => void;
+    updateStyles: (styles: string) => void;
+    updateHeader: (header: string) => void;
+    updateFooter: (footer: string) => void;
 }
 
 interface State {
@@ -51,6 +52,7 @@ export class Editor extends React.Component<Props> {
             t,
             undo,
             redo,
+            printConfig,
             title,
             html,
             styles,
@@ -92,28 +94,28 @@ export class Editor extends React.Component<Props> {
                             onChange={(content: string) => updateStyles(content)}
                         />
                     </EditorTab>
-                    <EditorTab title={t('EDITOR.TABS.HEADER')}>
+                    {printConfig.hasHeader && <EditorTab title={t('EDITOR.TABS.HEADER')}>
                         <EditorContainer
-                            value={header}
-                            mode='html'
-                            id='header'
-                            focus={selected === 2}
-                            undo={undo}
-                            redo={redo}
-                            onChange={(content: string) => updateHeader(content)}
+                        value={header}
+                        mode='html'
+                        id='header'
+                        focus={selected === 2}
+                        undo={undo}
+                        redo={redo}
+                        onChange={(content: string) => updateHeader(content)}
                         />
-                    </EditorTab>
-                    <EditorTab title={t('EDITOR.TABS.FOOTER')}>
+                        </EditorTab>}
+                    {printConfig.hasFooter && <EditorTab title={t('EDITOR.TABS.FOOTER')}>
                         <EditorContainer
-                            value={footer}
-                            mode='html'
-                            id='footer'
-                            focus={selected === 3}
-                            undo={undo}
-                            redo={redo}
-                            onChange={(content: string) => updateFooter(content)}
+                        value={footer}
+                        mode='html'
+                        id='footer'
+                        focus={selected === 3}
+                        undo={undo}
+                        redo={redo}
+                        onChange={(content: string) => updateFooter(content)}
                         />
-                    </EditorTab>
+                        </EditorTab>}
                 </EditorView>
             </React.Fragment>
         );

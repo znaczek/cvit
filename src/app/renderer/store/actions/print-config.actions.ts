@@ -1,55 +1,39 @@
 import {ActionInterface} from '../../../common/interfaces/action.interface';
+import {PrintConfigModel} from '../../models/print-config.model';
+import {AppThunkDispatchType} from '../../../common/types/app-thunk-dispatch.type';
+import {ProjectService} from '../../service/project.service';
+import {ApplicationStateInterface} from '../../../common/interfaces/application-state.interface';
+import {ProjectSelectors} from '../selectors/project.selectors';
+import {AppThunkAction} from '../../../common/types/app-thunk-action.type';
 
 const prefix = '[PRINT_CONFIG] ';
 
 export class PrintConfigActions {
-    public static readonly SET_HAS_HEADER = prefix + 'SET_HAS_HEADER';
-    public static readonly SET_HAS_FOOTER = prefix + 'SET_HAS_FOOTER';
-    public static readonly SET_MARGIN_TOP = prefix + 'SET_MARGIN_TOP';
-    public static readonly SET_MARGIN_BOTTOM = prefix + 'SET_MARGIN_BOTTOM';
-    public static readonly SET_MARGIN_LEFT = prefix + 'SET_MARGIN_LEFT';
-    public static readonly SET_MARGIN_RIGHT = prefix + 'SET_MARGIN_RIGHT';
+    public static readonly SET_CONFIG_SUCCESS = prefix + 'SET_CONFIG_SUCCESS';
+    public static readonly SET_CONFIG_FAILURE = prefix + 'SET_CONFIG_FAILURE';
 
+    public static saveConfig(payload: PrintConfigModel): AppThunkAction<PrintConfigModel> {
+        return (dispatch: AppThunkDispatchType, getState: () => ApplicationStateInterface) => {
+            try {
+                ProjectService.savePrintConfig(ProjectSelectors.getDirectory(getState()), payload);
+                return dispatch(PrintConfigActions.saveConfigSuccess(payload));
+            } catch (e) {
+                return dispatch(PrintConfigActions.saveConfigFailure(e));
+            }
+        };
+    }
 
-    public static setHasHeader(hasHeader: boolean): ActionInterface<boolean> {
+    public static saveConfigSuccess(payload: PrintConfigModel): ActionInterface<PrintConfigModel> {
         return {
-            type: PrintConfigActions.SET_HAS_HEADER,
-            payload: hasHeader,
+            type: PrintConfigActions.SET_CONFIG_SUCCESS,
+            payload,
         }
     }
 
-    public static setHasFooter(hasFooter: boolean): ActionInterface<boolean> {
+    public static saveConfigFailure(e: any): ActionInterface<any> {
         return {
-            type: PrintConfigActions.SET_HAS_FOOTER,
-            payload: hasFooter,
-        }
-    }
-
-    public static setMarginTop(marginTop: number): ActionInterface<number> {
-        return {
-            type: PrintConfigActions.SET_MARGIN_TOP,
-            payload: marginTop,
-        }
-    }
-
-    public static setMarginBottom(marginBottom: number): ActionInterface<number> {
-        return {
-            type: PrintConfigActions.SET_MARGIN_BOTTOM,
-            payload: marginBottom,
-        }
-    }
-
-    public static setMarginLeft(marginLeft: number): ActionInterface<number> {
-        return {
-            type: PrintConfigActions.SET_MARGIN_LEFT,
-            payload: marginLeft,
-        }
-    }
-
-    public static setMarginRight(marginRight: number): ActionInterface<number> {
-        return {
-            type: PrintConfigActions.SET_MARGIN_RIGHT,
-            payload: marginRight,
+            type: PrintConfigActions.SET_CONFIG_FAILURE,
+            payload: e,
         }
     }
 

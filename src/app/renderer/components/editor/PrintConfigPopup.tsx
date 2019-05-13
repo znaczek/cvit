@@ -3,18 +3,21 @@ import {Popup} from '../common/Popup/Popup';
 import {H2} from '../common/styled/Headers';
 import {T} from '../T';
 import {PrintConfig} from './PrintConfig';
+import {PrintConfigStateInterface} from '../../interfaces/state/print-config-state.interface';
 
 
 interface Props {
+    config: PrintConfigStateInterface;
+    saveConfig: (config: PrintConfigStateInterface) => void;
     printConfigVisible: boolean;
     close: () => void;
 }
 
-export class NewProjectPopup extends React.Component<Props> {
+export class PrintConfigPopup extends React.Component<Props> {
     props: Props;
 
     render() {
-        const {printConfigVisible, close} = this.props;
+        const {config, saveConfig, printConfigVisible, close} = this.props;
         return (
             <Popup
                 visible={printConfigVisible}
@@ -23,7 +26,10 @@ export class NewProjectPopup extends React.Component<Props> {
                 <Popup.Header handleClose={close}>
                     <H2><T>PRINT_CONFIG.HEADER</T></H2>
                 </Popup.Header>
-                <PrintConfig/>
+                {printConfigVisible && <PrintConfig
+                    config={config}
+                    saveConfig={saveConfig}
+                />}
             </Popup>
         );
     }

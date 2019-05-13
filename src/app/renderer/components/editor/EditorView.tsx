@@ -53,7 +53,7 @@ export class EditorView extends React.Component<Props> {
         return (
             <main>
                 <TabList>
-                    {React.Children.map(children, (child: EditorTab, index: number) => (
+                    {React.Children.map(children, (child: EditorTab, index: number) => child && (
                         <TabListItem
                             key={index}
                             selected={selected === index}

@@ -13,6 +13,7 @@ import {AppEvents} from '../../../common/events/app.events';
 import {ProjectService} from '../../service/project.service';
 import {PrintConfigStateInterface} from '../../interfaces/state/print-config-state.interface';
 import {ProjectModel} from '../../models/project.model';
+import {ProjectStateModel} from '../../models/project-state.model';
 
 const prefix = '[PROJECT] ';
 
@@ -73,7 +74,7 @@ export class ProjectActions {
                 const project = ProjectService.getProject(directory);
                 const printConfig = ProjectService.getPrintConfig(directory);
                 dispatch(ProjectActions.setPrintConfig(printConfig));
-                return dispatch(ProjectActions.openProjectSuccess(new ProjectModel({
+                return dispatch(ProjectActions.openProjectSuccess(new ProjectStateModel({
                     directory,
                 ...project,
                 })));

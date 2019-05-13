@@ -1,8 +1,8 @@
-import {ProjectsStateInterface} from '../../interfaces/state/projects-state.interface';
+import {ProjectStateInterface} from '../../interfaces/state/projects-state.interface';
 import {ActionInterface} from '../../../common/interfaces/action.interface';
 import {ProjectActions} from '../actions/project.actions';
 
-const initialState: ProjectsStateInterface = {
+const initialState: ProjectStateInterface = {
     directory: '',
     html: '',
     styles: '',
@@ -10,7 +10,7 @@ const initialState: ProjectsStateInterface = {
     footer: '',
 };
 
-export default (state: ProjectsStateInterface = initialState, action: ActionInterface<any>): ProjectsStateInterface => {
+export default (state: ProjectStateInterface = initialState, action: ActionInterface<any>): ProjectStateInterface => {
     switch (action.type) {
         case ProjectActions.OPEN_PROJECT_SUCCESS: {
             return {
