@@ -32,13 +32,36 @@ export class ProjectService {
     }
 
     public static getProject(directory: string): ProjectInterface {
-        const htmlFile = StorageService.getFile(directory + '/' + CV_FILENAME);
-        const html = HtmlService.getBody(htmlFile);
-        const styles = StorageService.getFile(directory + '/' + STYLES_FILENAME);
-        const headerFile = StorageService.getFile(directory + '/' + HEADER_FILENAME);
-        const header = HtmlService.getBody(headerFile);
-        const footerFile = StorageService.getFile(directory + '/' + FOOTER_FILENAME);
-        const footer = HtmlService.getBody(footerFile);
+        let html: string;
+        let styles: string;
+        let header: string;
+        let footer: string;
+        try {
+            const htmlFile = StorageService.getFile(directory + '/' + CV_FILENAME);
+            html = HtmlService.getBody(htmlFile);
+        } catch (e) {
+            console.warn('No html file found in' + directory);
+        }
+
+        try {
+            styles = StorageService.getFile(directory + '/' + STYLES_FILENAME);
+        } catch (e) {
+            console.warn('No styles file found in' + directory);
+        }
+
+        try {
+            const headerFile = StorageService.getFile(directory + '/' + HEADER_FILENAME);
+            header = HtmlService.getBody(headerFile);
+        } catch (e) {
+            console.warn('No styles file found in' + directory);
+        }
+
+        try {
+            const footerFile = StorageService.getFile(directory + '/' + FOOTER_FILENAME);
+            footer = HtmlService.getBody(footerFile);
+        } catch (e) {
+            console.warn('No styles file found in' + directory);
+        }
 
         return {html, styles, header, footer}
     }

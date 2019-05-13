@@ -3,11 +3,11 @@ import {ActionInterface} from '../../../common/interfaces/action.interface';
 import {ProjectActions} from '../actions/project.actions';
 
 const initialState: ProjectsStateInterface = {
-    directory: null,
-    html: null,
-    styles: null,
-    header: null,
-    footer: null,
+    directory: '',
+    html: '',
+    styles: '',
+    header: '',
+    footer: '',
 };
 
 export default (state: ProjectsStateInterface = initialState, action: ActionInterface<any>): ProjectsStateInterface => {

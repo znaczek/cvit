@@ -74,7 +74,7 @@ export class EditorContainer extends React.Component<Props> {
         this.lastFocus = focus;
         return <AceEditor
             ref={this.editorRef}
-            value={value}
+            value={value || ''}
             mode={mode}
             theme={theme}
             height={null}

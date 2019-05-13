@@ -14,6 +14,7 @@ import {StorageService} from './service/storage.service';
 import {ProjectService} from './service/project.service';
 import {Template} from './models/template.model';
 import {ProjectsStateInterface} from './interfaces/state/projects-state.interface';
+import {ProjectModel} from './models/project.model';
 
 declare global {
     interface Window {
@@ -30,15 +31,8 @@ const bootstrapApp = (templates: Template[], baseTemplate: string, initialProjec
             list: templates,
             base: baseTemplate,
         },
-        project: {
-            directory: initialProjectState && initialProjectState.directory,
-            html: initialProjectState && initialProjectState.html,
-            styles: initialProjectState && initialProjectState.styles,
-            header: initialProjectState && initialProjectState.header,
-            footer: initialProjectState && initialProjectState.footer,
-        }
+        project: new ProjectModel(initialProjectState),
     });
-
 
     i18n.use(initReactI18next).init({
         lng: 'en',

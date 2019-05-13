@@ -12,6 +12,7 @@ import {LocalStorage} from '../../service/local-storage.service';
 import {AppEvents} from '../../../common/events/app.events';
 import {ProjectService} from '../../service/project.service';
 import {PrintConfigStateInterface} from '../../interfaces/state/print-config-state.interface';
+import {ProjectModel} from '../../models/project.model';
 
 const prefix = '[PROJECT] ';
 
@@ -72,10 +73,10 @@ export class ProjectActions {
                 const project = ProjectService.getProject(directory);
                 const printConfig = ProjectService.getPrintConfig(directory);
                 dispatch(ProjectActions.setPrintConfig(printConfig));
-                return dispatch(ProjectActions.openProjectSuccess({
+                return dispatch(ProjectActions.openProjectSuccess(new ProjectModel({
                     directory,
-                    ...project,
-                }));
+                ...project,
+                })));
             } catch (e) {
                 return dispatch(ProjectActions.openProjectFailure(e));
             }

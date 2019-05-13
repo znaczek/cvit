@@ -26,7 +26,7 @@ interface Props {
     styles: string,
     header: string,
     footer: string,
-    getContent: (file: string) => void,
+    openProject: (file: string) => void,
     updateHtml: (html: string) => void,
     updateStyles: (styles: string) => void,
     updateHeader: (html: string) => void,
@@ -55,7 +55,7 @@ export class EditorPage extends React.Component<Props> {
             styles,
             header,
             footer,
-            getContent,
+            openProject,
             updateHtml,
             updateStyles,
             updateHeader,
@@ -67,7 +67,7 @@ export class EditorPage extends React.Component<Props> {
         }
 
         if (html === null && styles === null) {
-            getContent(directory);
+            openProject(directory);
             return null;
         }
         if (html === null || styles === null) {
@@ -108,7 +108,7 @@ const mapStateToProps = (state: ApplicationStateInterface): Partial<Props> => ({
 });
 
 const mapDispatchToProps = (dispatch: AppThunkDispatchType) => ({
-    getContent: (file: string) => dispatch(ProjectActions.getContent(file)),
+    openProject: (file: string) => dispatch(ProjectActions.openProject(file)),
     updateHtml: (html: string) => dispatch(ProjectActions.updateHtml(html)),
     updateStyles: (styles: string) => dispatch(ProjectActions.updateStyles(styles)),
     updateHeader: (header: string) => dispatch(ProjectActions.updateHeader(header)),
