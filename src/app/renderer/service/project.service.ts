@@ -64,10 +64,10 @@ export class ProjectService {
 
     public static save(directory: string, baseTemplate: string, project: ProjectStateInterface): void {
         try {
-            StorageService.save(directory + '/' + CV_FILENAME, HtmlService.wrap(baseTemplate, project.html));
+            StorageService.save(directory + '/' + CV_FILENAME, HtmlService.wrap(baseTemplate, project.html, 'cv'));
             StorageService.save(directory + '/' + STYLES_FILENAME, project.styles);
-            StorageService.save(directory + '/' + HEADER_FILENAME, HtmlService.wrap(baseTemplate, project.header));
-            StorageService.save(directory + '/' + FOOTER_FILENAME, HtmlService.wrap(baseTemplate, project.footer));
+            StorageService.save(directory + '/' + HEADER_FILENAME, HtmlService.wrap(baseTemplate, project.header, 'header'));
+            StorageService.save(directory + '/' + FOOTER_FILENAME, HtmlService.wrap(baseTemplate, project.footer, 'footer'));
         } catch(e) {
             console.warn('Problem with saving');
         }

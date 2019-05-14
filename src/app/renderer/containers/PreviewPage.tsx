@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Preview} from '../components/preview/Preview';
-import {APP_EVENT, CV_FILENAME} from '../../common/constants';
+import {APP_EVENT, CV_FILENAME, FOOTER_FILENAME, HEADER_FILENAME} from '../../common/constants';
 import {FileWatcher} from '../../common/tools/file-watcher';
 import {AppEvents} from '../../common/events/app.events';
 import {ipcRenderer} from "electron";
@@ -10,11 +10,14 @@ import {ApplicationStateInterface} from '../../common/interfaces/application-sta
 import {PreviewSelectors} from '../store/selectors/preview.selectors';
 import {PreviewActions} from '../store/actions/preview.actions';
 import {AppThunkDispatchType} from '../../common/types/app-thunk-dispatch.type';
+import {PrintConfigSelectors} from '../store/selectors/print-config.selectors';
+import {PrintConfigModel} from '../models/print-config.model';
 
 interface Props {
-    directory: string;
     ts: number;
     loader: boolean;
+    directory: string;
+    printConfig: PrintConfigModel,
     dispatch: AppThunkDispatchType;
 }
 
@@ -33,17 +36,17 @@ export class PreviewPage extends React.PureComponent {
     }
 
     public render() {
-        const {directory, ts, loader} = this.props;
-        const file = `${directory}/${CV_FILENAME}`;
-        const fileUrl = `${file}?ts=${ts}`;
+        const {directory, printConfig, ts, loader} = this.props;
 
         if (directory !== this.lastDirectory) {
-            this.setFileWatcher(file);
+            // this.setFileWatcher(directory);
         }
 
         this.lastDirectory = directory;
         return <Preview
-            file={fileUrl}
+            directory={directory}
+            printConfig={printConfig}
+            ts={ts}
             loader={loader}
             onLoad={this.onLoad}
         />
@@ -73,6 +76,7 @@ const mapStateToProps = (state: ApplicationStateInterface): Partial<Props> => ({
     ts: PreviewSelectors.getTs(state),
     directory: PreviewSelectors.getDirectory(state),
     loader: PreviewSelectors.getLoader(state),
+    printConfig: PrintConfigSelectors.getConfig(state),
 });
 
 export default connect(mapStateToProps)(PreviewPage);

@@ -2,18 +2,26 @@ import * as React from 'react';
 import {RefObject} from 'react';
 import styled from 'styled-components';
 import {Loader} from '../Loader';
+import {PrintConfigModel} from '../../models/print-config.model';
+import {CV_FILENAME, FOOTER_FILENAME, HEADER_FILENAME} from '../../../common/constants';
 
 interface Props {
-    file: string;
+    directory: string;
+    ts: number;
+    printConfig: PrintConfigModel;
     loader: boolean;
     onLoad: () => void;
 }
 
 interface State {
-    iFrameHeight: string;
+    cvFrameHeight: string;
+    headerFrameHeight: string;
+    footerFrameHeight: string;
 }
 
-type IFrameProps = State;
+type IFrameProps = {
+    frameHeight: string;
+}
 
 
 interface OverlayProps {
@@ -34,47 +42,94 @@ const Overlay = styled.div`
 
 const IFrame = styled.iframe`
     display: block;
-    padding: 20px 0;
     width: 215mm;
     margin: 0 auto;
-    height: ${(props: IFrameProps) => props.iFrameHeight}
+    height: ${(props: IFrameProps) => props.frameHeight}
+    &:nth-child(2) {
+        padding-top: 20px;
+    }
+    &:last-child {
+        padding-bottom: 20px;
+    }
 `;
 
 export class Preview extends React.Component {
+    public static getFrameHeight(ref: RefObject<HTMLIFrameElement>) {
+        return (ref && ref.current) ? (ref.current.contentWindow.document.body.scrollHeight + 40) + 'px' : '0';
+    }
+
     public props: Props;
     public state: State;
-    public iframeRef: RefObject<HTMLIFrameElement>;
+    public cvFrameRef: RefObject<HTMLIFrameElement>;
+    public headerFrameRef: RefObject<HTMLIFrameElement>;
+    public footerFrameRef: RefObject<HTMLIFrameElement>;
 
     constructor(props: Props) {
         super(props);
         this.state = {
-            iFrameHeight: '100vh',
+            headerFrameHeight: '10vh',
+            cvFrameHeight: '80vh',
+            footerFrameHeight: '10vh',
         };
-        this.iframeRef = React.createRef();
+        this.cvFrameRef = React.createRef();
+        this.headerFrameRef = React.createRef();
+        this.footerFrameRef = React.createRef();
     }
 
     public componentDidMount() {
-        this.iframeRef.current.onload = () => {
+        const {printConfig} = this.props;
+        Promise.all([
+            new Promise((resolve) => {
+                this.cvFrameRef.current.onload = resolve
+            }),
+            !printConfig.hasHeader ? Promise.resolve() : new Promise((resolve) => {
+                this.headerFrameRef.current.onload = resolve
+            }),
+            !printConfig.hasFooter ? Promise.resolve() : new Promise((resolve) => {
+                this.footerFrameRef.current.onload = resolve
+            }),
+        ]).then((e: any) => {
+            console.log(e);
             this.props.onLoad();
             setTimeout(() => {
-                this.setState({iFrameHeight: (this.iframeRef.current.contentWindow.document.body.scrollHeight + 40) + 'px'});
+                this.setState({
+                    cvFrameHeight: Preview.getFrameHeight(this.cvFrameRef),
+                    headerFrameHeight: Preview.getFrameHeight(this.headerFrameRef),
+                    footerFrameHeight: Preview.getFrameHeight(this.footerFrameRef),
             });
-        }
+            });
+        });
     }
 
-    render() {
-        const {file, loader} = this.props;
+    public render() {
+        const {printConfig, loader} = this.props;
+        const {cvFrameHeight, headerFrameHeight, footerFrameHeight} = this.state;
 
         return <main>
             <Overlay visible={loader}>
                 <Loader/>
             </Overlay>
+            {printConfig.hasHeader && <IFrame
+                ref={this.headerFrameRef}
+                src={this.getFileName(HEADER_FILENAME)}
+                frameHeight={headerFrameHeight}
+            />}
             <IFrame
-                ref={this.iframeRef}
-                src={file}
-                iFrameHeight={this.state.iFrameHeight}
+                ref={this.cvFrameRef}
+                src={this.getFileName(CV_FILENAME)}
+                frameHeight={cvFrameHeight}
             />
+            {printConfig.hasFooter && <IFrame
+                ref={this.footerFrameRef}
+                src={this.getFileName(FOOTER_FILENAME)}
+                frameHeight={footerFrameHeight}
+            />}
         </main>
+    }
+
+    private getFileName(name: string) {
+        const {directory, ts} = this.props;
+        return `${directory}/${name}?ts=${ts}`;
     }
 }
 
