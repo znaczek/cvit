@@ -30,12 +30,4 @@ export class ProjectSelectors {
         (state: ProjectStateInterface): string => state.footer,
     );
 
-    // TODO to remove if not used
-    // public static getProject = createSelector(
-    //     TemplatesSelectors.getTemplatesState,
-    //     ProjectSelectors.getProjectState,
-    //     (templateState: TemplatesStateInterface, projectState: ProjectStateInterface): string =>
-    //         HtmlService.getFile(templateState.base, projectState.html)
-    // )
-
 }

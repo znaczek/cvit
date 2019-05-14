@@ -79,6 +79,6 @@ bootstrapApp(
     StorageService.getTemplates(),
     StorageService.getBaseTemplate(),
     lastDirectory,
-    ProjectService.getProject(lastDirectory),
+    ProjectService.unpack(lastDirectory),
     ProjectService.getPrintConfig(lastDirectory),
 );

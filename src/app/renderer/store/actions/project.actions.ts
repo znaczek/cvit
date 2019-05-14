@@ -14,6 +14,7 @@ import {ProjectService} from '../../service/project.service';
 import {PrintConfigStateInterface} from '../../interfaces/state/print-config-state.interface';
 import {ProjectModel} from '../../models/project.model';
 import {ProjectStateModel} from '../../models/project-state.model';
+import {TemplatesSelectors} from '../selectors/templates.selectors';
 
 const prefix = '[PROJECT] ';
 
@@ -71,7 +72,7 @@ export class ProjectActions {
     public static openProject(directory: string): AppThunkAction<OpenProjectInterface> {
         return (dispatch: AppThunkDispatchType) => {
             try {
-                const project = ProjectService.getProject(directory);
+                const project = ProjectService.unpack(directory);
                 const printConfig = ProjectService.getPrintConfig(directory);
                 dispatch(ProjectActions.setPrintConfig(printConfig));
                 return dispatch(ProjectActions.openProjectSuccess(new ProjectStateModel({
@@ -140,8 +141,9 @@ export class ProjectActions {
             const state = getState();
             const directory = ProjectSelectors.getDirectory(state);
             const project = ProjectSelectors.getProjectState(state);
+            const baseTemplate = TemplatesSelectors.getBaseTemplate(state);
             try {
-                ProjectService.save(directory, project);
+                ProjectService.save(directory, baseTemplate, project);
                 return dispatch(ProjectActions.saveSuccess());
             } catch (e) {
                 return dispatch(ProjectActions.saveFailure(e));

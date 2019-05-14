@@ -15,4 +15,9 @@ export class TemplatesSelectors {
         })),
     );
 
+    public static getBaseTemplate = createSelector(
+        TemplatesSelectors.getTemplatesState,
+        (state: TemplatesStateInterface): string => state.base,
+    );
+
 }
