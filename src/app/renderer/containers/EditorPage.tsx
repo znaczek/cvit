@@ -46,7 +46,7 @@ export class EditorPage extends React.Component<Props> {
     public componentDidMount() {
         const {directory} = this.props;
         if (directory) {
-            ipcRenderer.send(APP_EVENT, new AppEvents.ProjectOpen(this.props.directory));
+            ipcRenderer.send(APP_EVENT, new AppEvents.RefreshPreview(this.props.directory));
         }
     }
 

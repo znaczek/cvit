@@ -16,29 +16,34 @@ export class FileWatcher {
     constructor(inputFilename: string, callback: CallbackType, logChanges: boolean = false) {
         this.filename = inputFilename;
         this.callback = callback;
-        this.fsWatcher = fs.watch(this.filename, (eventType: EventType, filename: string) => {
-            if (filename) {
-                clearTimeout(this.debounce);
-                this.debounce = setTimeout(() => {
-                    fs.readFile(this.filename, (e, buf) => {
-                        if (e) {
-                            throw e;
-                        }
-                        const md5Current = md5(buf);
-                        if (md5Current === this.md5Previous) {
-                            return;
-                        }
-                        this.md5Previous = md5Current;
-                        if (logChanges) {
-                            console.log(`${filename} file Changed`);
-                        }
-                        if (typeof callback === 'function') {
-                            callback(eventType, filename);
-                        }
-                    });
-                }, 100);
-            }
-        });
+        try {
+            this.fsWatcher = fs.watch(this.filename, (eventType: EventType, filename: string) => {
+                if (filename) {
+                    clearTimeout(this.debounce);
+                    this.debounce = setTimeout(() => {
+                        fs.readFile(this.filename, (e, buf) => {
+                            if (e) {
+                                throw e;
+                            }
+                            const md5Current = md5(buf);
+                            if (md5Current === this.md5Previous) {
+                                return;
+                            }
+                            this.md5Previous = md5Current;
+                            if (logChanges) {
+                                console.log(`${filename} file Changed`);
+                            }
+                            if (typeof callback === 'function') {
+                                callback(eventType, filename);
+                            }
+                        });
+                    }, 100);
+                }
+            });
+        } catch (e) {
+            console.error(`Couldnt't set watched on file "${inputFilename}"`, e);
+        }
+
     }
 
     public close(): void {

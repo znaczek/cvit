@@ -77,20 +77,37 @@ export class Preview extends React.Component {
     }
 
     public componentDidMount() {
-        const {printConfig} = this.props;
+        const {printConfig, onLoad} = this.props;
+
         Promise.all([
             new Promise((resolve) => {
-                this.cvFrameRef.current.onload = resolve
+                this.cvFrameRef.current.onload = () => {
+                    onLoad();
+                    resolve()
+                }
             }),
-            !printConfig.hasHeader ? Promise.resolve() : new Promise((resolve) => {
-                this.headerFrameRef.current.onload = resolve
+            new Promise((resolve) => {
+                if (printConfig.hasHeader) {
+                    this.headerFrameRef.current.onload = () => {
+                        onLoad();
+                        resolve()
+                    }
+                } else {
+                    resolve();
+                }
             }),
-            !printConfig.hasFooter ? Promise.resolve() : new Promise((resolve) => {
-                this.footerFrameRef.current.onload = resolve
+            new Promise((resolve) => {
+                if (printConfig.hasFooter) {
+                    this.footerFrameRef.current.onload = () => {
+                        onLoad();
+                        resolve();
+                    }
+                } else {
+                    resolve();
+                }
             }),
-        ]).then((e: any) => {
-            console.log(e);
-            this.props.onLoad();
+        ]).then(() => {
+            onLoad();
             setTimeout(() => {
                 this.setState({
                     cvFrameHeight: Preview.getFrameHeight(this.cvFrameRef),
@@ -104,7 +121,6 @@ export class Preview extends React.Component {
     public render() {
         const {printConfig, loader} = this.props;
         const {cvFrameHeight, headerFrameHeight, footerFrameHeight} = this.state;
-
         return <main>
             <Overlay visible={loader}>
                 <Loader/>

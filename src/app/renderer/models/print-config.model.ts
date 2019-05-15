@@ -8,7 +8,7 @@ export class PrintConfigModel implements Required<PrintConfigStateInterface> {
     public marginLeft: number;
     public marginRight: number;
 
-    constructor(options: Partial<PrintConfigStateInterface>) {
+    constructor(options?: Partial<PrintConfigStateInterface>) {
         options = options || {};
         this.hasHeader = options.hasHeader === true;
         this.hasFooter = options.hasFooter !== false ;

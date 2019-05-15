@@ -8,7 +8,7 @@ export namespace AppEvents {
         UNDO = 'UNDO',
         REDO = 'REDO',
 
-        PROJECT_OPEN = 'PROJECT_OPEN',
+        REFRESH_PREVIEW = 'REFRESH_PREVIEW',
 
         PREVIEW = 'PREVIEW',
         PREVIEW_REFRESH = 'PREVIEW_REFRESH',
@@ -45,8 +45,8 @@ export namespace AppEvents {
         public readonly type = TYPES.REDO;
     }
 
-    export class ProjectOpen implements ActionInterface<string> {
-        public readonly type = TYPES.PROJECT_OPEN;
+    export class RefreshPreview implements ActionInterface<string> {
+        public readonly type = TYPES.REFRESH_PREVIEW;
         public readonly payload: string;
 
         constructor(directory: string) {
@@ -80,7 +80,7 @@ export namespace AppEvents {
     }
 
     export type types = CreateNew | Open | Save | Undo | Redo
-        | ProjectOpen
+        | RefreshPreview
         | Preview | PreviewRefresh | PreviewSetDirectory
         | Render
         | ShowPrintConfig

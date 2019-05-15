@@ -12,7 +12,7 @@ const initialState: PreviewStateInterface = {
 
 export default (state: PreviewStateInterface = initialState, action: ActionInterface<any>): PreviewStateInterface => {
     switch (action.type) {
-        case PreviewActions.SET_FILE: {
+        case PreviewActions.SET_DIRECTORY: {
             const directory = action.payload ? action.payload : state.directory;
             return {
                 ...state,

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Preview} from '../components/preview/Preview';
-import {APP_EVENT, CV_FILENAME, FOOTER_FILENAME, HEADER_FILENAME} from '../../common/constants';
+import {APP_EVENT, CV_FILENAME, FOOTER_FILENAME, HEADER_FILENAME, STYLES_FILENAME} from '../../common/constants';
 import {FileWatcher} from '../../common/tools/file-watcher';
 import {AppEvents} from '../../common/events/app.events';
 import {ipcRenderer} from "electron";
@@ -25,21 +25,21 @@ export class PreviewPage extends React.PureComponent {
     public props: Props;
 
     private lastDirectory: string = null;
-    private fileWatcher: FileWatcher;
+    private fileWatchers: FileWatcher[] = [];
 
     public componentDidMount() {
         ipcRenderer.on(APP_EVENT, (e: any, action: AppEvents.types) => PreviewEventHandler.handle(action));
     }
 
     public componentWillUnmount() {
-        this.closeFileWatcher();
+        this.closeFileWatchers();
     }
 
     public render() {
         const {directory, printConfig, ts, loader} = this.props;
 
         if (directory !== this.lastDirectory) {
-            // this.setFileWatcher(directory);
+            this.setFileWatchers(directory);
         }
 
         this.lastDirectory = directory;
@@ -56,18 +56,23 @@ export class PreviewPage extends React.PureComponent {
         this.props.dispatch(PreviewActions.refreshDone());
     };
 
-    private setFileWatcher(file: string) {
-        this.closeFileWatcher();
-        this.fileWatcher = new FileWatcher(file, () => {
-            this.props.dispatch(PreviewActions.refresh());
+    private setFileWatchers(directory: string) {
+        this.closeFileWatchers();
+        [CV_FILENAME, STYLES_FILENAME, HEADER_FILENAME, FOOTER_FILENAME].forEach((file) => {
+            this.fileWatchers.push(new FileWatcher(directory + '/' + file, () => {
+                this.props.dispatch(PreviewActions.refreshDebounced());
+            }));
         });
     }
 
-    private closeFileWatcher() {
-        if (this.fileWatcher) {
-            this.fileWatcher.close();
-            this.fileWatcher = null;
+    private closeFileWatchers() {
+        if (this.fileWatchers && this.fileWatchers.length) {
+            this.fileWatchers.forEach((fw) => {
+                fw.close();
+                fw = null;
+            })
         }
+        this.fileWatchers = [];
     }
 
 }

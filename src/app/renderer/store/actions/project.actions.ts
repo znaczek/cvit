@@ -86,7 +86,7 @@ export class ProjectActions {
     }
 
     public static openProjectSuccess(payload: OpenProjectInterface): ActionInterface<OpenProjectInterface> {
-        ipcRenderer.send(APP_EVENT, new AppEvents.ProjectOpen(payload.directory));
+        ipcRenderer.send(APP_EVENT, new AppEvents.RefreshPreview(payload.directory));
         LocalStorage.set('lastDirectory', payload.directory);
         return {
             type: ProjectActions.OPEN_PROJECT_SUCCESS,

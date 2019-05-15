@@ -24,7 +24,7 @@ export class MainWindow extends AbstractWindow {
                 });
                 break;
             }
-            case AppEvents.TYPES.PROJECT_OPEN: {
+            case AppEvents.TYPES.REFRESH_PREVIEW: {
                 this.directory = event.payload;
                 break;
             }

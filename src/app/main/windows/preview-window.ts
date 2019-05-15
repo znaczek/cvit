@@ -14,7 +14,7 @@ export class PreviewWindow extends AbstractWindow {
 
     protected handleEventBusEmit(event: AppEvents.types): void {
         switch (event.type) {
-            case AppEvents.TYPES.PROJECT_OPEN: {
+            case AppEvents.TYPES.REFRESH_PREVIEW: {
                 this.window.webContents.send(APP_EVENT, new AppEvents.PreviewSetDirectory(event.payload));
                 break;
             }

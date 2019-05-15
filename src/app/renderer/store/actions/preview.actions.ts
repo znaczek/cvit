@@ -6,15 +6,26 @@ import {delay} from '../../../common/tools/delay';
 const prefix = '[PREVIEW] ';
 
 export class PreviewActions {
-    public static readonly SET_FILE = prefix + 'SET_FILE';
+    public static readonly SET_DIRECTORY = prefix + 'SET_DIRECTORY';
     public static readonly SET_LOADER = prefix + 'SET_LOADER';
     public static readonly CLEAR_LOADER = prefix + 'CLEAR_LOADER';
 
-    public static refresh(directory?: string): AppThunkAsyncAction<string> {
+    private static debounceTimeout: number;
+
+    public static refreshDebounced(directory?: string): AppThunkAsyncAction<any, void> {
+        return async (dispatch: AppThunkDispatchType) => {
+            clearTimeout(PreviewActions.debounceTimeout);
+            PreviewActions.debounceTimeout = setTimeout(() => {
+                dispatch(PreviewActions.refresh(directory));
+            }, 100);
+        }
+    }
+
+    private static refresh(directory?: string): AppThunkAsyncAction<string> {
         return async (dispatch: AppThunkDispatchType) => {
             dispatch(PreviewActions.setLoader());
             await delay(250);
-            return dispatch(PreviewActions.setFile(directory));
+            return dispatch(PreviewActions.setDirectory(directory));
         }
     }
 
@@ -24,9 +35,9 @@ export class PreviewActions {
         }
     }
 
-    public static setFile(file: string): ActionInterface<string> {
+    public static setDirectory(file: string): ActionInterface<string> {
         return {
-            type: PreviewActions.SET_FILE,
+            type: PreviewActions.SET_DIRECTORY,
             payload: file,
         }
     }
