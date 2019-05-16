@@ -6,12 +6,12 @@ export class HtmlService {
         return dom.window.document.body.innerHTML;
     }
 
-    public static wrap(baseTempalte: string, html: string, bodyClass: string): string {
-        const dom = new JSDOM(baseTempalte);
+    public static wrap(baseTemplate: string, html: string, bodyClass: string): string {
+        const dom = new JSDOM(baseTemplate);
         const document = dom.window.document;
         document.body.innerHTML = html;
         document.body.className = bodyClass;
-        return document.documentElement.outerHTML;
+        return dom.serialize();
     }
 
 }
