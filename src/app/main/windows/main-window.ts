@@ -28,9 +28,6 @@ export class MainWindow extends AbstractWindow {
                 this.directory = event.payload;
                 break;
             }
-            case AppEvents.TYPES.RENDER: {
-                break;
-            }
         }
     }
 

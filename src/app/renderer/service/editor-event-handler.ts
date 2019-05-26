@@ -3,6 +3,7 @@ import {ProjectActions} from '../store/actions/project.actions';
 import {AppThunkDispatchType} from '../../common/types/app-thunk-dispatch.type';
 import {UiActions} from '../store/actions/ui.actions';
 import {AppEvents} from '../../common/events/app.events';
+import {RenderActions} from '../store/actions/render.actions';
 
 export class EditorEventHandler {
     public static handle(event: AppEvents.types) {
@@ -28,6 +29,9 @@ export class EditorEventHandler {
             }
             case AppEvents.TYPES.REDO: {
                 return dispatch(UiActions.redo())
+            }
+            case AppEvents.TYPES.RENDER: {
+                return (<AppThunkDispatchType>dispatch)(RenderActions.render())
             }
         }
     }

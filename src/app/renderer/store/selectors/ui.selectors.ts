@@ -15,6 +15,11 @@ export class UiSelectors {
         (state: UiStateInterface): boolean => state.printConfigVisible
     );
 
+    public static getRenderPopupVisible = createSelector(
+        UiSelectors.getUiState,
+        (state: UiStateInterface): boolean => state.renderPopupVisible
+    );
+
     public static getUndo = createSelector(
         UiSelectors.getUiState,
         (state: UiStateInterface): number => state.undo,

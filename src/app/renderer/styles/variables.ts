@@ -11,6 +11,7 @@ export const STYLES = {
         background: '#929D9E',
         white: '#fff',
         black: '#000',
+        green: '#2a2',
         red: '#ca0a0a',
         primary: '#152571',
         gray1: '#dfdfdf',

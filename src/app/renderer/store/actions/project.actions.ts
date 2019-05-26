@@ -1,7 +1,7 @@
 import {ActionInterface} from '../../../common/interfaces/action.interface';
 import {CreateProjectInterface} from '../../interfaces/create-project.interface';
 import {StorageService} from '../../service/storage.service';
-import {AppThunkAction} from '../../../common/types/app-thunk-action.type';
+import {AppThunkAction, AppThunkAsyncAction} from '../../../common/types/app-thunk-action.type';
 import {AppThunkDispatchType} from '../../../common/types/app-thunk-dispatch.type';
 import {OpenProjectInterface} from '../../interfaces/open-project.interface';
 import {ApplicationStateInterface} from '../../../common/interfaces/application-state.interface';
@@ -12,9 +12,13 @@ import {LocalStorage} from '../../service/local-storage.service';
 import {AppEvents} from '../../../common/events/app.events';
 import {ProjectService} from '../../service/project.service';
 import {PrintConfigStateInterface} from '../../interfaces/state/print-config-state.interface';
-import {ProjectModel} from '../../models/project.model';
 import {ProjectStateModel} from '../../models/project-state.model';
 import {TemplatesSelectors} from '../selectors/templates.selectors';
+import {PrintConfigService} from '../../service/print-config.service';
+import {PdfRenderer} from '../../../main/service/pdf-renderer';
+import {PrintConfigSelectors} from '../selectors/print-config.selectors';
+import {UiActions} from './ui.actions';
+import {RenderActions} from './render.actions';
 
 const prefix = '[PROJECT] ';
 
@@ -73,7 +77,7 @@ export class ProjectActions {
         return (dispatch: AppThunkDispatchType) => {
             try {
                 const project = ProjectService.unpack(directory);
-                const printConfig = ProjectService.getPrintConfig(directory);
+                const printConfig = PrintConfigService.getPrintConfig(directory);
                 dispatch(ProjectActions.setPrintConfig(printConfig));
                 return dispatch(ProjectActions.openProjectSuccess(new ProjectStateModel({
                     directory,

@@ -17,3 +17,7 @@ export const Col = styled.div`
     width: ${(props: ColProps) => !props.col ? 0 : props.col / 12 * 100}%;
     padding: ${STYLES.gutter/4}px
 `;
+
+export const P = styled.p`
+    margin-bottom: ${STYLES.gutter}px
+`;

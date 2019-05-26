@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {RefObject} from 'react';
 import styled from 'styled-components';
-import {Loader} from '../Loader';
+import {RefreshLoader} from '../common/loaders/RefreshLoader';
 import {PrintConfigModel} from '../../models/print-config.model';
 import {CV_FILENAME, FOOTER_FILENAME, HEADER_FILENAME} from '../../../common/constants';
 
@@ -123,7 +123,7 @@ export class Preview extends React.Component {
         const {cvFrameHeight, headerFrameHeight, footerFrameHeight} = this.state;
         return <main>
             <Overlay visible={loader}>
-                <Loader/>
+                <RefreshLoader/>
             </Overlay>
             {printConfig.hasHeader && <IFrame
                 ref={this.headerFrameRef}

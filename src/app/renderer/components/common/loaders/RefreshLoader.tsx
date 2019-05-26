@@ -15,7 +15,7 @@ const Svg = styled.svg`
     }
 `;
 
-export const Loader = () => {
+export const RefreshLoader = () => {
     return <Svg
         version="1.1"
         id="Capa_1"

@@ -70,7 +70,7 @@ export class MainMenu extends AbstractMenu {
                     },
                     {
                         label: '&Render',
-                        click: () => EventBus.emit(new AppEvents.Render()),
+                        click: () => this.window.webContents.send(APP_EVENT, new AppEvents.Render()),
                     },
                 ]
             },

@@ -62,6 +62,7 @@ const Close = styled.button`
     font-weight: 800;
     font-size: 20px;
     align-self: flex-start;
+    margin-left: ${STYLES.gutter}px
     ${MIXINS.focusable}
 `;
 

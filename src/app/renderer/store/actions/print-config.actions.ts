@@ -1,13 +1,13 @@
 import {ActionInterface} from '../../../common/interfaces/action.interface';
 import {PrintConfigModel} from '../../models/print-config.model';
 import {AppThunkDispatchType} from '../../../common/types/app-thunk-dispatch.type';
-import {ProjectService} from '../../service/project.service';
 import {ApplicationStateInterface} from '../../../common/interfaces/application-state.interface';
 import {ProjectSelectors} from '../selectors/project.selectors';
 import {AppThunkAction} from '../../../common/types/app-thunk-action.type';
 import {ipcRenderer} from "electron";
 import {AppEvents} from '../../../common/events/app.events';
 import {APP_EVENT} from '../../../common/constants';
+import {PrintConfigService} from '../../service/print-config.service';
 
 const prefix = '[PRINT_CONFIG] ';
 
@@ -19,7 +19,7 @@ export class PrintConfigActions {
         return (dispatch: AppThunkDispatchType, getState: () => ApplicationStateInterface) => {
             try {
                 const directory = ProjectSelectors.getDirectory(getState());
-                ProjectService.savePrintConfig(directory, payload);
+                PrintConfigService.savePrintConfig(directory, payload);
                 ipcRenderer.send(APP_EVENT, new AppEvents.RefreshPreview(directory));
                 return dispatch(PrintConfigActions.saveConfigSuccess(payload));
             } catch (e) {

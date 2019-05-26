@@ -4,6 +4,7 @@ import {UiStateInterface} from '../../renderer/interfaces/state/ui-state.interfa
 import {PreviewStateInterface} from '../../renderer/interfaces/state/preview-state.interface';
 import {RouterState} from 'connected-react-router';
 import {PrintConfigStateInterface} from '../../renderer/interfaces/state/print-config-state.interface';
+import {RenderStateInterface} from '../../renderer/interfaces/state/render-state.interface';
 
 export interface ApplicationStateInterface {
     router: RouterState,
@@ -12,4 +13,5 @@ export interface ApplicationStateInterface {
     project: ProjectStateInterface,
     printConfig: PrintConfigStateInterface,
     preview: PreviewStateInterface,
+    render: RenderStateInterface,
 }

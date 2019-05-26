@@ -12,3 +12,10 @@ export const H2 = styled.h2`
     font-size: 30px;
     margin-bottom: ${STYLES.gutter / 2}px;
 `;
+
+
+export const H3 = styled.h3`
+    flex-grow: 1;
+    font-size: 24px;
+    margin-bottom: ${STYLES.gutter / 2}px;
+`;

@@ -30,6 +30,14 @@
         "MARGIN_LEFT": "Margin right",
         "MARGIN_RIGHT": "Margin top"
     },
+    "RENDER": {
+        "HEADER": "Rendering document",
+        "LOADING": "Rendering...",
+        "SUCCESS": "Success",
+        "OPEN_PDF": "Open file",
+        "FAILURE": "Rendering failed",
+        "RERUN": "Rerun rendering"
+    },
     "EDITOR": {
         "TABS": {
             "CONTENT": "Content",

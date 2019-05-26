@@ -11,7 +11,7 @@ import i18n from 'i18next';
 import {UiSelectors} from '../store/selectors/ui.selectors';
 import Home from '../components/editor/Home';
 import {AppEvents} from '../../common/events/app.events';
-import {APP_EVENT} from '../../common/constants';
+import {APP_EVENT, OUTPUT_FILE} from '../../common/constants';
 import {ipcRenderer} from "electron";
 import {PrintConfigPopup} from '../components/editor/PrintConfigPopup';
 import {UiActions} from '../store/actions/ui.actions';
@@ -19,6 +19,11 @@ import {PrintConfigSelectors} from '../store/selectors/print-config.selectors';
 import {PrintConfigModel} from '../models/print-config.model';
 import {PrintConfigActions} from '../store/actions/print-config.actions';
 import {PrintConfigStateInterface} from '../interfaces/state/print-config-state.interface';
+import {RenderSelectors} from '../store/selectors/render.selectors';
+import {StatusEnum} from '../../common/enums/status.enum';
+import {RenderPopup} from '../components/editor/RenderPopup';
+import {RenderActions} from '../store/actions/render.actions';
+import {OsUtils} from '../../common/utils/os.utils';
 
 interface Props {
     t: i18n.TFunction,
@@ -38,6 +43,11 @@ interface Props {
     updateHeader: (html: string) => void,
     updateFooter: (styles: string) => void,
     closePrintConfigPopup: () => void,
+    closeRenderPopup: () => void,
+    renderVisible: boolean,
+    renderMessage: string,
+    renderStatus: StatusEnum,
+    rerun: () => void,
 }
 
 export class EditorPage extends React.Component<Props> {
@@ -50,7 +60,11 @@ export class EditorPage extends React.Component<Props> {
         }
     }
 
-    render() {
+    public openFile = (): void => {
+        OsUtils.openFile(this.props.directory + '/' + OUTPUT_FILE);
+    };
+
+    public render() {
         const {
             t,
             undo,
@@ -58,6 +72,7 @@ export class EditorPage extends React.Component<Props> {
             printConfig,
             saveConfig,
             printConfigVisible,
+            renderVisible,
             directory,
             html,
             styles,
@@ -69,6 +84,10 @@ export class EditorPage extends React.Component<Props> {
             updateHeader,
             updateFooter,
             closePrintConfigPopup,
+            closeRenderPopup,
+            renderMessage,
+            renderStatus,
+            rerun,
         } = this.props;
 
         if (!directory) {
@@ -88,6 +107,14 @@ export class EditorPage extends React.Component<Props> {
                 saveConfig={saveConfig}
                 printConfigVisible={printConfigVisible}
                 close={closePrintConfigPopup}
+            />
+            <RenderPopup
+                visible={renderVisible}
+                message={renderMessage}
+                status={renderStatus}
+                close={closeRenderPopup}
+                rerun={rerun}
+                openFile={this.openFile}
             />
             <Editor
                 printConfig={printConfig}
@@ -111,13 +138,16 @@ export class EditorPage extends React.Component<Props> {
 const mapStateToProps = (state: ApplicationStateInterface): Partial<Props> => ({
     undo: UiSelectors.getUndo(state),
     redo: UiSelectors.getRedo(state),
-    printConfig: PrintConfigSelectors.getConfig(state),
     printConfigVisible: UiSelectors.getPrintConfigPopupVisible(state),
+    renderVisible: UiSelectors.getRenderPopupVisible(state),
+    printConfig: PrintConfigSelectors.getConfig(state),
     directory: ProjectSelectors.getDirectory(state),
     html: ProjectSelectors.getHtml(state),
     styles: ProjectSelectors.getStyles(state),
     header: ProjectSelectors.getHeader(state),
     footer: ProjectSelectors.getFooter(state),
+    renderMessage: RenderSelectors.getMessage(state),
+    renderStatus: RenderSelectors.getStatus(state),
 });
 
 const mapDispatchToProps = (dispatch: AppThunkDispatchType) => ({
@@ -127,10 +157,12 @@ const mapDispatchToProps = (dispatch: AppThunkDispatchType) => ({
     updateHeader: (header: string) => dispatch(ProjectActions.updateHeader(header)),
     updateFooter: (footer: string) => dispatch(ProjectActions.updateFooter(footer)),
     closePrintConfigPopup: () => dispatch(UiActions.closePrintConfigPopup()),
+    closeRenderPopup: () => dispatch(UiActions.closeRenderPopup()),
     saveConfig: (config: PrintConfigModel) => {
         dispatch(UiActions.closePrintConfigPopup());
         return dispatch(PrintConfigActions.saveConfig(config));
-    }
+    },
+    rerun: () => dispatch(RenderActions.render()),
 });
 
 export default compose(

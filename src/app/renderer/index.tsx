@@ -17,6 +17,7 @@ import {ProjectStateModel} from './models/project-state.model';
 import {PrintConfigStateInterface} from './interfaces/state/print-config-state.interface';
 import {ProjectInterface} from './interfaces/state/project.interface';
 import {PrintConfigModel} from './models/print-config.model';
+import {PrintConfigService} from './service/print-config.service';
 
 declare global {
     interface Window {
@@ -80,5 +81,5 @@ bootstrapApp(
     StorageService.getBaseTemplate(),
     lastDirectory,
     ProjectService.unpack(lastDirectory),
-    ProjectService.getPrintConfig(lastDirectory),
+    PrintConfigService.getPrintConfig(lastDirectory),
 );

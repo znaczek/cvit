@@ -20,7 +20,7 @@ export const Button = styled.button`
     border: none;
     font-size: ${(props: Props) => props.fontSize ? props.fontSize + 'px' : 'inherit'};
     line-height: 1;
-    padding: 5px;
+    padding: ${STYLES.gutter/4}px ${STYLES.gutter}px;
     opacity: ${(props: Props) => props.disabled ? 0.5 : 1}
     width: ${(props: Props) => props.stretched ? '100%' : 'auto'}
     box-shadow: ${STYLES.shadows.primary};
@@ -29,4 +29,8 @@ export const Button = styled.button`
         right: -1px;
     }
     ${MIXINS.focusable}
+    
+    & + & {
+        margin-left: ${STYLES.gutter/2}px
+    }
 `;
