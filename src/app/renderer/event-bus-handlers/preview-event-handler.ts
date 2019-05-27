@@ -3,7 +3,7 @@ import {AppEvents} from '../../common/events/app.events';
 import {PreviewActions} from '../store/actions/preview.actions';
 import {AppThunkDispatchType} from '../../common/types/app-thunk-dispatch.type';
 import {PrintConfigActions} from '../store/actions/print-config.actions';
-import {PrintConfigService} from './print-config.service';
+import {PrintConfigService} from '../../common/services/print-config.service';
 
 // TODO return types
 export class PreviewEventHandler {

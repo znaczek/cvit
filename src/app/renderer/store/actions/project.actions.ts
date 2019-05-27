@@ -1,6 +1,6 @@
 import {ActionInterface} from '../../../common/interfaces/action.interface';
 import {CreateProjectInterface} from '../../interfaces/create-project.interface';
-import {StorageService} from '../../service/storage.service';
+import {StorageService} from '../../../common/services/storage.service';
 import {AppThunkAction, AppThunkAsyncAction} from '../../../common/types/app-thunk-action.type';
 import {AppThunkDispatchType} from '../../../common/types/app-thunk-dispatch.type';
 import {OpenProjectInterface} from '../../interfaces/open-project.interface';
@@ -8,14 +8,14 @@ import {ApplicationStateInterface} from '../../../common/interfaces/application-
 import {ProjectSelectors} from '../selectors/project.selectors';
 import {APP_EVENT} from '../../../common/constants';
 import {ipcRenderer} from "electron";
-import {LocalStorage} from '../../service/local-storage.service';
+import {LocalStorage} from '../../../common/services/local-storage.service';
 import {AppEvents} from '../../../common/events/app.events';
-import {ProjectService} from '../../service/project.service';
+import {ProjectService} from '../../../common/services/project.service';
 import {PrintConfigStateInterface} from '../../interfaces/state/print-config-state.interface';
 import {ProjectStateModel} from '../../models/project-state.model';
 import {TemplatesSelectors} from '../selectors/templates.selectors';
-import {PrintConfigService} from '../../service/print-config.service';
-import {PdfRenderer} from '../../../main/service/pdf-renderer';
+import {PrintConfigService} from '../../../common/services/print-config.service';
+import {PdfRenderer} from '../../../common/services/pdf-renderer';
 import {PrintConfigSelectors} from '../selectors/print-config.selectors';
 import {UiActions} from './ui.actions';
 import {RenderActions} from './render.actions';

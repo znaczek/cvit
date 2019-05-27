@@ -3,7 +3,7 @@ import {AppThunkAsyncAction} from '../../../common/types/app-thunk-action.type';
 import {AppThunkDispatchType} from '../../../common/types/app-thunk-dispatch.type';
 import {delay} from '../../../common/tools/delay';
 import {StatusEnum} from '../../../common/enums/status.enum';
-import {PdfRenderer} from '../../../main/service/pdf-renderer';
+import {PdfRenderer} from '../../../common/services/pdf-renderer';
 import {ApplicationStateInterface} from '../../../common/interfaces/application-state.interface';
 import {UiActions} from './ui.actions';
 import {PrintConfigSelectors} from '../selectors/print-config.selectors';

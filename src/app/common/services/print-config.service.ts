@@ -1,6 +1,6 @@
-import {PrintConfigModel} from '../models/print-config.model';
-import {PrintConfigStateInterface} from '../interfaces/state/print-config-state.interface';
-import {SETTINGS_FILENAME} from '../../common/constants';
+import {PrintConfigModel} from '../../renderer/models/print-config.model';
+import {PrintConfigStateInterface} from '../../renderer/interfaces/state/print-config-state.interface';
+import {SETTINGS_FILENAME} from '../constants';
 import {StorageService} from './storage.service';
 
 export class PrintConfigService {

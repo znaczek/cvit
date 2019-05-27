@@ -2,7 +2,7 @@ import {dialog, MenuItemConstructorOptions, shell} from 'electron';
 import {APP_EVENT} from '../../common/constants';
 import {AbstractMenu} from './abstract-menu.';
 import {AppEvents} from '../../common/events/app.events';
-import {EventBus} from '../service/event-bus';
+import {EventBus} from '../event-bus';
 
 // TODO adjust darwin template when menu is done
 export class MainMenu extends AbstractMenu {

@@ -3,7 +3,7 @@ import {BrowserWindow, Menu} from "electron";
 import {AbstractMenu} from '../menu/abstract-menu.';
 import {Subscription} from '../../common/model/subscription.model';
 import {AppEvents} from '../../common/events/app.events';
-import {EventBus} from '../service/event-bus';
+import {EventBus} from '../event-bus';
 
 export abstract class AbstractWindow {
     public static CLOSE_EVENT = 'CLOSE_EVENT';

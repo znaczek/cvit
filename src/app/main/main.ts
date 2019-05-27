@@ -4,7 +4,7 @@ import log from 'electron-log';
 import installer, {REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS} from 'electron-devtools-installer';
 import {MainWindow} from './windows/main-window';
 import {AppEvents} from '../common/events/app.events';
-import {EventBus} from './service/event-bus';
+import {EventBus} from './event-bus';
 import {APP_EVENT} from '../common/constants';
 
 class AppUpdater {

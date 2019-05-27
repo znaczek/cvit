@@ -1,27 +1,16 @@
 import {applyMiddleware, compose, createStore, Store} from 'redux';
 import thunk from 'redux-thunk';
-import {routerActions, routerMiddleware} from 'connected-react-router';
 import createRootReducer from './reducers';
-import {history} from '../history';
 
-const rootReducer = createRootReducer(history);
+const rootReducer = createRootReducer();
 
 const configureStore = (initialState?: {}): Store => {
     const middleware = [];
 
     middleware.push(thunk);
 
-    const router = routerMiddleware(history);
-    middleware.push(router);
-
-    const actionCreators = {
-        ...routerActions
-    };
-
     const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-        ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-            actionCreators
-        })
+        ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
         : compose;
 
     const enhancer = composeEnhancers(applyMiddleware(...middleware));

@@ -1,8 +1,8 @@
 import * as fs from 'fs-extra';
-import {Template} from '../models/template.model';
-import {PATHS} from '../paths';
-import {CreateProjectInterface} from '../interfaces/create-project.interface';
-import {ENCODING} from '../../common/constants';
+import {Template} from '../../renderer/models/template.model';
+import {PATHS} from '../../renderer/paths';
+import {CreateProjectInterface} from '../../renderer/interfaces/create-project.interface';
+import {ENCODING} from '../constants';
 
 export class StorageService {
     public static exists(path: string) {

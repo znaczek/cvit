@@ -7,10 +7,11 @@ import {DirectoryPicker} from '../common/DirectoryPicker/DirectoryPicker';
 import {Themes} from '../common/styled/themes';
 import {OptionModel} from '../../../common/model/options-model';
 import {Input} from '../common/styled/Input';
-import {StorageService} from '../../service/storage.service';
-import {INPUT_DEBOUNCE_TIME} from '../../constants/ui.constants';
+import {StorageService} from '../../../common/services/storage.service';
 import {CreateProjectInterface} from '../../interfaces/create-project.interface';
 import {Error, Form, Group, Label} from '../common/styled/Form';
+
+const INPUT_DEBOUNCE_TIME = 500;
 
 interface Props {
     templates: OptionModel<Template>[];

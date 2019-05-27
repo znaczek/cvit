@@ -1,7 +1,7 @@
 import {remote} from 'electron';
-import {CV_FILENAME, ENCODING, FOOTER_FILENAME, OUTPUT_FILE, STYLES_FILENAME} from '../../common/constants';
+import {CV_FILENAME, ENCODING, FOOTER_FILENAME, OUTPUT_FILE, STYLES_FILENAME} from '../constants';
 import * as fs from 'fs';
-import {RenderConfigInterface} from '../../common/interfaces/render-config.interface';
+import {RenderConfigInterface} from '../interfaces/render-config.interface';
 import {PrintConfigModel} from '../../renderer/models/print-config.model';
 import {TextDecoder} from 'util';
 

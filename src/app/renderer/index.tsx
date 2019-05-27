@@ -9,15 +9,15 @@ import {initReactI18next} from 'react-i18next';
 import * as enLang from './../../lang/en.json';
 import {ApplicationStateInterface} from '../common/interfaces/application-state.interface';
 import {Store} from 'redux';
-import {StorageService} from './service/storage.service';
-import {ProjectService} from './service/project.service';
+import {StorageService} from '../common/services/storage.service';
+import {ProjectService} from '../common/services/project.service';
 import {Template} from './models/template.model';
-import {LocalStorage} from './service/local-storage.service';
+import {LocalStorage} from '../common/services/local-storage.service';
 import {ProjectStateModel} from './models/project-state.model';
 import {PrintConfigStateInterface} from './interfaces/state/print-config-state.interface';
 import {ProjectInterface} from './interfaces/state/project.interface';
 import {PrintConfigModel} from './models/print-config.model';
-import {PrintConfigService} from './service/print-config.service';
+import {PrintConfigService} from '../common/services/print-config.service';
 
 declare global {
     interface Window {

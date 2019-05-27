@@ -1,10 +1,10 @@
 import * as React from 'react';
 import {ipcRenderer} from 'electron';
 import {APP_EVENT} from '../common/constants';
-import {EditorEventHandler} from './service/editor-event-handler';
 import {connect} from 'react-redux';
 import {Action, Dispatch} from 'redux';
 import {AppEvents} from '../common/events/app.events';
+import {EditorEventHandler} from './event-bus-handlers/editor-event-handler';
 
 interface Props {
     children: React.ReactNodeArray;

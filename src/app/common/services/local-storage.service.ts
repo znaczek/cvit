@@ -1,8 +1,8 @@
 import * as electron from "electron";
 import * as path from 'path';
 import * as fs from 'fs';
-import {ENCODING} from '../../common/constants';
-import {LocalStorageStateInterface} from '../interfaces/local-storage-state.interface';
+import {ENCODING} from '../constants';
+import {LocalStorageStateInterface} from '../../renderer/interfaces/local-storage-state.interface';
 
 const USER_DATA_PATH = (electron.app || electron.remote.app).getPath('userData');
 const CONFIG_FILE = 'user-config.json';

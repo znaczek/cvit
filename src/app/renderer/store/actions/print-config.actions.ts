@@ -7,7 +7,7 @@ import {AppThunkAction} from '../../../common/types/app-thunk-action.type';
 import {ipcRenderer} from "electron";
 import {AppEvents} from '../../../common/events/app.events';
 import {APP_EVENT} from '../../../common/constants';
-import {PrintConfigService} from '../../service/print-config.service';
+import {PrintConfigService} from '../../../common/services/print-config.service';
 
 const prefix = '[PRINT_CONFIG] ';
 

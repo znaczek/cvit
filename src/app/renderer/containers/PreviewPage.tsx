@@ -4,7 +4,6 @@ import {APP_EVENT, CV_FILENAME, FOOTER_FILENAME, HEADER_FILENAME, STYLES_FILENAM
 import {FileWatcher} from '../../common/tools/file-watcher';
 import {AppEvents} from '../../common/events/app.events';
 import {ipcRenderer} from "electron";
-import {PreviewEventHandler} from '../service/preview-event-handler';
 import {connect} from 'react-redux';
 import {ApplicationStateInterface} from '../../common/interfaces/application-state.interface';
 import {PreviewSelectors} from '../store/selectors/preview.selectors';
@@ -12,6 +11,7 @@ import {PreviewActions} from '../store/actions/preview.actions';
 import {AppThunkDispatchType} from '../../common/types/app-thunk-dispatch.type';
 import {PrintConfigSelectors} from '../store/selectors/print-config.selectors';
 import {PrintConfigModel} from '../models/print-config.model';
+import {PreviewEventHandler} from '../event-bus-handlers/preview-event-handler';
 
 interface Props {
     ts: number;
