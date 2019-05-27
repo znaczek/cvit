@@ -29,8 +29,6 @@ export abstract class AbstractWindow {
 
     public open() {
 
-        this.window.loadURL(this.path);
-
         this.window.webContents.on('did-finish-load', () => {
             if (!this.window) {
                 throw new Error(`"window: ${this.constructor.name}" is not defined'`);
@@ -49,6 +47,8 @@ export abstract class AbstractWindow {
             this.eventBusSubscription.unsubscribe();
             this.onClose.emit(AbstractWindow.CLOSE_EVENT);
         });
+
+        this.window.loadURL(this.path);
 
         const menu = this.getMenu();
         if (menu) {

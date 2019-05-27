@@ -3,8 +3,25 @@ import {MainMenu} from '../menu/main-menu';
 import {AbstractMenu} from '../menu/abstract-menu.';
 import {PreviewWindow} from './preview-window';
 import {AppEvents} from '../../common/events/app.events';
+import * as commandExists from 'command-exists';
+import {RENDER_COMMAND} from '../../common/constants';
+import {dialog} from "electron";
 
 export class MainWindow extends AbstractWindow {
+
+    public static checkRenderCommand(): boolean {
+        if (!commandExists.sync(RENDER_COMMAND)) {
+            dialog.showErrorBox(
+                'Runtime error',
+                'Renderer program "wkthmltopdf" not found.\n\r' +
+                'You can continue working on document, but you won\'t be able to render it.\n\r' +
+                'Please check PATH variable or install wkhtmltopdf under:\n\r\n\r' +
+                'https://wkhtmltopdf.org/downloads.html'
+            );
+            return false;
+        }
+        return true;
+    }
     protected path = `file://${__dirname}/app.html?title=CVit`;
 
     private directory: string;
@@ -35,6 +52,8 @@ export class MainWindow extends AbstractWindow {
         if (process.env.NODE_ENV === 'development') {
             this.setupDevelopmentEnvironment();
         }
+
+        setTimeout(MainWindow.checkRenderCommand, 3000);
     }
 
     protected getMenu(): AbstractMenu {

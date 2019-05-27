@@ -3,6 +3,7 @@ import {APP_EVENT} from '../../common/constants';
 import {AbstractMenu} from './abstract-menu.';
 import {AppEvents} from '../../common/events/app.events';
 import {EventBus} from '../event-bus';
+import {MainWindow} from '../windows/main-window';
 
 // TODO adjust darwin template when menu is done
 export class MainMenu extends AbstractMenu {
@@ -70,7 +71,11 @@ export class MainMenu extends AbstractMenu {
                     },
                     {
                         label: '&Render',
-                        click: () => this.window.webContents.send(APP_EVENT, new AppEvents.Render()),
+                        click: () => {
+                            if (MainWindow.checkRenderCommand()) {
+                                this.window.webContents.send(APP_EVENT, new AppEvents.Render());
+                            }
+                        },
                     },
                 ]
             },
