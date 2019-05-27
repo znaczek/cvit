@@ -30,7 +30,7 @@ interface State {
 const Title = styled.h1`
     font-size: 24px;
     line-height: 1;
-    padding: ${STYLES.gutter/4}px
+    padding: ${STYLES.gutter / 4}px
     text-align: center;
 `;
 
@@ -96,26 +96,26 @@ export class Editor extends React.Component<Props> {
                     </EditorTab>
                     {printConfig.hasHeader && <EditorTab title={t('EDITOR.TABS.HEADER')}>
                         <EditorContainer
-                        value={header}
-                        mode='html'
-                        id='header'
-                        focus={selected === 2}
-                        undo={undo}
-                        redo={redo}
-                        onChange={(content: string) => updateHeader(content)}
+                            value={header}
+                            mode='html'
+                            id='header'
+                            focus={selected === 2}
+                            undo={undo}
+                            redo={redo}
+                            onChange={(content: string) => updateHeader(content)}
                         />
-                        </EditorTab>}
+                    </EditorTab>}
                     {printConfig.hasFooter && <EditorTab title={t('EDITOR.TABS.FOOTER')}>
                         <EditorContainer
-                        value={footer}
-                        mode='html'
-                        id='footer'
-                        focus={selected === 3}
-                        undo={undo}
-                        redo={redo}
-                        onChange={(content: string) => updateFooter(content)}
+                            value={footer}
+                            mode='html'
+                            id='footer'
+                            focus={selected === 3}
+                            undo={undo}
+                            redo={redo}
+                            onChange={(content: string) => updateFooter(content)}
                         />
-                        </EditorTab>}
+                    </EditorTab>}
                 </EditorView>
             </React.Fragment>
         );

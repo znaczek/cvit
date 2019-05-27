@@ -2,14 +2,14 @@ import * as React from 'react';
 import {T} from '../T';
 import {Template} from '../../models/template.model';
 import {SelectBox} from '../common/SelectBox/SelectBox';
-import {Button} from '../common/styled/Button';
-import {DirectoryPicker} from '../common/DirectoryPicker/DirectoryPicker';
-import {Themes} from '../common/styled/themes';
 import {OptionModel} from '../../../common/model/options-model';
-import {Input} from '../common/styled/Input';
 import {StorageService} from '../../../common/services/storage.service';
 import {CreateProjectInterface} from '../../interfaces/create-project.interface';
-import {Error, Form, Group, Label} from '../common/styled/Form';
+import {DirectoryPicker} from '../common/directory-picker/DirectoryPicker';
+import {Error, Form, Group, Label} from '../common/html-styled/Form';
+import {Input} from '../common/html-styled/Input';
+import {Button} from '../common/html-styled/Button';
+import {Themes} from '../themes';
 
 const INPUT_DEBOUNCE_TIME = 500;
 

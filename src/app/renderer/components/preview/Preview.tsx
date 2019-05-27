@@ -113,7 +113,7 @@ export class Preview extends React.Component {
                     cvFrameHeight: Preview.getFrameHeight(this.cvFrameRef),
                     headerFrameHeight: Preview.getFrameHeight(this.headerFrameRef),
                     footerFrameHeight: Preview.getFrameHeight(this.footerFrameRef),
-            });
+                });
             });
         });
     }

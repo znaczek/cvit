@@ -6,32 +6,38 @@ import {AppEvents} from '../../common/events/app.events';
 import {RenderActions} from '../store/actions/render.actions';
 
 export class EditorEventHandler {
-    public static handle(event: AppEvents.types) {
+    public static handle(event: AppEvents.types): void {
         const {dispatch} = store;
         switch (event.type) {
             case AppEvents.TYPES.CREATE_NEW: {
-                return dispatch(ProjectActions.startCreateProject())
+                dispatch(ProjectActions.startCreateProject());
+                break;
             }
             case AppEvents.TYPES.OPEN: {
                 if (event.payload) {
-                    return (<AppThunkDispatchType>dispatch)(ProjectActions.openProject(event.payload))
+                    (<AppThunkDispatchType>dispatch)(ProjectActions.openProject(event.payload));
                 }
-                return;
+                break;
             }
             case AppEvents.TYPES.SHOW_PRINT_CONFIG: {
-                return dispatch(UiActions.openPrintConfigPopup());
+                dispatch(UiActions.openPrintConfigPopup());
+                break;
             }
             case AppEvents.TYPES.SAVE: {
-                return (<AppThunkDispatchType>dispatch)(ProjectActions.save())
+                (<AppThunkDispatchType>dispatch)(ProjectActions.save());
+                break;
             }
             case AppEvents.TYPES.UNDO: {
-                return dispatch(UiActions.undo())
+                dispatch(UiActions.undo());
+                break;
             }
             case AppEvents.TYPES.REDO: {
-                return dispatch(UiActions.redo())
+                dispatch(UiActions.redo());
+                break;
             }
             case AppEvents.TYPES.RENDER: {
-                return (<AppThunkDispatchType>dispatch)(RenderActions.render())
+                (<AppThunkDispatchType>dispatch)(RenderActions.render());
+                break;
             }
         }
     }

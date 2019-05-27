@@ -3,7 +3,7 @@ import {Provider} from 'react-redux';
 import {Store} from 'redux';
 import EditorPage from './containers/EditorPage';
 import App from './App';
-import NewProjectPopup from './components/project/NewProjectPopup';
+import NewProjectPopup from './containers/NewProjectPopup';
 import PreviewPage from './containers/PreviewPage';
 
 interface Props {

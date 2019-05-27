@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import {ThemeInterface, Themes} from './themes';
 import {STYLES} from '../../../styles/variables';
 
 interface Props {

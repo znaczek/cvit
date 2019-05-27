@@ -1,11 +1,11 @@
 import * as React from 'react';
 import {Dialog, remote} from 'electron';
-import {Button} from '../styled/Button';
-import {Input} from '../styled/Input';
 import styled from 'styled-components';
 import {T} from '../../T';
 import {MIXINS} from '../../../styles/mixins';
 import {STYLES} from '../../../styles/variables';
+import {Button} from '../html-styled/Button';
+import {Input} from '../html-styled/Input';
 
 const dialog: Dialog = remote.require('electron').dialog;
 
@@ -24,27 +24,24 @@ interface Props {
     btnText?: string;
 }
 
-export class DirectoryPicker extends React.Component {
-    public props: Props;
+export const DirectoryPicker = (props: Props) =>  {
 
-    private handleDirectoryChoose = () => {
+    const {value, btnText} = props;
+
+    const handleDirectoryChoose = () => {
         dialog.showOpenDialog({
             properties: ['openDirectory'],
-        }, this.props && this.props.handleOnDirectoryChoose)
+        }, props && props.handleOnDirectoryChoose)
     };
 
-    public render() {
-        const {value, btnText} = this.props;
-
-        return (
-            <Wrapper>
-                <Input
-                    value={value || ''}
-                    readOnly
-                    tabIndex={-1}
-                />
-                <Button onClick={this.handleDirectoryChoose}><T>{btnText ? btnText : 'ACTIONS.CHOOSE'}</T></Button>
-            </Wrapper>
-        );
-    }
-}
+    return (
+        <Wrapper>
+            <Input
+                value={value || ''}
+                readOnly
+                tabIndex={-1}
+            />
+            <Button onClick={handleDirectoryChoose}><T>{btnText ? btnText : 'ACTIONS.CHOOSE'}</T></Button>
+        </Wrapper>
+    );
+};

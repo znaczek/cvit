@@ -1,8 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import {STYLES} from '../../../styles/variables';
-import {H1} from '../styled/Headers';
-import {T} from '../../T';
 import {MIXINS} from '../../../styles/mixins';
 
 interface OverlayProps {

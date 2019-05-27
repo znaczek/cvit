@@ -1,7 +1,7 @@
 import * as React from 'react';
-import {EditorTab} from './EditorTab';
 import styled from 'styled-components';
 import {STYLES} from '../../styles/variables';
+import {EditorTab} from './EditorTab';
 
 interface Props {
     children: React.ReactNodeArray;
@@ -44,32 +44,29 @@ const TabPane = styled.article<TabPaneProps>`
     }
 `;
 
-export class EditorView extends React.Component<Props> {
-    public props: Props;
+export const EditorView = (props: Props) => {
+    const {children, selected, onChange} = props;
 
-    public render() {
-        const {children, selected, onChange} = this.props;
+    return (
+        <main>
+            <TabList>
+                {React.Children.map(children, (child: EditorTab, index: number) => child && (
+                    <TabListItem
+                        key={index}
+                        selected={selected === index}
+                        onClick={() => onChange(index)}
+                    ><h3>{child.props.title}</h3></TabListItem>
+                ))}
+            </TabList>
+            <TabContent>
+                {React.Children.map(children, (child: EditorTab, index: number) => (
+                    <TabPane
+                        key={index}
+                        selected={selected === index}
+                    >{child}</TabPane>
+                ))}
+            </TabContent>
+        </main>
+    );
 
-        return (
-            <main>
-                <TabList>
-                    {React.Children.map(children, (child: EditorTab, index: number) => child && (
-                        <TabListItem
-                            key={index}
-                            selected={selected === index}
-                            onClick={() => onChange(index)}
-                        ><h3>{child.props.title}</h3></TabListItem>
-                    ))}
-                </TabList>
-                <TabContent>
-                    {React.Children.map(children, (child: EditorTab, index: number) => (
-                        <TabPane
-                            key={index}
-                            selected={selected === index}
-                        >{child}</TabPane>
-                    ))}
-                </TabContent>
-            </main>
-        );
-    }
-}
+};

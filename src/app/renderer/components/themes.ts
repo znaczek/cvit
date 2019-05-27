@@ -1,4 +1,4 @@
-import {STYLES} from '../../../styles/variables';
+import {STYLES} from '../styles/variables';
 
 export interface ThemeInterface {
     fg: string,

@@ -1,18 +1,18 @@
 import * as React from 'react';
-import NewProject from './NewProject';
+import NewProject from '../components/project/NewProject';
 import {connect} from 'react-redux';
-import {ApplicationStateInterface} from '../../../common/interfaces/application-state.interface';
-import {Template} from '../../models/template.model';
-import {TemplatesSelectors} from '../../store/selectors/templates.selectors';
-import {ProjectActions} from '../../store/actions/project.actions';
-import {AppThunkDispatchType} from '../../../common/types/app-thunk-dispatch.type';
-import {OptionModel} from '../../../common/model/options-model';
-import {Popup} from '../common/Popup/Popup';
-import {UiSelectors} from '../../store/selectors/ui.selectors';
-import {H1} from '../common/styled/Headers';
-import {T} from '../T';
-import {UiActions} from '../../store/actions/ui.actions';
-import {CreateProjectInterface} from '../../interfaces/create-project.interface';
+import {ApplicationStateInterface} from '../../common/interfaces/application-state.interface';
+import {Template} from '../models/template.model';
+import {TemplatesSelectors} from '../store/selectors/templates.selectors';
+import {ProjectActions} from '../store/actions/project.actions';
+import {AppThunkDispatchType} from '../../common/types/app-thunk-dispatch.type';
+import {OptionModel} from '../../common/model/options-model';
+import {Popup} from '../components/common/Popup/Popup';
+import {UiSelectors} from '../store/selectors/ui.selectors';
+import {T} from '../components/T';
+import {UiActions} from '../store/actions/ui.actions';
+import {CreateProjectInterface} from '../interfaces/create-project.interface';
+import {H1} from '../components/common/html-styled/Headers';
 
 interface Props {
     templates: OptionModel<Template>[];

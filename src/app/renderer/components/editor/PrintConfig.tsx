@@ -1,16 +1,15 @@
 import * as React from 'react';
-import {Themes} from '../common/styled/themes';
-import {Form, Group, Label} from '../common/styled/Form';
 import {T} from '../T';
-import {Input} from '../common/styled/Input';
-import {Button} from '../common/styled/Button';
-import {Col, Row} from '../common/styled/Layout';
 import {PrintConfigStateInterface} from '../../interfaces/state/print-config-state.interface';
 import {RadioGroup} from '../common/form/RadioGroup';
 import {Translation} from 'react-i18next';
 import {strToBool} from '../../../common/utils/converters.utils';
-import {PrintConfigActions} from '../../store/actions/print-config.actions';
 import {PrintConfigModel} from '../../models/print-config.model';
+import {Form, Group, Label} from '../common/html-styled/Form';
+import {Row, Col} from '../common/html-styled/Layout';
+import {Input} from '../common/html-styled/Input';
+import {Button} from '../common/html-styled/Button';
+import {Themes} from '../themes';
 
 interface Props {
     config: PrintConfigStateInterface,

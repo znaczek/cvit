@@ -19,27 +19,24 @@ interface Props<T> {
     dataKey?: string;
 }
 
-export class SelectBox<T extends {[index: string]: any}> extends React.Component {
-    public props: Props<T>;
+export const SelectBox = <T extends {[index: string]: any}>(props: Props<T>) => {
 
-    public render() {
-        const {options, dataKey, selected, handleOnSelect} = this.props;
+    const {options, dataKey, selected, handleOnSelect} = props;
 
-        const comparator = dataKey ?
-            (item: T, selected: T) => item[dataKey] === selected[dataKey] :
-            (item: T, selected: T) => item === selected;
+    const comparator = dataKey ?
+        (item: T, selected: T) => item[dataKey] === selected[dataKey] :
+        (item: T, selected: T) => item === selected;
 
-        return (
-            <Col tabIndex={0}>
-                {options.map((option, index) =>
-                    <SelectBoxItem
-                        key={index}
-                        name={option.label}
-                        selected={comparator(option.value, selected)}
-                        handleClick={() => handleOnSelect(option.value)}
-                    />)
-                }
-            </Col>
-        );
-    }
-}
+    return (
+        <Col tabIndex={0}>
+            {options.map((option, index) =>
+                <SelectBoxItem
+                    key={index}
+                    name={option.label}
+                    selected={comparator(option.value, selected)}
+                    handleClick={() => handleOnSelect(option.value)}
+                />)
+            }
+        </Col>
+    );
+};

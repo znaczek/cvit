@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {Group, Label} from '../styled/Form';
 import {OptionInterface} from '../../../../common/model/options-model';
+import {Group, Label} from '../html-styled/Form';
 
 
 interface Props<T> {

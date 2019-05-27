@@ -1,14 +1,14 @@
 import * as React from 'react';
 import {Popup} from '../common/Popup/Popup';
-import {H2, H3} from '../common/styled/Headers';
 import {T} from '../T';
 import {StatusEnum} from '../../../common/enums/status.enum';
-import {Button} from '../common/styled/Button';
 import styled from 'styled-components';
 import {STYLES} from '../../styles/variables';
 import {RenderLoader} from '../common/loaders/RenderLoader';
-import {P} from '../common/styled/Layout';
-import {Themes} from '../common/styled/themes';
+import {H2, H3} from '../common/html-styled/Headers';
+import {Button} from '../common/html-styled/Button';
+import {Themes} from '../themes';
+import {P} from '../common/html-styled/Layout';
 
 interface Props {
     visible: boolean;
