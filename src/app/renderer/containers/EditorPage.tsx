@@ -23,10 +23,9 @@ import {RenderSelectors} from '../store/selectors/render.selectors';
 import {StatusEnum} from '../../common/enums/status.enum';
 import {RenderPopup} from '../components/editor/RenderPopup';
 import {RenderActions} from '../store/actions/render.actions';
-import {OsUtils} from '../../common/utils/os.utils';
+import {OsService} from '../../common/services/os.service';
 
 interface Props {
-    t: i18n.TFunction,
     undo: number,
     redo: number,
     saveConfig: (config: PrintConfigStateInterface) => void,
@@ -62,12 +61,11 @@ export class EditorPage extends React.Component<Props> {
     }
 
     public openFile = (): void => {
-        OsUtils.openFile(this.props.directory + '/' + OUTPUT_FILE);
+        OsService.openFile(this.props.directory + '/' + OUTPUT_FILE);
     };
 
     public render() {
         const {
-            t,
             undo,
             redo,
             printConfig,
@@ -132,7 +130,6 @@ export class EditorPage extends React.Component<Props> {
                 updateStyles={updateStyles}
                 updateHeader={updateHeader}
                 updateFooter={updateFooter}
-                t={t}
             />
         </React.Fragment>;
     }

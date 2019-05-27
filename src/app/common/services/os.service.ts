@@ -1,8 +1,8 @@
 import {exec} from 'child_process';
 
-export class OsUtils {
+export class OsService {
     public static openFile(file: string): void {
-        exec(OsUtils.getOpenCommandLine() + ' ' + file);
+        exec(OsService.getOpenCommandLine() + ' ' + file);
     }
 
     private static getOpenCommandLine(): string {

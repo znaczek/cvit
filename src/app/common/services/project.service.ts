@@ -1,6 +1,6 @@
 import {CV_FILENAME, FOOTER_FILENAME, HEADER_FILENAME, STYLES_FILENAME} from '../constants';
 import {StorageService} from './storage.service';
-import {HtmlTool} from '../tools/html-tool';
+import {HtmlUtils} from '../utils/html.utils';
 import {ProjectStateInterface} from '../../renderer/interfaces/state/projects-state.interface';
 import {ProjectDataInterface} from '../../renderer/interfaces/state/project-data.interface';
 import {ProjectModel} from '../../renderer/models/project.model';
@@ -14,7 +14,7 @@ export class ProjectService {
         let footer: string;
         try {
             const htmlFile = StorageService.getFile(directory + '/' + CV_FILENAME);
-            html = HtmlTool.extractBody(htmlFile);
+            html = HtmlUtils.extractBody(htmlFile);
         } catch (e) {
             console.error('No html file found in ' + directory);
         }
@@ -27,14 +27,14 @@ export class ProjectService {
 
         try {
             const headerFile = StorageService.getFile(directory + '/' + HEADER_FILENAME);
-            header = HtmlTool.extractBody(headerFile);
+            header = HtmlUtils.extractBody(headerFile);
         } catch (e) {
             console.error('No header file found in ' + directory);
         }
 
         try {
             const footerFile = StorageService.getFile(directory + '/' + FOOTER_FILENAME);
-            footer = HtmlTool.extractBody(footerFile);
+            footer = HtmlUtils.extractBody(footerFile);
         } catch (e) {
             console.error('No styles file found in ' + directory);
         }
@@ -44,10 +44,10 @@ export class ProjectService {
 
     public static save(directory: string, baseTemplate: string, project: ProjectStateInterface): void {
         try {
-            StorageService.save(directory + '/' + CV_FILENAME, HtmlTool.wrap(baseTemplate, project.html, 'cv'));
+            StorageService.save(directory + '/' + CV_FILENAME, HtmlUtils.wrap(baseTemplate, project.html, 'cv'));
             StorageService.save(directory + '/' + STYLES_FILENAME, project.styles);
-            StorageService.save(directory + '/' + HEADER_FILENAME, HtmlTool.wrap(baseTemplate, project.header, 'header'));
-            StorageService.save(directory + '/' + FOOTER_FILENAME, HtmlTool.wrap(baseTemplate, project.footer, 'footer'));
+            StorageService.save(directory + '/' + HEADER_FILENAME, HtmlUtils.wrap(baseTemplate, project.header, 'header'));
+            StorageService.save(directory + '/' + FOOTER_FILENAME, HtmlUtils.wrap(baseTemplate, project.footer, 'footer'));
         } catch(e) {
             console.error('Problem with saving');
         }

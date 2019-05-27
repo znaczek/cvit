@@ -1,7 +1,7 @@
 import {ActionInterface} from '../../../common/interfaces/action.interface';
 import {AppThunkAsyncAction} from '../../../common/types/app-thunk-action.type';
 import {AppThunkDispatchType} from '../../../common/types/app-thunk-dispatch.type';
-import {delay} from '../../../common/tools/delay';
+import {delay} from '../../../common/utils/delay';
 
 const prefix = '[PREVIEW] ';
 

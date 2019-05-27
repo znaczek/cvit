@@ -1,14 +1,13 @@
 import * as React from 'react';
 import {EditorTab} from './EditorTab';
 import {EditorView} from './EditorView';
-import i18n from 'i18next';
 import {EditorContainer} from './EditorContainer';
 import styled from 'styled-components';
 import {STYLES} from '../../styles/variables';
 import {PrintConfigModel} from '../../models/print-config.model';
+import {Translation} from 'react-i18next';
 
 interface Props {
-    t: i18n.TFunction;
     undo: number;
     redo: number;
     printConfig: PrintConfigModel;
@@ -31,7 +30,7 @@ interface State {
 const Title = styled.h1`
     font-size: 24px;
     line-height: 1;
-    padding: ${STYLES.gutter / 4}px
+    padding: ${STYLES.gutter / 4}px;
     text-align: center;
 `;
 
@@ -50,7 +49,6 @@ export class Editor extends React.Component<Props> {
 
     public render() {
         const {
-            t,
             undo,
             redo,
             printConfig,
@@ -68,58 +66,60 @@ export class Editor extends React.Component<Props> {
         const {selected} = this.state;
 
         return (
-            <React.Fragment>
-                <Title>{title}{dirty && ' *'}</Title>
-                <EditorView
-                    selected={selected}
-                    onChange={this.onTabChange}
-                >
-                    <EditorTab title={t('EDITOR.TABS.CONTENT')}>
-                        <EditorContainer
-                            value={html}
-                            mode='html'
-                            id='content'
-                            focus={selected === 0}
-                            undo={undo}
-                            redo={redo}
-                            onChange={(content: string) => updateHtml(content)}
-                        />
-                    </EditorTab>
-                    <EditorTab title={t('EDITOR.TABS.STYLES')}>
-                        <EditorContainer
-                            value={styles}
-                            mode='css'
-                            id='styles'
-                            focus={selected === 1}
-                            undo={undo}
-                            redo={redo}
-                            onChange={(content: string) => updateStyles(content)}
-                        />
-                    </EditorTab>
-                    {printConfig.hasHeader && <EditorTab title={t('EDITOR.TABS.HEADER')}>
-                        <EditorContainer
-                            value={header}
-                            mode='html'
-                            id='header'
-                            focus={selected === 2}
-                            undo={undo}
-                            redo={redo}
-                            onChange={(content: string) => updateHeader(content)}
-                        />
-                    </EditorTab>}
-                    {printConfig.hasFooter && <EditorTab title={t('EDITOR.TABS.FOOTER')}>
-                        <EditorContainer
-                            value={footer}
-                            mode='html'
-                            id='footer'
-                            focus={selected === 3}
-                            undo={undo}
-                            redo={redo}
-                            onChange={(content: string) => updateFooter(content)}
-                        />
-                    </EditorTab>}
-                </EditorView>
-            </React.Fragment>
+            <Translation>{(t) => (
+                <React.Fragment>
+                    <Title>{title}{dirty && ' *'}</Title>
+                    <EditorView
+                        selected={selected}
+                        onChange={this.onTabChange}
+                    >
+                        <EditorTab title={t('EDITOR.TABS.CONTENT')}>
+                            <EditorContainer
+                                value={html}
+                                mode='html'
+                                id='content'
+                                focus={selected === 0}
+                                undo={undo}
+                                redo={redo}
+                                onChange={(content: string) => updateHtml(content)}
+                            />
+                        </EditorTab>
+                        <EditorTab title={t('EDITOR.TABS.STYLES')}>
+                            <EditorContainer
+                                value={styles}
+                                mode='css'
+                                id='styles'
+                                focus={selected === 1}
+                                undo={undo}
+                                redo={redo}
+                                onChange={(content: string) => updateStyles(content)}
+                            />
+                        </EditorTab>
+                        {printConfig.hasHeader && <EditorTab title={t('EDITOR.TABS.HEADER')}>
+                            <EditorContainer
+                                value={header}
+                                mode='html'
+                                id='header'
+                                focus={selected === 2}
+                                undo={undo}
+                                redo={redo}
+                                onChange={(content: string) => updateHeader(content)}
+                            />
+                        </EditorTab>}
+                        {printConfig.hasFooter && <EditorTab title={t('EDITOR.TABS.FOOTER')}>
+                            <EditorContainer
+                                value={footer}
+                                mode='html'
+                                id='footer'
+                                focus={selected === 3}
+                                undo={undo}
+                                redo={redo}
+                                onChange={(content: string) => updateFooter(content)}
+                            />
+                        </EditorTab>}
+                    </EditorView>
+                </React.Fragment>
+            )}</Translation>
         );
     }
 }

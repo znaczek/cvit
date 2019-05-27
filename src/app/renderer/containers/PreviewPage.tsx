@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Preview} from '../components/preview/Preview';
 import {APP_EVENT, CV_FILENAME, FOOTER_FILENAME, HEADER_FILENAME, STYLES_FILENAME} from '../../common/constants';
-import {FileWatcher} from '../../common/tools/file-watcher';
+import {FileWatcherService} from '../../common/services/file-watcher.service';
 import {AppEvents} from '../../common/events/app.events';
 import {ipcRenderer} from "electron";
 import {connect} from 'react-redux';
@@ -25,7 +25,7 @@ export class PreviewPage extends React.PureComponent {
     public props: Props;
 
     private lastDirectory: string = null;
-    private fileWatchers: FileWatcher[] = [];
+    private fileWatchers: FileWatcherService[] = [];
 
     public componentDidMount() {
         ipcRenderer.on(APP_EVENT, (e: any, action: AppEvents.types) => PreviewEventHandler.handle(action));
@@ -59,7 +59,7 @@ export class PreviewPage extends React.PureComponent {
     private setFileWatchers(directory: string) {
         this.closeFileWatchers();
         [CV_FILENAME, STYLES_FILENAME, HEADER_FILENAME, FOOTER_FILENAME].forEach((file) => {
-            this.fileWatchers.push(new FileWatcher(directory + '/' + file, () => {
+            this.fileWatchers.push(new FileWatcherService(directory + '/' + file, () => {
                 this.props.dispatch(PreviewActions.refreshDebounced());
             }));
         });

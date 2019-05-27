@@ -1,6 +1,6 @@
 import {JSDOM} from 'jsdom';
 
-export class HtmlTool {
+export class HtmlUtils {
     public static extractBody(content: string): string {
         const dom = new JSDOM(content);
         return dom.window.document.body.innerHTML;

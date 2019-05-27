@@ -5,7 +5,7 @@ import * as md5 from 'md5';
 type CallbackType = (eventType: EventType, filename: string) => void;
 export type EventType = 'rename' | 'change';
 
-export class FileWatcher {
+export class FileWatcherService {
     private filename: string;
     private callback: CallbackType;
 
