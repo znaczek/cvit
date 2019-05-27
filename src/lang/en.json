@@ -4,6 +4,7 @@
     "ACTIONS": {
         "CANCEL": "Cancel",
         "CREATE": "Create",
+        "SAVE": "Save",
         "CHOOSE": "Choose"
     },
     "NEW_PROJECT": {

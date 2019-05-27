@@ -139,7 +139,7 @@ export class PrintConfig extends React.Component<Props> {
                         theme={Themes.primary}
                         onClick={this.save}
                         stretched
-                    ><T>ACTIONS.CREATE</T></Button>
+                    ><T>ACTIONS.SAVE</T></Button>
                 </Group>
             </Form>
         );

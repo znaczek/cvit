@@ -4,6 +4,8 @@ import {AbstractMenu} from '../menu/abstract-menu.';
 import {Subscription} from '../../common/model/subscription.model';
 import {AppEvents} from '../../common/events/app.events';
 import {EventBus} from '../event-bus';
+import {PATHS} from '../../renderer/paths';
+import {ICON_FILE} from '../../common/constants';
 
 export abstract class AbstractWindow {
     public static CLOSE_EVENT = 'CLOSE_EVENT';
@@ -22,8 +24,8 @@ export abstract class AbstractWindow {
             show: false,
             width: this.width,
             height: this.height,
+            icon: PATHS.ROOT +  '/' + ICON_FILE,
         });
-
         this.onClose = new EventEmitter();
     }
 
