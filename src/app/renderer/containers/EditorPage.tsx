@@ -33,6 +33,7 @@ interface Props {
     printConfig: PrintConfigModel,
     printConfigVisible: boolean,
     directory: string,
+    isDirty: boolean,
     html: string,
     styles: string,
     header: string,
@@ -74,6 +75,7 @@ export class EditorPage extends React.Component<Props> {
             printConfigVisible,
             renderVisible,
             directory,
+            isDirty,
             html,
             styles,
             header,
@@ -120,6 +122,7 @@ export class EditorPage extends React.Component<Props> {
                 printConfig={printConfig}
                 title={directory}
                 html={html}
+                dirty={isDirty}
                 styles={styles}
                 header={header}
                 footer={footer}
@@ -142,6 +145,7 @@ const mapStateToProps = (state: ApplicationStateInterface): Partial<Props> => ({
     renderVisible: UiSelectors.getRenderPopupVisible(state),
     printConfig: PrintConfigSelectors.getConfig(state),
     directory: ProjectSelectors.getDirectory(state),
+    isDirty: ProjectSelectors.isDirty(state),
     html: ProjectSelectors.getHtml(state),
     styles: ProjectSelectors.getStyles(state),
     header: ProjectSelectors.getHeader(state),

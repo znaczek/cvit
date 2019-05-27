@@ -12,6 +12,7 @@ interface Props {
     undo: number;
     redo: number;
     printConfig: PrintConfigModel;
+    dirty: boolean;
     title: string;
     html: string;
     styles: string;
@@ -54,6 +55,7 @@ export class Editor extends React.Component<Props> {
             redo,
             printConfig,
             title,
+            dirty,
             html,
             styles,
             header,
@@ -67,7 +69,7 @@ export class Editor extends React.Component<Props> {
 
         return (
             <React.Fragment>
-                <Title>{title}</Title>
+                <Title>{title}{dirty && ' *'}</Title>
                 <EditorView
                     selected={selected}
                     onChange={this.onTabChange}

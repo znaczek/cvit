@@ -1,5 +1,5 @@
-import {ProjectInterface} from './state/project.interface';
+import {ProjectDataInterface} from './state/project-data.interface';
 
-export interface OpenProjectInterface extends ProjectInterface {
+export interface OpenProjectInterface extends ProjectDataInterface {
     directory: string;
 }

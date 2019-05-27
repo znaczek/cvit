@@ -3,6 +3,7 @@ import {ActionInterface} from '../../../common/interfaces/action.interface';
 import {ProjectActions} from '../actions/project.actions';
 
 const initialState: ProjectStateInterface = {
+    dirty: false,
     directory: '',
     html: '',
     styles: '',
@@ -22,24 +23,34 @@ export default (state: ProjectStateInterface = initialState, action: ActionInter
             return {
                 ...state,
                 html: action.payload,
+                dirty: true,
             }
         }
         case ProjectActions.UPDATE_STYLES: {
             return {
                 ...state,
                 styles: action.payload,
+                dirty: true,
             }
         }
         case ProjectActions.UPDATE_HEADER: {
             return {
                 ...state,
                 header: action.payload,
+                dirty: true,
             }
         }
         case ProjectActions.UPDATE_FOOTER: {
             return {
                 ...state,
                 footer: action.payload,
+                dirty: true,
+            }
+        }
+        case ProjectActions.SAVE_SUCCESS: {
+            return {
+                ...state,
+                dirty: false,
             }
         }
         default:

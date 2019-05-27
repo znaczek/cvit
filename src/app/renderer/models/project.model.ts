@@ -1,7 +1,7 @@
 import {ProjectStateInterface} from '../interfaces/state/projects-state.interface';
-import {ProjectInterface} from '../interfaces/state/project.interface';
+import {ProjectDataInterface} from '../interfaces/state/project-data.interface';
 
-export class ProjectModel implements Required<ProjectInterface> {
+export class ProjectModel implements Required<ProjectDataInterface> {
     public html: string;
     public styles: string;
     public header: string;
@@ -15,3 +15,4 @@ export class ProjectModel implements Required<ProjectInterface> {
         this.footer = options.footer || '';
     }
 }
+

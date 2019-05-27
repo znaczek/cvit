@@ -5,6 +5,11 @@ import {ProjectStateInterface} from '../../interfaces/state/projects-state.inter
 export class ProjectSelectors {
     public static getProjectState = (state: ApplicationStateInterface): ProjectStateInterface => state.project;
 
+    public static isDirty = createSelector(
+        ProjectSelectors.getProjectState,
+        (state: ProjectStateInterface): boolean => state.dirty,
+    );
+
     public static getDirectory = createSelector(
         ProjectSelectors.getProjectState,
         (state: ProjectStateInterface): string => state.directory,

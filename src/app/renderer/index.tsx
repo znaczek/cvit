@@ -15,7 +15,7 @@ import {Template} from './models/template.model';
 import {LocalStorage} from '../common/services/local-storage.service';
 import {ProjectStateModel} from './models/project-state.model';
 import {PrintConfigStateInterface} from './interfaces/state/print-config-state.interface';
-import {ProjectInterface} from './interfaces/state/project.interface';
+import {ProjectDataInterface} from './interfaces/state/project-data.interface';
 import {PrintConfigModel} from './models/print-config.model';
 import {PrintConfigService} from '../common/services/print-config.service';
 
@@ -31,7 +31,7 @@ export let store: Store<ApplicationStateInterface>;
 const bootstrapApp = (templates: Template[],
                       baseTemplate: string,
                       directory: string,
-                      project: ProjectInterface,
+                      project: ProjectDataInterface,
                       printConfig: PrintConfigStateInterface) => {
     store = configureStore({
         templates: {
