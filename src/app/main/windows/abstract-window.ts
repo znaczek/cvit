@@ -6,6 +6,7 @@ import {AppEvents} from '../../common/events/app.events';
 import {EventBus} from '../event-bus';
 import {PATHS} from '../../renderer/paths';
 import {ICON_FILE} from '../../common/constants';
+import ContextMenuParams = Electron.ContextMenuParams;
 
 export abstract class AbstractWindow {
     public static CLOSE_EVENT = 'CLOSE_EVENT';
@@ -52,9 +53,23 @@ export abstract class AbstractWindow {
 
         this.window.loadURL(this.path);
 
-        const menu = this.getMenu();
-        if (menu) {
-            menu.buildMenu(this.isApplicationMenu());
+        const mainMenu = this.getMenu();
+        if (mainMenu) {
+            const menu = mainMenu.buildMenu();
+            if (this.isApplicationMenu()) {
+                Menu.setApplicationMenu(menu);
+            } else {
+                this.window.setMenu(menu);
+            }
+        }
+
+        if (this.hasContextMenu()) {
+            this.window.webContents.on('context-menu', (e, params) => {
+                const menu = this.getContextMenu(params);
+                menu.buildMenu().popup({
+                    window: this.window,
+                });
+            });
         }
 
         this.onInit();
@@ -65,26 +80,18 @@ export abstract class AbstractWindow {
         this.window.close();
     }
 
-    // TODO add context menu to main menu
-    protected setupDevelopmentEnvironment(): void {
-        this.window.webContents.on('context-menu', (e, props) => {
-            const {x, y} = props;
-
-            Menu.buildFromTemplate([
-                {
-                    label: 'Inspect element',
-                    click: () => {
-                        this.window.webContents.inspectElement(x, y);
-                    }
-                }
-            ]).popup({
-                window: this.window,
-            });
-        });
+    protected getMenu(): AbstractMenu {
+        return null;
+    };
+    protected getContextMenu(props: ContextMenuParams): AbstractMenu {
+        return null;
     }
-
-    protected abstract getMenu(): AbstractMenu;
-    protected abstract isApplicationMenu(): boolean;
+    protected hasContextMenu(): boolean {
+        return false;
+    }
+    protected isApplicationMenu(): boolean {
+        return false;
+    }
     protected onInit(): void {};
     protected handleEventBusEmit(event: AppEvents.types): void {};
 

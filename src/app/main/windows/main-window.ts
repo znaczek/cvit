@@ -6,6 +6,8 @@ import {AppEvents} from '../../common/events/app.events';
 import * as commandExists from 'command-exists';
 import {RENDER_COMMAND} from '../../common/constants';
 import {dialog} from "electron";
+import ContextMenuParams = Electron.ContextMenuParams;
+import {MainContextMenu} from '../menu/main-context-menu';
 
 export class MainWindow extends AbstractWindow {
 
@@ -49,15 +51,19 @@ export class MainWindow extends AbstractWindow {
     }
 
     protected onInit() {
-        if (process.env.NODE_ENV === 'development') {
-            this.setupDevelopmentEnvironment();
-        }
-
         setTimeout(MainWindow.checkRenderCommand, 3000);
     }
 
     protected getMenu(): AbstractMenu {
         return new MainMenu(this.window);
+    }
+
+    protected hasContextMenu() {
+        return true;
+    }
+
+    protected getContextMenu(params: ContextMenuParams): AbstractMenu {
+        return new MainContextMenu(this.window, params);
     }
 
     protected isApplicationMenu() {

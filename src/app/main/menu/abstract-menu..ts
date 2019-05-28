@@ -1,31 +1,31 @@
 import {BrowserWindow, Menu} from "electron";
 import MenuItemConstructorOptions = Electron.MenuItemConstructorOptions;
+import ContextMenuParams = Electron.ContextMenuParams;
 
 export abstract class AbstractMenu {
     protected window: BrowserWindow;
+    protected params: ContextMenuParams;
 
-    constructor(window: BrowserWindow) {
+    constructor(window: BrowserWindow, params?: ContextMenuParams) {
         this.window = window;
+        this.params = params;
     }
 
-    public buildMenu(applicationMenu: boolean = false): Menu {
+    public buildMenu(): Menu {
         const template = process.platform === 'darwin'
             ? this.buildDarwinTemplate()
             : this.buildDefaultTemplate();
 
-        const menu = Menu.buildFromTemplate(template);
-        if (applicationMenu) {
-            Menu.setApplicationMenu(menu);
-        } else {
-            this.window.setMenu(menu);
-        }
-
-        return menu;
+        return Menu.buildFromTemplate(template);
     }
 
-    protected abstract buildDarwinTemplate(): MenuItemConstructorOptions[];
+    protected buildDarwinTemplate(): MenuItemConstructorOptions[] {
+        return [];
+    }
 
-    protected abstract buildDefaultTemplate(): MenuItemConstructorOptions[];
+    protected buildDefaultTemplate(): MenuItemConstructorOptions[] {
+        return [];
+    }
 
 }
 

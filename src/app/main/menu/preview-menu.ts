@@ -1,15 +1,9 @@
-import {dialog} from 'electron';
 import {APP_EVENT} from '../../common/constants';
 import {AbstractMenu} from './abstract-menu.';
 import {AppEvents} from '../../common/events/app.events';
 import MenuItemConstructorOptions = Electron.MenuItemConstructorOptions;
 
-// TODO adjust darwin template when menu is done
 export class PreviewMenu extends AbstractMenu {
-
-    protected buildDarwinTemplate(): MenuItemConstructorOptions[] {
-        return [];
-    }
 
     protected buildDefaultTemplate(): MenuItemConstructorOptions[] {
         return [

@@ -1,16 +1,11 @@
 import {dialog, MenuItemConstructorOptions, shell} from 'electron';
 import {APP_EVENT} from '../../common/constants';
-import {AbstractMenu} from './abstract-menu.';
 import {AppEvents} from '../../common/events/app.events';
 import {EventBus} from '../event-bus';
 import {MainWindow} from '../windows/main-window';
+import {AbstractMainMenu} from './abstract-main-menu';
 
-// TODO adjust darwin template when menu is done
-export class MainMenu extends AbstractMenu {
-
-    protected buildDarwinTemplate(): MenuItemConstructorOptions[] {
-        return [];
-    }
+export class MainMenu extends AbstractMainMenu {
 
     protected buildDefaultTemplate(): MenuItemConstructorOptions[] {
         return [
@@ -40,23 +35,7 @@ export class MainMenu extends AbstractMenu {
             },
             {
                 label: '&Edit',
-                submenu: [
-                    {
-                        label: 'Undo',
-                        accelerator: 'Ctrl+Z',
-                        click: () => this.window.webContents.send(APP_EVENT, new AppEvents.Undo())
-                    },
-                    {
-                        label: 'Redo',
-                        accelerator: 'Ctrl+Shift+Z',
-                        click: () => this.window.webContents.send(APP_EVENT, new AppEvents.Redo())
-                    },
-                    {role: 'cut', label: 'Cut'},
-                    {role: 'copy', label: 'Copy'},
-                    {role: 'paste', label: 'Paste'},
-                    {role: 'delete', label: 'Delete'},
-                    {role: 'selectall', label: 'Select all'},
-                ]
+                submenu: this.getEditMenu(),
             },
             {
                 label: '&Project',

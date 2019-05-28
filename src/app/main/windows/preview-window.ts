@@ -3,6 +3,9 @@ import {AbstractMenu} from '../menu/abstract-menu.';
 import {AppEvents} from '../../common/events/app.events';
 import {APP_EVENT} from '../../common/constants';
 import {PreviewMenu} from '../menu/preview-menu';
+import {MainContextMenu} from '../menu/main-context-menu';
+import ContextMenuParams = Electron.ContextMenuParams;
+import {PreviewContextMenu} from '../menu/preview-context-menu';
 
 export class PreviewWindow extends AbstractWindow {
     public directory: string;
@@ -21,16 +24,16 @@ export class PreviewWindow extends AbstractWindow {
         }
     }
 
-    protected onInit() {
-        this.setupDevelopmentEnvironment();
-    }
-
     protected getMenu(): AbstractMenu {
         return new PreviewMenu(this.window);
     }
 
-    protected isApplicationMenu() {
-        return false;
+    protected hasContextMenu() {
+        return true;
+    }
+
+    protected getContextMenu(params: ContextMenuParams): AbstractMenu {
+        return new PreviewContextMenu(this.window, params);
     }
 
     public get path() {
