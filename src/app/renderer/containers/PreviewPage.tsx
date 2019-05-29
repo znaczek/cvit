@@ -12,6 +12,7 @@ import {AppThunkDispatchType} from '../../common/types/app-thunk-dispatch.type';
 import {PrintConfigSelectors} from '../store/selectors/print-config.selectors';
 import {PrintConfigModel} from '../../common/model/print-config.model';
 import {PreviewEventHandler} from '../event-bus-handlers/preview-event-handler';
+import {createStructuredSelector} from 'reselect';
 
 interface Props {
     ts: number;
@@ -77,11 +78,11 @@ export class PreviewPage extends React.PureComponent {
 
 }
 
-const mapStateToProps = (state: ApplicationStateInterface): Partial<Props> => ({
-    ts: PreviewSelectors.getTs(state),
-    directory: PreviewSelectors.getDirectory(state),
-    loader: PreviewSelectors.getLoader(state),
-    printConfig: PrintConfigSelectors.getConfig(state),
+const mapStateToProps = createStructuredSelector({
+    ts: PreviewSelectors.getTs,
+    directory: PreviewSelectors.getDirectory,
+    loader: PreviewSelectors.getLoader,
+    printConfig: PrintConfigSelectors.getConfig,
 });
 
 export default connect(mapStateToProps)(PreviewPage);

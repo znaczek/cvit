@@ -13,6 +13,7 @@ import {UiActions} from '../store/actions/ui.actions';
 import {CreateProjectInterface} from '../interfaces/create-project.interface';
 import {H1} from '../components/common/html-styled/Headers';
 import {TemplateInterface} from '../../common/interfaces/template.interface';
+import {createStructuredSelector} from 'reselect';
 
 interface Props {
     templates: OptionModel<TemplateInterface>[];
@@ -41,9 +42,9 @@ export class NewProjectPopup extends React.Component<Props> {
     }
 }
 
-const mapStateToProps = (state: ApplicationStateInterface) => ({
-    templates: TemplatesSelectors.getList(state),
-    newProjectPopupVisible: UiSelectors.getNewProjectPopupVisible(state),
+const mapStateToProps = createStructuredSelector({
+    templates: TemplatesSelectors.getList,
+    newProjectPopupVisible: UiSelectors.getNewProjectPopupVisible,
 
 });
 

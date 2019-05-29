@@ -24,6 +24,7 @@ import {StatusEnum} from '../../common/enums/status.enum';
 import {RenderPopup} from '../components/editor/RenderPopup';
 import {RenderActions} from '../store/actions/render.actions';
 import {OsService} from '../../common/services/os.service';
+import {createStructuredSelector} from 'reselect';
 
 interface Props {
     undo: number,
@@ -135,20 +136,20 @@ export class EditorPage extends React.Component<Props> {
     }
 }
 
-const mapStateToProps = (state: ApplicationStateInterface): Partial<Props> => ({
-    undo: UiSelectors.getUndo(state),
-    redo: UiSelectors.getRedo(state),
-    printConfigVisible: UiSelectors.getPrintConfigPopupVisible(state),
-    renderVisible: UiSelectors.getRenderPopupVisible(state),
-    printConfig: PrintConfigSelectors.getConfig(state),
-    directory: ProjectSelectors.getDirectory(state),
-    isDirty: ProjectSelectors.isDirty(state),
-    html: ProjectSelectors.getHtml(state),
-    styles: ProjectSelectors.getStyles(state),
-    header: ProjectSelectors.getHeader(state),
-    footer: ProjectSelectors.getFooter(state),
-    renderMessage: RenderSelectors.getMessage(state),
-    renderStatus: RenderSelectors.getStatus(state),
+const mapStateToProps =  createStructuredSelector({
+    undo: UiSelectors.getUndo,
+    redo: UiSelectors.getRedo,
+    printConfigVisible: UiSelectors.getPrintConfigPopupVisible,
+    renderVisible: UiSelectors.getRenderPopupVisible,
+    printConfig: PrintConfigSelectors.getConfig,
+    directory: ProjectSelectors.getDirectory,
+    isDirty: ProjectSelectors.isDirty,
+    html: ProjectSelectors.getHtml,
+    styles: ProjectSelectors.getStyles,
+    header: ProjectSelectors.getHeader,
+    footer: ProjectSelectors.getFooter,
+    renderMessage: RenderSelectors.getMessage,
+    renderStatus: RenderSelectors.getStatus,
 });
 
 const mapDispatchToProps = (dispatch: AppThunkDispatchType) => ({
