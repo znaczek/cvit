@@ -15,11 +15,7 @@ export class PreviewMenu extends AbstractMenu {
                         accelerator: 'Ctrl+R',
                         click: () => this.window.webContents.send(APP_EVENT, new AppEvents.PreviewRefresh()),
                     },
-                    {
-                        label: '&Console',
-                        accelerator: 'F12',
-                        click: () => this.window.webContents.openDevTools(),
-                    },
+                    {role: 'toggledevtools', accelerator: 'F12',},
                     {label: '&Close', role: 'close'}
                 ]
             },

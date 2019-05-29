@@ -30,6 +30,7 @@ export class MainMenu extends AbstractMainMenu {
                         accelerator: 'Ctrl+S',
                         click: () => this.window.webContents.send(APP_EVENT, new AppEvents.Save())
                     },
+                    {type: 'separator'},
                     {label: '&Close', role: 'close'}
                 ]
             },
@@ -41,12 +42,13 @@ export class MainMenu extends AbstractMainMenu {
                 label: '&Project',
                 submenu: [
                     {
-                        label: '&Preview',
-                        click: () => EventBus.emit(new AppEvents.Preview()),
-                    },
-                    {
                         label: '&Print config',
                         click: () => this.window.webContents.send(APP_EVENT, new AppEvents.ShowPrintConfig())
+                    },
+                    {type: 'separator'},
+                    {
+                        label: '&Preview',
+                        click: () => EventBus.emit(new AppEvents.Preview()),
                     },
                     {
                         label: '&Render',
@@ -68,7 +70,7 @@ export class MainMenu extends AbstractMainMenu {
                         }
                     },
                 ]
-            }
+            },
         ];
     }
 
