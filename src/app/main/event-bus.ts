@@ -16,7 +16,7 @@ class EventBusModel {
 
     public subscribe<T>(callback: EventBusListener): Subscription {
         if (!Assertions.isFunction(callback)) {
-            throw Error('Uncorrect callback type - expected "function", got: ' + typeof callback);
+            throw Error('Invalid callback type - expected "function", got: ' + typeof callback);
         }
 
         this.emitter.addListener(APP_EVENT, callback);

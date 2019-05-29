@@ -1,5 +1,5 @@
-import {ProjectStateInterface} from '../interfaces/state/projects-state.interface';
-import {ProjectDataInterface} from '../interfaces/state/project-data.interface';
+import {ProjectStateInterface} from '../../renderer/interfaces/state/projects-state.interface';
+import {ProjectDataInterface} from '../../renderer/interfaces/state/project-data.interface';
 
 export class ProjectModel implements Required<ProjectDataInterface> {
     public html: string;

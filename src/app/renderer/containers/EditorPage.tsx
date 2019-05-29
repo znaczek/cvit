@@ -16,7 +16,7 @@ import {ipcRenderer} from "electron";
 import {PrintConfigPopup} from '../components/editor/PrintConfigPopup';
 import {UiActions} from '../store/actions/ui.actions';
 import {PrintConfigSelectors} from '../store/selectors/print-config.selectors';
-import {PrintConfigModel} from '../models/print-config.model';
+import {PrintConfigModel} from '../../common/model/print-config.model';
 import {PrintConfigActions} from '../store/actions/print-config.actions';
 import {PrintConfigStateInterface} from '../interfaces/state/print-config-state.interface';
 import {RenderSelectors} from '../store/selectors/render.selectors';

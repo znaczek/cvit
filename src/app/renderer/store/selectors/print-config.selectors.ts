@@ -1,6 +1,6 @@
 import {ApplicationStateInterface} from '../../../common/interfaces/application-state.interface';
 import {createSelector} from 'reselect';
-import {PrintConfigModel} from '../../models/print-config.model';
+import {PrintConfigModel} from '../../../common/model/print-config.model';
 import {PrintConfigStateInterface} from '../../interfaces/state/print-config-state.interface';
 
 export class PrintConfigSelectors {

@@ -2,7 +2,7 @@ import {remote} from 'electron';
 import {CV_FILENAME, ENCODING, FOOTER_FILENAME, OUTPUT_FILE, STYLES_FILENAME} from '../constants';
 import * as fs from 'fs';
 import {RenderConfigInterface} from '../interfaces/render-config.interface';
-import {PrintConfigModel} from '../../renderer/models/print-config.model';
+import {PrintConfigModel} from '../model/print-config.model';
 import {TextDecoder} from 'util';
 
 const wkhtmltopdf = require('wkhtmltopdf');

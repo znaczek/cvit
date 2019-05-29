@@ -4,7 +4,7 @@ import {EditorView} from './EditorView';
 import {EditorContainer} from './EditorContainer';
 import styled from 'styled-components';
 import {STYLES} from '../../styles/variables';
-import {PrintConfigModel} from '../../models/print-config.model';
+import {PrintConfigModel} from '../../../common/model/print-config.model';
 import {Translation} from 'react-i18next';
 
 interface Props {

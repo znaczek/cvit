@@ -1,5 +1,5 @@
 import {ActionInterface} from '../../../common/interfaces/action.interface';
-import {PrintConfigModel} from '../../models/print-config.model';
+import {PrintConfigModel} from '../../../common/model/print-config.model';
 import {AppThunkDispatchType} from '../../../common/types/app-thunk-dispatch.type';
 import {ApplicationStateInterface} from '../../../common/interfaces/application-state.interface';
 import {ProjectSelectors} from '../selectors/project.selectors';

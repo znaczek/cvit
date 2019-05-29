@@ -1,4 +1,4 @@
-import {ProjectStateInterface} from '../interfaces/state/projects-state.interface';
+import {ProjectStateInterface} from '../../renderer/interfaces/state/projects-state.interface';
 import {ProjectModel} from './project.model';
 
 export class ProjectStateModel extends ProjectModel implements Required<ProjectStateInterface> {

@@ -1,4 +1,4 @@
-import {PrintConfigModel} from '../../renderer/models/print-config.model';
+import {PrintConfigModel} from '../model/print-config.model';
 import {PrintConfigStateInterface} from '../../renderer/interfaces/state/print-config-state.interface';
 import {SETTINGS_FILENAME} from '../constants';
 import {StorageService} from './storage.service';

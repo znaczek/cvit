@@ -12,7 +12,7 @@ import {LocalStorage} from '../../../common/services/local-storage.service';
 import {AppEvents} from '../../../common/events/app.events';
 import {ProjectService} from '../../../common/services/project.service';
 import {PrintConfigStateInterface} from '../../interfaces/state/print-config-state.interface';
-import {ProjectStateModel} from '../../models/project-state.model';
+import {ProjectStateModel} from '../../../common/model/project-state.model';
 import {TemplatesSelectors} from '../selectors/templates.selectors';
 import {PrintConfigService} from '../../../common/services/print-config.service';
 import {PdfRenderer} from '../../../common/services/pdf-renderer';

@@ -10,7 +10,7 @@ import {PreviewSelectors} from '../store/selectors/preview.selectors';
 import {PreviewActions} from '../store/actions/preview.actions';
 import {AppThunkDispatchType} from '../../common/types/app-thunk-dispatch.type';
 import {PrintConfigSelectors} from '../store/selectors/print-config.selectors';
-import {PrintConfigModel} from '../models/print-config.model';
+import {PrintConfigModel} from '../../common/model/print-config.model';
 import {PreviewEventHandler} from '../event-bus-handlers/preview-event-handler';
 
 interface Props {

@@ -1,24 +1,24 @@
 import * as fs from 'fs-extra';
-import {Template} from '../../renderer/models/template.model';
 import {PATHS} from '../../renderer/paths';
 import {CreateProjectInterface} from '../../renderer/interfaces/create-project.interface';
 import {ENCODING} from '../constants';
+import {TemplateInterface} from '../interfaces/template.interface';
 
 export class StorageService {
     public static exists(path: string) {
         return fs.existsSync(path);
     }
 
-    public static getTemplates(): Template[] {
-        const templates: Template[] = [];
+    public static getTemplates(): TemplateInterface[] {
+        const templates: TemplateInterface[] = [];
         const templateNames = fs.readdirSync(PATHS.TEMPLATES);
         for (let i = 0; i < templateNames.length; i += 1) {
             const path = PATHS.TEMPLATES + '/' + templateNames[i];
             if(fs.lstatSync(path).isDirectory()) {
-                templates.push(new Template({
+                templates.push({
                     name: templateNames[i],
                     path,
-                }));
+                });
             }
         }
         return templates;

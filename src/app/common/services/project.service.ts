@@ -3,7 +3,7 @@ import {StorageService} from './storage.service';
 import {HtmlUtils} from '../utils/html.utils';
 import {ProjectStateInterface} from '../../renderer/interfaces/state/projects-state.interface';
 import {ProjectDataInterface} from '../../renderer/interfaces/state/project-data.interface';
-import {ProjectModel} from '../../renderer/models/project.model';
+import {ProjectModel} from '../model/project.model';
 
 export class ProjectService {
 

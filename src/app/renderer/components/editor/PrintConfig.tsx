@@ -4,7 +4,7 @@ import {PrintConfigStateInterface} from '../../interfaces/state/print-config-sta
 import {RadioGroup} from '../common/form/RadioGroup';
 import {Translation} from 'react-i18next';
 import {strToBool} from '../../../common/utils/converters.utils';
-import {PrintConfigModel} from '../../models/print-config.model';
+import {PrintConfigModel} from '../../../common/model/print-config.model';
 import {Form, Group, Label} from '../common/html-styled/Form';
 import {Row, Col} from '../common/html-styled/Layout';
 import {Input} from '../common/html-styled/Input';

@@ -2,7 +2,7 @@ import * as React from 'react';
 import {RefObject} from 'react';
 import styled from 'styled-components';
 import {RefreshLoader} from '../common/loaders/RefreshLoader';
-import {PrintConfigModel} from '../../models/print-config.model';
+import {PrintConfigModel} from '../../../common/model/print-config.model';
 import {CV_FILENAME, FOOTER_FILENAME, HEADER_FILENAME} from '../../../common/constants';
 
 interface Props {

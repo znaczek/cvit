@@ -11,13 +11,13 @@ import {ApplicationStateInterface} from '../common/interfaces/application-state.
 import {Store} from 'redux';
 import {StorageService} from '../common/services/storage.service';
 import {ProjectService} from '../common/services/project.service';
-import {Template} from './models/template.model';
 import {LocalStorage} from '../common/services/local-storage.service';
-import {ProjectStateModel} from './models/project-state.model';
+import {ProjectStateModel} from '../common/model/project-state.model';
 import {PrintConfigStateInterface} from './interfaces/state/print-config-state.interface';
 import {ProjectDataInterface} from './interfaces/state/project-data.interface';
-import {PrintConfigModel} from './models/print-config.model';
+import {PrintConfigModel} from '../common/model/print-config.model';
 import {PrintConfigService} from '../common/services/print-config.service';
+import {TemplateInterface} from '../common/interfaces/template.interface';
 
 declare global {
     interface Window {
@@ -28,7 +28,7 @@ declare global {
 
 export let store: Store<ApplicationStateInterface>;
 
-const bootstrapApp = (templates: Template[],
+const bootstrapApp = (templates: TemplateInterface[],
                       baseTemplate: string,
                       directory: string,
                       project: ProjectDataInterface,

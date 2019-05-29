@@ -2,7 +2,6 @@ import * as React from 'react';
 import NewProject from '../components/project/NewProject';
 import {connect} from 'react-redux';
 import {ApplicationStateInterface} from '../../common/interfaces/application-state.interface';
-import {Template} from '../models/template.model';
 import {TemplatesSelectors} from '../store/selectors/templates.selectors';
 import {ProjectActions} from '../store/actions/project.actions';
 import {AppThunkDispatchType} from '../../common/types/app-thunk-dispatch.type';
@@ -13,9 +12,10 @@ import {T} from '../components/T';
 import {UiActions} from '../store/actions/ui.actions';
 import {CreateProjectInterface} from '../interfaces/create-project.interface';
 import {H1} from '../components/common/html-styled/Headers';
+import {TemplateInterface} from '../../common/interfaces/template.interface';
 
 interface Props {
-    templates: OptionModel<Template>[];
+    templates: OptionModel<TemplateInterface>[];
     newProjectPopupVisible: boolean;
     createProject: (options: CreateProjectInterface) => void;
     close: () => void;

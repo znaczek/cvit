@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {T} from '../T';
-import {Template} from '../../models/template.model';
 import {SelectBox} from '../common/SelectBox/SelectBox';
 import {OptionModel} from '../../../common/model/options-model';
 import {StorageService} from '../../../common/services/storage.service';
@@ -10,17 +9,18 @@ import {Error, Form, Group, Label} from '../common/html-styled/Form';
 import {Input} from '../common/html-styled/Input';
 import {Button} from '../common/html-styled/Button';
 import {Themes} from '../themes';
+import {TemplateInterface} from '../../../common/interfaces/template.interface';
 
 const INPUT_DEBOUNCE_TIME = 500;
 
 interface Props {
-    templates: OptionModel<Template>[];
+    templates: OptionModel<TemplateInterface>[];
     createProject: (options: CreateProjectInterface) => void;
     visible: boolean;
 }
 
 interface State {
-    template: Template;
+    template: TemplateInterface;
     path: string;
     name: string;
     nameValid: boolean;
@@ -51,7 +51,7 @@ export default class NewProject extends React.Component<Props> {
         this.validateName();
     };
 
-    public handleOnTemplateSelect = (template: Template) => {
+    public handleOnTemplateSelect = (template: TemplateInterface) => {
         this.setState({template});
     };
 
