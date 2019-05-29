@@ -19,6 +19,7 @@ import {PdfRenderer} from '../../../common/services/pdf-renderer';
 import {PrintConfigSelectors} from '../selectors/print-config.selectors';
 import {UiActions} from './ui.actions';
 import {RenderActions} from './render.actions';
+import {PrintConfigActions} from './print-config.actions';
 
 const prefix = '[PROJECT] ';
 
@@ -146,7 +147,9 @@ export class ProjectActions {
             const directory = ProjectSelectors.getDirectory(state);
             const project = ProjectSelectors.getProjectState(state);
             const baseTemplate = TemplatesSelectors.getBaseTemplate(state);
+            const printConfig = PrintConfigSelectors.getConfig(state);
             try {
+                PrintConfigService.savePrintConfig(directory, printConfig);
                 ProjectService.save(directory, baseTemplate, project);
                 return dispatch(ProjectActions.saveSuccess());
             } catch (e) {
