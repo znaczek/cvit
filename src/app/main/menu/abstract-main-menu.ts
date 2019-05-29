@@ -18,10 +18,10 @@ export abstract class AbstractMainMenu extends AbstractMenu {
                 click: () => this.window.webContents.send(APP_EVENT, new AppEvents.Redo())
             },
             {type: 'separator'},
-            {role: 'cut', label: 'Cut'},
-            {role: 'copy', label: 'Copy'},
-            {role: 'paste', label: 'Paste'},
-            {role: 'delete', label: 'Delete'},
+            {role: 'cut', label: 'Cut', accelerator: 'Ctrl+X'},
+            {role: 'copy', label: 'Copy', accelerator: 'Ctrl+C'},
+            {role: 'paste', label: 'Paste', accelerator: 'Ctrl+V'},
+            {role: 'delete', label: 'Delete', accelerator: 'Delete'},
             {type: 'separator'},
             {role: 'selectall', label: 'Select all'},
         ];

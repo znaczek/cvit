@@ -48,10 +48,12 @@ export class MainMenu extends AbstractMainMenu {
                     {type: 'separator'},
                     {
                         label: '&Preview',
+                        accelerator: 'Alt+Ctrl+P',
                         click: () => EventBus.emit(new AppEvents.Preview()),
                     },
                     {
                         label: '&Render',
+                        accelerator: 'Alt+Ctrl+R',
                         click: () => {
                             if (MainWindow.checkRenderCommand()) {
                                 this.window.webContents.send(APP_EVENT, new AppEvents.Render());
@@ -66,7 +68,7 @@ export class MainMenu extends AbstractMainMenu {
                     {
                         label: 'About CVIt',
                         click() {
-                            shell.openExternal('https://electronjs.org');
+                            shell.openExternal('https://github.com/znaczek/cvit');
                         }
                     },
                 ]
