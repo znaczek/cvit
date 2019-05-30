@@ -23,10 +23,13 @@ type IFrameProps = {
     frameHeight: string;
 }
 
-
 interface OverlayProps {
     visible: boolean;
 }
+
+const Main = styled.main`
+    padding: 20px;
+`;
 
 const Overlay = styled.div`
     position: fixed;
@@ -45,17 +48,15 @@ const IFrame = styled.iframe`
     width: 215mm;
     margin: 0 auto;
     height: ${(props: IFrameProps) => props.frameHeight}
-    &:nth-child(2) {
-        padding-top: 20px;
-    }
-    &:last-child {
-        padding-bottom: 20px;
-    }
 `;
 
 export class Preview extends React.Component {
-    public static getFrameHeight(ref: RefObject<HTMLIFrameElement>) {
-        return (ref && ref.current) ? (ref.current.contentWindow.document.body.scrollHeight + 40) + 'px' : '0';
+    public static getFrameHeight(ref: RefObject<HTMLIFrameElement>): number {
+        if (!ref || !ref.current) {
+            return 0;
+        }
+        const computedStyle = window.getComputedStyle(ref.current.contentWindow.document.documentElement);
+        return Math.ceil(parseFloat(computedStyle.getPropertyValue('height')));
     }
 
     public props: Props;
@@ -77,51 +78,18 @@ export class Preview extends React.Component {
     }
 
     public componentDidMount() {
-        const {printConfig, onLoad} = this.props;
+        const {onLoad} = this.props;
 
-        Promise.all([
-            new Promise((resolve) => {
-                this.cvFrameRef.current.onload = () => {
-                    onLoad();
-                    resolve()
-                }
-            }),
-            new Promise((resolve) => {
-                if (printConfig.hasHeader) {
-                    this.headerFrameRef.current.onload = () => {
-                        onLoad();
-                        resolve()
-                    }
-                } else {
-                    resolve();
-                }
-            }),
-            new Promise((resolve) => {
-                if (printConfig.hasFooter) {
-                    this.footerFrameRef.current.onload = () => {
-                        onLoad();
-                        resolve();
-                    }
-                } else {
-                    resolve();
-                }
-            }),
-        ]).then(() => {
+        this.cvFrameRef.current.onload = () => {
+            this.refreshHeights();
             onLoad();
-            setTimeout(() => {
-                this.setState({
-                    cvFrameHeight: Preview.getFrameHeight(this.cvFrameRef),
-                    headerFrameHeight: Preview.getFrameHeight(this.headerFrameRef),
-                    footerFrameHeight: Preview.getFrameHeight(this.footerFrameRef),
-                });
-            });
-        });
+        };
     }
 
     public render() {
         const {printConfig, loader} = this.props;
         const {cvFrameHeight, headerFrameHeight, footerFrameHeight} = this.state;
-        return <main>
+        return <Main>
             <Overlay visible={loader}>
                 <RefreshLoader/>
             </Overlay>
@@ -140,12 +108,40 @@ export class Preview extends React.Component {
                 src={this.getFileName(FOOTER_FILENAME)}
                 frameHeight={footerFrameHeight}
             />}
-        </main>
+        </Main>
+    }
+
+    public componentDidUpdate() {
+        this.refreshHeights();
     }
 
     private getFileName(name: string) {
         const {directory, ts} = this.props;
         return `${directory}/${name}?ts=${ts}`;
+    }
+
+    private refreshHeights() {
+        const {printConfig} = this.props;
+        const {cvFrameHeight, headerFrameHeight, footerFrameHeight} = this.state;
+
+        const currentCvFrameHeight = Preview.getFrameHeight(this.cvFrameRef);
+        const currentHeaderFrameHeight = Preview.getFrameHeight(this.headerFrameRef);
+        const currentFooterFrameHeight = Preview.getFrameHeight(this.footerFrameRef);
+
+        const state: Partial<State> = {};
+        if (parseInt(cvFrameHeight) !== currentCvFrameHeight) {
+            state.cvFrameHeight = Preview.getFrameHeight(this.cvFrameRef) + 'px';
+        }
+        if (printConfig.hasHeader && parseInt(headerFrameHeight) !== currentHeaderFrameHeight) {
+            state.headerFrameHeight = Preview.getFrameHeight(this.headerFrameRef) + 'px';
+        }
+        if (printConfig.hasFooter && parseInt(footerFrameHeight) !== currentFooterFrameHeight) {
+            state.footerFrameHeight = Preview.getFrameHeight(this.footerFrameRef) + 'px';
+        }
+
+        if (Object.keys(state).length) {
+            this.setState(state);
+        }
     }
 }
 
