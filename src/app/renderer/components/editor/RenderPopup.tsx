@@ -4,7 +4,7 @@ import {T} from '../T';
 import {StatusEnum} from '../../../common/enums/status.enum';
 import styled from 'styled-components';
 import {STYLES} from '../../styles/variables';
-import {RenderLoader} from '../common/loaders/RenderLoader';
+import {SimpleLoader} from '../common/loaders/RenderLoader';
 import {H2, H3} from '../common/html-styled/Headers';
 import {Button} from '../common/html-styled/Button';
 import {Themes} from '../themes';
@@ -36,7 +36,7 @@ export const RenderPopup = (props: Props) => {
             </Popup.Header>
             {status === StatusEnum.PENDING ?
                 <Header>
-                    <RenderLoader color={STYLES.colors.gray3}/>
+                    <SimpleLoader color={STYLES.colors.gray3} size='1em'/>
                     <T>RENDER.LOADING</T>
                 </Header> : status === StatusEnum.SUCCESS ?
                     <div>

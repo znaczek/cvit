@@ -119,6 +119,7 @@ export class EditorPage extends React.Component<Props> {
             />
             <Editor
                 printConfig={printConfig}
+                directory={directory}
                 title={directory}
                 html={html}
                 dirty={isDirty}

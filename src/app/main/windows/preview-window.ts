@@ -21,6 +21,10 @@ export class PreviewWindow extends AbstractWindow {
                 this.window.webContents.send(APP_EVENT, new AppEvents.PreviewSetDirectory(event.payload));
                 break;
             }
+            case AppEvents.TYPES.PREVIEW: {
+                this.window.focus();
+                break;
+            }
         }
     }
 

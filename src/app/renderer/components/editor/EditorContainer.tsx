@@ -52,9 +52,9 @@ export class EditorContainer extends React.Component<Props> {
 
             // below "if" block for fixing issue
             // with not refreshing value of currently not displayed editor when opening project
-            if (focus !== this.lastFocus) {
-                editor.session.getDocument().setValue(this.props.value);
-            }
+            // if (focus !== this.lastFocus) {
+            //     editor.session.getDocument().setValue(this.props.value);
+            // }
 
             if (undo !== this.lastUndo && focus) {
                 setTimeout(() => {

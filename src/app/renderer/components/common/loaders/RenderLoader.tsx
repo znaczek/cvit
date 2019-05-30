@@ -2,14 +2,14 @@ import * as React from 'react';
 import styled from 'styled-components';
 
 interface Props {
-    size?: number;
+    size?: string;
     color?: string;
 }
 
 const Loader = styled.div`
     display: inline-block;
-    width: 1em;
-    height: 1em;
+    width: ${(props: Props) => props.size};
+    height: ${(props: Props) => props.size};
     vertical-align: bottom;
 
     & > div {
@@ -29,7 +29,7 @@ const Loader = styled.div`
 `;
 
 
-export const RenderLoader = (props: Props) => {
+export const SimpleLoader = (props: Props) => {
     return (
         <Loader {...props}>
             <div>
