@@ -1,5 +1,5 @@
 import {remote} from 'electron';
-import {CV_FILENAME, ENCODING, FOOTER_FILENAME, OUTPUT_FILE, STYLES_FILENAME} from '../constants';
+import {CV_FILENAME, ENCODING, FOOTER_FILENAME, HEADER_FILENAME, OUTPUT_FILE, STYLES_FILENAME} from '../constants';
 import * as fs from 'fs';
 import {RenderConfigInterface} from '../interfaces/render-config.interface';
 import {PrintConfigModel} from '../model/print-config.model';
@@ -15,7 +15,7 @@ export class PdfRenderer {
 
         const cvFile = directory + '/' + CV_FILENAME;
         const stylesFile = directory + '/' + STYLES_FILENAME;
-        const headerFile = directory + '/' + FOOTER_FILENAME;
+        const headerFile = directory + '/' + HEADER_FILENAME;
         const footerFile = directory + '/' + FOOTER_FILENAME;
 
         const errors: string[] = [];

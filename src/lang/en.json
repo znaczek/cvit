@@ -28,8 +28,8 @@
         "HAS_FOOTER": "Footer",
         "MARGIN_TOP": "Margin top",
         "MARGIN_BOTTOM": "Margin bottom",
-        "MARGIN_LEFT": "Margin right",
-        "MARGIN_RIGHT": "Margin top"
+        "MARGIN_LEFT": "Margin left",
+        "MARGIN_RIGHT": "Margin right"
     },
     "RENDER": {
         "HEADER": "Rendering document",
