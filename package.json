@@ -85,7 +85,7 @@
     "copy-webpack-plugin": "^5.0.0",
     "cross-env": "^5.2.0",
     "css-loader": "^2.1.0",
-    "electron": "^4.0.5",
+    "electron": "^11.5.0",
     "electron-builder": "^20.41.0",
     "electron-devtools-installer": "^2.2.4",
     "electron-log": "^3.0.1",
